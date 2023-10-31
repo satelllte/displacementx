@@ -1,7 +1,6 @@
 {
   "name": "displacementx",
   "version": "0.1.0",
-  "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -9,9 +8,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "geist": "1.0.0",
+    "next": "14.0.1",
     "react": "^18",
-    "react-dom": "^18",
-    "next": "14.0.1"
+    "react-dom": "^18"
   },
   "devDependencies": {
     "typescript": "^5",
