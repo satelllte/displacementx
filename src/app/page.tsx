@@ -13,7 +13,7 @@ export default function Home() {
       </header>
       <main className='flex flex-1 gap-2 px-2 pb-2'>
         <div className='flex flex-1 items-center justify-center bg-green-900'>
-          {`< Output >`}
+          <Output />
         </div>
         <div className='flex flex-1 items-center justify-center bg-pink-900 max-md:hidden'>
           <Settings />
@@ -26,6 +26,10 @@ export default function Home() {
       </div>
     </div>
   );
+}
+
+function Output() {
+  return <div className='bg-green-800 p-4'>{`< Output >`}</div>;
 }
 
 function Settings() {
