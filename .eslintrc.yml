@@ -1,0 +1,11 @@
+extends:
+  - plugin:@next/next/core-web-vitals
+  - xo
+  - xo-typescript
+  - xo-react
+  - plugin:react/jsx-runtime # Prevents "'React' must be in scope when using JSX" errors
+  - plugin:tailwindcss/recommended
+  - prettier
+
+rules:
+  tailwindcss/classnames-order: 'off' # Handled by "prettier-plugin-tailwindcss"
