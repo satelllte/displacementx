@@ -12,8 +12,10 @@ export default function Home() {
         </h1>
       </header>
       <main className='flex flex-1 gap-2 px-2 pb-2'>
-        <div className='flex flex-1 items-center justify-center bg-green-900'>
-          <Output />
+        <div className='relative flex flex-1 items-start bg-green-900 max-md:justify-center'>
+          <div className='flex aspect-square w-full max-w-2xl items-center justify-center bg-green-700'>
+            Canvas
+          </div>
         </div>
         <div className='flex flex-1 items-center justify-center bg-pink-900 max-md:hidden'>
           <Settings />
@@ -26,10 +28,6 @@ export default function Home() {
       </div>
     </div>
   );
-}
-
-function Output() {
-  return <div className='bg-green-800 p-4'>{`< Output >`}</div>;
 }
 
 function Settings() {
