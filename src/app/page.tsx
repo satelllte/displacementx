@@ -1,3 +1,4 @@
+import {Button} from '@/components/ui/Button';
 import {Canvas} from '@/components/ui/Canvas';
 import {Drawer} from '@/components/ui/Drawer';
 
@@ -11,9 +12,12 @@ export default function Home() {
         <h1 className='text-center text-2xl sm:text-3xl'>Displacement X</h1>
       </header>
       <main className='flex flex-1 gap-2 px-2 pb-2'>
-        <div className='relative flex flex-1 items-start max-md:justify-center'>
-          <div className='relative flex aspect-square w-full max-w-2xl items-center justify-center border border-white'>
+        <div className='relative flex flex-1 flex-col justify-start'>
+          <div className='relative flex aspect-square w-full max-w-xl items-center justify-center border border-white'>
             <Canvas />
+          </div>
+          <div className='pt-2'>
+            <Button>🚧 Download 🚧</Button>
           </div>
         </div>
         <div className='flex flex-1 items-center justify-center bg-pink-950 max-md:hidden'>
@@ -21,7 +25,7 @@ export default function Home() {
         </div>
       </main>
       <div className='flex items-center justify-center px-2 pb-4 pt-2 md:hidden'>
-        <Drawer trigger={<button type='button'>Start</button>}>
+        <Drawer trigger={<Button fullWidth>Start</Button>}>
           <Settings />
         </Drawer>
       </div>
@@ -30,5 +34,5 @@ export default function Home() {
 }
 
 function Settings() {
-  return <div className='bg-pink-800 p-4'>{`< Settings >`}</div>;
+  return <>🚧 Settings 🚧</>;
 }

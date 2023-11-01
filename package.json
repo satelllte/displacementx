@@ -10,6 +10,7 @@
     "format": "prettier . --write"
   },
   "dependencies": {
+    "clsx": "2.0.0",
     "geist": "1.0.0",
     "next": "14.0.1",
     "react": "18.2.0",
