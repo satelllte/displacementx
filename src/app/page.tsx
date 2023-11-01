@@ -1,3 +1,4 @@
+import {Canvas} from '@/components/ui/Canvas';
 import {Drawer} from '@/components/ui/Drawer';
 
 export default function Home() {
@@ -10,9 +11,9 @@ export default function Home() {
         <h1 className='text-center text-2xl sm:text-3xl'>Displacement X</h1>
       </header>
       <main className='flex flex-1 gap-2 px-2 pb-2'>
-        <div className='relative flex flex-1 items-start bg-green-950 max-md:justify-center'>
-          <div className='flex aspect-square w-full max-w-2xl items-center justify-center bg-green-700'>
-            Canvas
+        <div className='relative flex flex-1 items-start max-md:justify-center'>
+          <div className='relative flex aspect-square w-full max-w-2xl items-center justify-center border border-white'>
+            <Canvas />
           </div>
         </div>
         <div className='flex flex-1 items-center justify-center bg-pink-950 max-md:hidden'>
