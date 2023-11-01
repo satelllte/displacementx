@@ -3,13 +3,11 @@ import {Drawer} from '@/components/ui/Drawer';
 export default function Home() {
   return (
     <div
-      className='fixed inset-0 flex flex-col'
+      className='fixed inset-0 mx-auto flex max-w-7xl flex-col'
       vaul-drawer-wrapper='' // eslint-disable-line react/no-unknown-property
     >
-      <header className='px-2 py-4 md:py-6'>
-        <h1 className='text-center text-2xl sm:text-3xl md:text-4xl'>
-          Displacement X
-        </h1>
+      <header className='px-2 py-4'>
+        <h1 className='text-center text-2xl sm:text-3xl'>Displacement X</h1>
       </header>
       <main className='flex flex-1 gap-2 px-2 pb-2'>
         <div className='relative flex flex-1 items-start bg-green-900 max-md:justify-center'>
