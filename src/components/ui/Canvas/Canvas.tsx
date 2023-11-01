@@ -1,12 +1,18 @@
 'use client';
 
-import {useEffect, useRef} from 'react';
+import {useEffect, useImperativeHandle, useRef} from 'react';
 
 const canvasWidth = 4096;
 const canvasHeight = 4096;
 
-export function Canvas() {
+type CanvasProps = {
+  readonly canvasRef: React.RefObject<HTMLCanvasElement | undefined>;
+};
+
+export function Canvas({canvasRef: forwardedCanvasRef}: CanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useImperativeHandle(forwardedCanvasRef, () => canvasRef.current ?? undefined);
 
   useEffect(() => {
     const canvas = canvasRef.current;
