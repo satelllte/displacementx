@@ -1,4 +1,5 @@
 import {useId} from 'react';
+import * as RadixSlider from '@radix-ui/react-slider';
 
 type SliderProps = {
   readonly label: string;
@@ -10,25 +11,33 @@ type SliderProps = {
 };
 
 export function Slider({label, min, max, step, value, setValue}: SliderProps) {
-  const id = useId();
+  const labelId = useId();
+  const thumbId = useId();
   return (
     <div className='w-full select-none text-sm'>
       <div className='flex items-center justify-between'>
-        <label htmlFor={id}>{label}</label>
-        <output htmlFor={id}>{value}</output>
+        <label id={labelId}>{label}</label>
+        <output htmlFor={thumbId}>{value}</output>
       </div>
-      <input
-        className='w-full'
-        id={id}
-        type='range'
+      <RadixSlider.Root
+        className='relative flex h-[20px] items-center'
         min={min}
         max={max}
         step={step}
-        value={value}
-        onChange={(event) => {
-          setValue(Number(event.target.value));
+        value={[value]}
+        onValueChange={([value]) => {
+          setValue(value);
         }}
-      />
+      >
+        <RadixSlider.Track className='relative block h-1 grow rounded-full bg-white'>
+          <RadixSlider.Range className='absolute h-full rounded-full bg-pink-700' />
+        </RadixSlider.Track>
+        <RadixSlider.Thumb
+          id={thumbId}
+          className='block h-3 w-3 bg-white hover:shadow-[0_0_0_2px] hover:shadow-pink-700 focus:shadow-[0_0_0_2px] focus:shadow-pink-700 focus:outline-none'
+          aria-labelledby={labelId}
+        />
+      </RadixSlider.Root>
     </div>
   );
 }
