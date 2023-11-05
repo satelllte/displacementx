@@ -4,6 +4,7 @@ import {Button} from '@/components/ui/Button';
 import {useStore} from '../store';
 import {alphaToGrayscaleColor} from '@/utils/alphaToGrayscaleColor';
 import {randomInteger} from '@/utils/random';
+import {animate} from '@/utils/animationFrame';
 
 const canvasWidth = 4096;
 const canvasHeight = 4096;
@@ -28,38 +29,28 @@ export function CanvasSection() {
 
     const {iterations, backgroundBrightness} = useStore.getState();
 
-    let rafHandle: number | undefined;
-
     // 0. Clear canvas
     ctx2d.clearRect(0, 0, width, height);
 
     // 1. Fill background
     ctx2d.fillStyle = alphaToGrayscaleColor(backgroundBrightness);
     ctx2d.fillRect(0, 0, width, height);
-    ///
 
-    let step = 0;
-    const rafCallback: FrameRequestCallback = () => {
-      if (step++ > iterations && rafHandle) {
-        cancelAnimationFrame(rafHandle);
-        rafHandle = undefined;
+    animate({
+      iterations,
+      callback() {
+        // 2. Draw boxes
+        ctx2d.fillStyle = '#22668877';
+        const boxWidth = Math.round(width / 8);
+        const boxHeight = Math.round(height / 8);
+        const x = randomInteger(0, width - boxWidth);
+        const y = randomInteger(0, height - boxHeight);
+        ctx2d.fillRect(x, y, boxWidth, boxHeight);
+      },
+      onEnd() {
         setIsRendering(false);
-        return;
-      }
-
-      // 2. Draw boxes
-      ctx2d.fillStyle = '#22668877';
-      const boxWidth = Math.round(width / 8);
-      const boxHeight = Math.round(height / 8);
-      const x = randomInteger(0, width - boxWidth);
-      const y = randomInteger(0, height - boxHeight);
-      ctx2d.fillRect(x, y, boxWidth, boxHeight);
-      ///
-
-      requestAnimationFrame(rafCallback);
-    };
-
-    rafHandle = requestAnimationFrame(rafCallback);
+      },
+    });
   };
 
   const download = () => {
