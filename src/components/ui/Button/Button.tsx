@@ -14,7 +14,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       type='button'
       className={clsx(
         fullWidth && 'w-full',
-        'inline-flex cursor-default items-center justify-center border border-white px-2 py-1 text-sm text-white hover:bg-zinc-800 focus:outline-none focus:ring-blue-500 focus:ring-offset-0 focus-visible:ring-2 active:bg-zinc-700',
+        'inline-flex cursor-default select-none items-center justify-center border border-white px-2 py-1 text-sm text-white hover:bg-zinc-800 focus:outline-none focus:ring-blue-500 focus:ring-offset-0 focus-visible:ring-2 active:bg-zinc-700',
       )}
       {...rest}
     />

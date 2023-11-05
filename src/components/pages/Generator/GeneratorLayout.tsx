@@ -13,7 +13,7 @@ export function GeneratorLayout({sectionL, sectionR}: GeneratorLayoutProps) {
       vaul-drawer-wrapper='' // eslint-disable-line react/no-unknown-property
     >
       <header className='px-2 py-4'>
-        <h1 className='text-center text-2xl sm:text-3xl'>Displacement X</h1>
+        <h1 className='select-none text-2xl sm:text-3xl'>Displacement X</h1>
       </header>
       <main className='flex flex-1 gap-2 px-2 pb-2'>
         <div className='relative flex-1'>{sectionL}</div>
