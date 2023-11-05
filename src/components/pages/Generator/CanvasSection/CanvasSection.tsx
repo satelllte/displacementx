@@ -4,7 +4,7 @@ import {Button} from '@/components/ui/Button';
 import {useStore} from '../store';
 import {alphaToGrayscaleColor} from '@/utils/alphaToGrayscaleColor';
 import {randomInteger} from '@/utils/random';
-import {animate} from '@/utils/animationFrame';
+import {animateWithSubIterations} from '@/utils/animationFrame';
 
 const canvasWidth = 4096;
 const canvasHeight = 4096;
@@ -36,13 +36,12 @@ export function CanvasSection() {
     ctx2d.fillStyle = alphaToGrayscaleColor(backgroundBrightness);
     ctx2d.fillRect(0, 0, width, height);
 
-    animate({
-      frames: iterations,
-      callback({frame}) {
-        console.debug('frame: ', frame);
-
+    animateWithSubIterations({
+      iterations,
+      iterationsPerFrame: 50,
+      callback() {
         // 2. Draw boxes
-        ctx2d.fillStyle = '#22668822';
+        ctx2d.fillStyle = '#22668810';
         const boxWidth = Math.round(width / 8);
         const boxHeight = Math.round(height / 8);
         const x = randomInteger(0, width - boxWidth);
