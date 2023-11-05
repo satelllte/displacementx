@@ -12,8 +12,6 @@ export function CanvasSection() {
   const [isPristine, setIsPristine] = useState<boolean>(true);
   const [isRendering, setIsRendering] = useState<boolean>(false);
 
-  console.debug('CanvasSection | render ');
-
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const render = () => {
