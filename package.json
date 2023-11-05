@@ -16,7 +16,8 @@
     "next": "14.0.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "vaul": "0.7.7"
+    "vaul": "0.7.7",
+    "zustand": "4.4.6"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "14.0.1",
