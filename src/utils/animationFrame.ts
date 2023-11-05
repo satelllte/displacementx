@@ -1,29 +1,30 @@
 /**
  * A wrapper around requestAnimationFrame that allows the caller
- * to specify the number of iterations to run the animation frame loop for.
+ * to specify the number of frames to run the animation loop for.
  */
 export const animate = ({
-  iterations,
+  frames,
   callback,
   onEnd,
 }: {
-  iterations: number;
-  callback: FrameRequestCallback;
+  frames: number;
+  callback: (args: {time: number; frame: number}) => void;
   onEnd?: () => void;
 }) => {
   let handle: number | undefined;
-  let step = 0;
+  let frame = 0;
 
   const draw: FrameRequestCallback = (time) => {
-    if (step++ >= iterations && handle) {
+    if (frame >= frames && handle) {
       cancelAnimationFrame(handle);
       handle = undefined;
       onEnd?.();
       return;
     }
 
-    callback(time);
+    callback({time, frame});
 
+    frame++;
     requestAnimationFrame(draw);
   };
 

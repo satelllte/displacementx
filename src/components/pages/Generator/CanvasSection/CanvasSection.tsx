@@ -37,10 +37,12 @@ export function CanvasSection() {
     ctx2d.fillRect(0, 0, width, height);
 
     animate({
-      iterations,
-      callback() {
+      frames: iterations,
+      callback({frame}) {
+        console.debug('frame: ', frame);
+
         // 2. Draw boxes
-        ctx2d.fillStyle = '#22668877';
+        ctx2d.fillStyle = '#22668822';
         const boxWidth = Math.round(width / 8);
         const boxHeight = Math.round(height / 8);
         const x = randomInteger(0, width - boxWidth);
