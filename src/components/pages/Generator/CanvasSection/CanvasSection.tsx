@@ -2,10 +2,8 @@
 import {useRef, useState} from 'react';
 import {Button} from '@/components/ui/Button';
 import {useStore} from '../store';
-import {randomInteger} from '@/utils/random';
-import {animateWithSubIterations} from '@/utils/animationFrame';
 import {SectionTitle} from '../SectionTitle';
-import {grayscale} from '@/utils/colors';
+import {draw} from './draw';
 
 const canvasWidth = 4096;
 const canvasHeight = 4096;
@@ -21,51 +19,26 @@ export function CanvasSection() {
     setIsPristine(false);
     setIsRendering(true);
 
-    const renderStartTimeMs = performance.now();
-
     const canvas = canvasRef.current;
     if (!canvas) return;
 
     const ctx2d = canvas.getContext('2d');
     if (!ctx2d) return;
 
-    const {width, height} = canvas;
-
     const {iterations, backgroundBrightness, rectBrightness, rectAlpha} =
       useStore.getState();
 
-    // 0. Clear canvas
-    ctx2d.clearRect(0, 0, width, height);
-
-    // 1. Fill background
-    ctx2d.fillStyle = grayscale({brightnessAlpha: backgroundBrightness});
-    ctx2d.fillRect(0, 0, width, height);
-
-    animateWithSubIterations({
-      iterations,
-      iterationsPerFrame: 50,
-      callback() {
-        // 2. Draw boxes
-        ctx2d.fillStyle = grayscale({
-          brightnessAlpha: randomInteger(...rectBrightness),
-          opacity: randomInteger(...rectAlpha),
-        });
-        const boxWidth = Math.round(width / 8);
-        const boxHeight = Math.round(height / 8);
-        const x = randomInteger(
-          -Math.round(boxWidth / 2),
-          Math.round(width - boxWidth / 2),
-        );
-        const y = randomInteger(
-          -Math.round(boxHeight / 2),
-          Math.round(height - boxHeight / 2),
-        );
-        ctx2d.fillRect(x, y, boxWidth, boxHeight);
+    draw({
+      ctx2d,
+      props: {
+        iterations,
+        backgroundBrightness,
+        rectBrightness,
+        rectAlpha,
       },
-      onEnd() {
-        // Set minumum "visible" render time to 0.2s to prevent very fast component updates (i.e., flickering)
+      onEnd(renderTimeMs) {
+        // Set minumum "visible" render time to prevent very fast component updates (i.e., flickering)
         const minimumTimeBetweenUpdatesMs = 200;
-        const renderTimeMs = performance.now() - renderStartTimeMs;
         const update = () => {
           setRenderTimeMs(renderTimeMs);
           setIsRendering(false);
