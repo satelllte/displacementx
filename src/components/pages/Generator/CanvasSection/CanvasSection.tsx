@@ -13,12 +13,15 @@ const canvasHeight = 4096;
 export function CanvasSection() {
   const [isPristine, setIsPristine] = useState<boolean>(true);
   const [isRendering, setIsRendering] = useState<boolean>(false);
+  const [renderTimeMs, setRenderTimeMs] = useState<number | undefined>();
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const render = () => {
     setIsPristine(false);
     setIsRendering(true);
+
+    const renderStartTimeMs = performance.now();
 
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -56,7 +59,19 @@ export function CanvasSection() {
         ctx2d.fillRect(x, y, boxWidth, boxHeight);
       },
       onEnd() {
-        setIsRendering(false);
+        // Set minumum "visible" render time to 0.2s to prevent very fast component updates (i.e., flickering)
+        const minimumTimeBetweenUpdatesMs = 200;
+        const renderTimeMs = performance.now() - renderStartTimeMs;
+        const update = () => {
+          setRenderTimeMs(renderTimeMs);
+          setIsRendering(false);
+        };
+
+        if (renderTimeMs < minimumTimeBetweenUpdatesMs) {
+          setTimeout(update, minimumTimeBetweenUpdatesMs);
+        } else {
+          update();
+        }
       },
     });
   };
@@ -92,6 +107,16 @@ export function CanvasSection() {
         <Button disabled={isPristine || isRendering} onClick={download}>
           Download
         </Button>
+      </div>
+      <div>
+        <output className='text-sm text-gray-400'>
+          Last render:{' '}
+          <span>
+            {!isRendering && renderTimeMs
+              ? `${(renderTimeMs * 0.001).toFixed(3)}s`
+              : `_____`}
+          </span>
+        </output>
       </div>
     </section>
   );
