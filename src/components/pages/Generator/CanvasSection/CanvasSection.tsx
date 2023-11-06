@@ -5,6 +5,7 @@ import {useStore} from '../store';
 import {alphaToGrayscaleColor} from '@/utils/alphaToGrayscaleColor';
 import {randomInteger} from '@/utils/random';
 import {animateWithSubIterations} from '@/utils/animationFrame';
+import {SectionTitle} from '../SectionTitle';
 
 const canvasWidth = 4096;
 const canvasHeight = 4096;
@@ -73,7 +74,7 @@ export function CanvasSection() {
 
   return (
     <section>
-      <h2 className='pb-4 text-lg'>Output</h2>
+      <SectionTitle>Output</SectionTitle>
       <div className='relative flex aspect-square w-full max-w-xl items-center justify-center border border-dashed border-white'>
         <canvas
           ref={canvasRef}

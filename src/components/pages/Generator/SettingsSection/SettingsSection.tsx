@@ -1,6 +1,7 @@
 'use client';
 import {Slider} from '@/components/ui/Slider';
 import {useStore} from '../store';
+import {SectionTitle} from '../SectionTitle';
 
 export function SettingsSection() {
   const iterations = useStore((state) => state.iterations);
@@ -12,7 +13,7 @@ export function SettingsSection() {
 
   return (
     <section>
-      <h2 className='pb-4 text-lg'>Settings</h2>
+      <SectionTitle>Settings</SectionTitle>
       <Slider
         label='Iterations'
         min={10}
