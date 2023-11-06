@@ -68,7 +68,7 @@ export function CanvasSection() {
         };
 
         if (renderTimeMs < minimumTimeBetweenUpdatesMs) {
-          setTimeout(update, minimumTimeBetweenUpdatesMs);
+          setTimeout(update, minimumTimeBetweenUpdatesMs - renderTimeMs);
         } else {
           update();
         }
