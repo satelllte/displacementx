@@ -15,7 +15,7 @@ export const draw = ({
     rectBrightness: [number, number];
     rectAlpha: [number, number];
   };
-}) => {
+}): void => {
   const {width: w, height: h} = ctx2d.canvas;
 
   const renderStartTimeMs = performance.now();

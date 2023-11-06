@@ -3,7 +3,9 @@ import {useRef, useState} from 'react';
 import {Button} from '@/components/ui/Button';
 import {useStore} from '../store';
 import {SectionTitle} from '../SectionTitle';
-import {draw} from './draw';
+import {saveImage} from './utils/saveImage';
+import {saveImageNormal} from './utils/saveImageNormal';
+import {draw} from './utils/draw';
 
 const canvasWidth = 4096;
 const canvasHeight = 4096;
@@ -57,11 +59,14 @@ export function CanvasSection() {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const href = canvas.toDataURL('image/png');
-    const a = document.createElement('a');
-    a.href = href;
-    a.download = 'displacementx-gen.png';
-    a.click();
+    saveImage({canvas, fileName: 'displacementx-gen'});
+  };
+
+  const downloadNormal = () => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    saveImageNormal({canvas, fileName: 'displacementx-gen-normal'});
   };
 
   return (
@@ -93,6 +98,9 @@ export function CanvasSection() {
         </Button>
         <Button disabled={isPristine || isRendering} onClick={download}>
           Download
+        </Button>
+        <Button disabled={isPristine || isRendering} onClick={downloadNormal}>
+          Download (normal)
         </Button>
       </div>
     </section>
