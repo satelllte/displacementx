@@ -44,8 +44,14 @@ export function CanvasSection() {
         ctx2d.fillStyle = '#22668810';
         const boxWidth = Math.round(width / 8);
         const boxHeight = Math.round(height / 8);
-        const x = randomInteger(0, width - boxWidth);
-        const y = randomInteger(0, height - boxHeight);
+        const x = randomInteger(
+          -Math.round(boxWidth / 2),
+          Math.round(width - boxWidth / 2),
+        );
+        const y = randomInteger(
+          -Math.round(boxHeight / 2),
+          Math.round(height - boxHeight / 2),
+        );
         ctx2d.fillRect(x, y, boxWidth, boxHeight);
       },
       onEnd() {
@@ -66,8 +72,9 @@ export function CanvasSection() {
   };
 
   return (
-    <>
-      <div className='relative flex aspect-square w-full max-w-xl items-center justify-center border border-white'>
+    <section>
+      <h2 className='pb-4 text-lg'>Output</h2>
+      <div className='relative flex aspect-square w-full max-w-xl items-center justify-center border border-dashed border-white'>
         <canvas
           ref={canvasRef}
           className='absolute inset-0 max-h-full max-w-full'
@@ -85,6 +92,6 @@ export function CanvasSection() {
           Download
         </Button>
       </div>
-    </>
+    </section>
   );
 }
