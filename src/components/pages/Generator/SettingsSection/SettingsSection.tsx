@@ -10,19 +10,27 @@ import {
   backgroundBrightnessMin,
   backgroundBrightnessMax,
   backgroundBrightnessStep,
+  rectBrightnessMin,
+  rectBrightnessMax,
+  rectBrightnessStep,
+  rectAlphaMin,
+  rectAlphaMax,
+  rectAlphaStep,
 } from '../constants';
-import {useState} from 'react';
 
 export function SettingsSection() {
   const iterations = useStore((state) => state.iterations);
-  const backgroundBrightness = useStore((state) => state.backgroundBrightness);
   const setIterations = useStore((state) => state.setIterations);
+  const backgroundBrightness = useStore((state) => state.backgroundBrightness);
   const setBackgroundBrightness = useStore(
     (state) => state.setBackgroundBrightness,
   );
-  const randomize = useStore((state) => state.randomize);
+  const rectBrightness = useStore((state) => state.rectBrightness);
+  const setRectBrightness = useStore((state) => state.setRectBrightness);
+  const rectAlpha = useStore((state) => state.rectAlpha);
+  const setRectAlpha = useStore((state) => state.setRectAlpha);
 
-  const [values, setValues] = useState<[number, number]>([40, 60]);
+  const randomize = useStore((state) => state.randomize);
 
   return (
     <section>
@@ -45,12 +53,21 @@ export function SettingsSection() {
       />
       <Slider
         dual
-        label='Dual (TEST)'
-        min={0}
-        max={100}
-        step={1}
-        values={values}
-        setValues={setValues}
+        label='Rect / Brightness'
+        min={rectBrightnessMin}
+        max={rectBrightnessMax}
+        step={rectBrightnessStep}
+        values={rectBrightness}
+        setValues={setRectBrightness}
+      />
+      <Slider
+        dual
+        label='Rect / Alpha'
+        min={rectAlphaMin}
+        max={rectAlphaMax}
+        step={rectAlphaStep}
+        values={rectAlpha}
+        setValues={setRectAlpha}
       />
       <div className='pt-8'>
         <Button onClick={randomize}>Randomize</Button>

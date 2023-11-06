@@ -2,10 +2,10 @@
 import {useRef, useState} from 'react';
 import {Button} from '@/components/ui/Button';
 import {useStore} from '../store';
-import {alphaToGrayscaleColor} from '@/utils/alphaToGrayscaleColor';
 import {randomInteger} from '@/utils/random';
 import {animateWithSubIterations} from '@/utils/animationFrame';
 import {SectionTitle} from '../SectionTitle';
+import {grayscale} from '@/utils/colors';
 
 const canvasWidth = 4096;
 const canvasHeight = 4096;
@@ -31,13 +31,14 @@ export function CanvasSection() {
 
     const {width, height} = canvas;
 
-    const {iterations, backgroundBrightness} = useStore.getState();
+    const {iterations, backgroundBrightness, rectBrightness, rectAlpha} =
+      useStore.getState();
 
     // 0. Clear canvas
     ctx2d.clearRect(0, 0, width, height);
 
     // 1. Fill background
-    ctx2d.fillStyle = alphaToGrayscaleColor(backgroundBrightness);
+    ctx2d.fillStyle = grayscale({brightnessAlpha: backgroundBrightness});
     ctx2d.fillRect(0, 0, width, height);
 
     animateWithSubIterations({
@@ -45,7 +46,10 @@ export function CanvasSection() {
       iterationsPerFrame: 50,
       callback() {
         // 2. Draw boxes
-        ctx2d.fillStyle = '#22668810';
+        ctx2d.fillStyle = grayscale({
+          brightnessAlpha: randomInteger(...rectBrightness),
+          opacity: randomInteger(...rectAlpha),
+        });
         const boxWidth = Math.round(width / 8);
         const boxHeight = Math.round(height / 8);
         const x = randomInteger(
@@ -100,14 +104,6 @@ export function CanvasSection() {
           HTML canvas is not supported in this browser
         </canvas>
       </div>
-      <div className='flex gap-1 pt-2'>
-        <Button disabled={isRendering} onClick={render}>
-          Render
-        </Button>
-        <Button disabled={isPristine || isRendering} onClick={download}>
-          Download
-        </Button>
-      </div>
       <div>
         <output className='text-sm text-gray-400'>
           Last render:{' '}
@@ -117,6 +113,14 @@ export function CanvasSection() {
               : `_____`}
           </span>
         </output>
+      </div>
+      <div className='flex gap-1 pt-2'>
+        <Button disabled={isRendering} onClick={render}>
+          Render
+        </Button>
+        <Button disabled={isPristine || isRendering} onClick={download}>
+          Download
+        </Button>
       </div>
     </section>
   );
