@@ -4,7 +4,6 @@ import {Button} from '@/components/ui/Button';
 import {useStore} from '../store';
 import {SectionTitle} from '../SectionTitle';
 import {saveImage} from './utils/saveImage';
-import {saveImageNormal} from './utils/saveImageNormal';
 import {draw} from './utils/draw';
 
 const canvasWidth = 4096;
@@ -16,22 +15,28 @@ export function CanvasSection() {
   const [renderTimeMs, setRenderTimeMs] = useState<number | undefined>();
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const canvasNormalRef = useRef<HTMLCanvasElement>(null);
 
   const render = () => {
     setIsPristine(false);
     setIsRendering(true);
 
     const canvas = canvasRef.current;
+    const canvasNormal = canvasNormalRef.current;
     if (!canvas) return;
+    if (!canvasNormal) return;
 
     const ctx2d = canvas.getContext('2d');
+    const ctx2dNormal = canvasNormal.getContext('2d');
     if (!ctx2d) return;
+    if (!ctx2dNormal) return;
 
     const {iterations, backgroundBrightness, rectBrightness, rectAlpha} =
       useStore.getState();
 
     draw({
       ctx2d,
+      ctx2dNormal,
       props: {
         iterations,
         backgroundBrightness,
@@ -63,24 +68,36 @@ export function CanvasSection() {
   };
 
   const downloadNormal = () => {
-    const canvas = canvasRef.current;
+    const canvas = canvasNormalRef.current;
     if (!canvas) return;
 
-    saveImageNormal({canvas, fileName: 'displacementx-gen-normal'});
+    saveImage({canvas, fileName: 'displacementx-gen-normal'});
   };
 
   return (
     <section>
       <SectionTitle>Output</SectionTitle>
-      <div className='relative flex aspect-square w-full max-w-xl items-center justify-center border border-dashed border-white'>
-        <canvas
-          ref={canvasRef}
-          className='absolute inset-0 max-h-full max-w-full'
-          width={canvasWidth}
-          height={canvasHeight}
-        >
-          HTML canvas is not supported in this browser
-        </canvas>
+      <div className='flex gap-1'>
+        <div className='relative flex aspect-square w-full max-w-xl items-center justify-center border border-dashed border-white'>
+          <canvas
+            ref={canvasRef}
+            className='absolute inset-0 max-h-full max-w-full'
+            width={canvasWidth}
+            height={canvasHeight}
+          >
+            HTML canvas is not supported in this browser
+          </canvas>
+        </div>
+        <div className='relative flex aspect-square w-full max-w-xl items-center justify-center border border-dashed border-white'>
+          <canvas
+            ref={canvasNormalRef}
+            className='absolute inset-0 max-h-full max-w-full'
+            width={canvasWidth}
+            height={canvasHeight}
+          >
+            HTML canvas is not supported in this browser
+          </canvas>
+        </div>
       </div>
       <div>
         <output className='text-sm text-gray-400'>
