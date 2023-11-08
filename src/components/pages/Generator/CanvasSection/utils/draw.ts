@@ -26,44 +26,26 @@ export const draw = ({
     rectScale: number;
   };
 }): void => {
-  const {width: w, height: h} = ctx2d.canvas;
-
   const renderStartTimeMs = performance.now();
 
   // 0. Clear canvases
-  ctx2d.clearRect(0, 0, w, h);
-  ctx2dNormal.clearRect(0, 0, w, h);
+  clearCanvas(ctx2d);
+  clearCanvas(ctx2dNormal);
 
   // 1. Fill background
-  ctx2d.fillStyle = xxx({x: backgroundBrightness});
-  ctx2d.fillRect(0, 0, w, h);
+  drawBackground({ctx2d, backgroundBrightness});
 
   animateWithSubIterations({
     iterations,
     iterationsPerFrame: 50,
     callback() {
       // 2. Draw rect
-      ctx2d.fillStyle = xxxa({
-        x: randomInteger(...rectBrightness),
-        a: randomInteger(...rectAlpha),
+      drawRect({
+        ctx2d,
+        rectBrightness,
+        rectAlpha,
+        rectScale,
       });
-      const rectW = Math.round(
-        randomInteger(Math.round(w / 16), Math.round(w / 8)) *
-          (rectScale / 100),
-      );
-      const rectH = Math.round(
-        randomInteger(Math.round(w / 16), Math.round(w / 8)) *
-          (rectScale / 100),
-      );
-      const x = randomInteger(
-        Math.round(-rectW / 2),
-        Math.round(w - rectW / 2),
-      );
-      const y = randomInteger(
-        Math.round(-rectH / 2),
-        Math.round(h - rectH / 2),
-      );
-      ctx2d.fillRect(x, y, rectW, rectH);
     },
     onEnd() {
       drawNormal({ctx2d, ctx2dNormal});
@@ -73,6 +55,61 @@ export const draw = ({
   });
 };
 
+const clearCanvas = (ctx2d: CanvasRenderingContext2D): void => {
+  ctx2d.clearRect(0, 0, ctx2d.canvas.width, ctx2d.canvas.height);
+};
+
+/**
+ * Fills with the grayscale background.
+ */
+const drawBackground = ({
+  ctx2d,
+  backgroundBrightness,
+}: {
+  ctx2d: CanvasRenderingContext2D;
+  backgroundBrightness: number;
+}): void => {
+  const {width: w, height: h} = ctx2d.canvas;
+
+  ctx2d.fillStyle = xxx({x: backgroundBrightness});
+  ctx2d.fillRect(0, 0, w, h);
+};
+
+/**
+ * Draws the rectangle.
+ */
+const drawRect = ({
+  ctx2d,
+  rectBrightness,
+  rectAlpha,
+  rectScale,
+}: {
+  ctx2d: CanvasRenderingContext2D;
+  rectBrightness: NumberRange;
+  rectAlpha: NumberRange;
+  rectScale: number;
+}): void => {
+  const {width: w, height: h} = ctx2d.canvas;
+  ctx2d.fillStyle = xxxa({
+    x: randomInteger(...rectBrightness),
+    a: randomInteger(...rectAlpha),
+  });
+  const rectW = Math.round(
+    randomInteger(Math.round(w / 16), Math.round(w / 8)) * (rectScale / 100),
+  );
+  const rectH = Math.round(
+    randomInteger(Math.round(w / 16), Math.round(w / 8)) * (rectScale / 100),
+  );
+  const x = randomInteger(Math.round(-rectW / 2), Math.round(w - rectW / 2));
+  const y = randomInteger(Math.round(-rectH / 2), Math.round(h - rectH / 2));
+  ctx2d.fillRect(x, y, rectW, rectH);
+};
+
+/**
+ * Draws the normal map.
+ * - "ctx2d" is the canvas context to read from.
+ * - "ctx2dNormal" is the canvas context to write to.
+ */
 const drawNormal = ({
   ctx2d,
   ctx2dNormal,
