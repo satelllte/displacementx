@@ -17,3 +17,8 @@ export const rectAlphaMin = 0;
 export const rectAlphaMax = 100;
 export const rectAlphaDefault: [number, number] = [50, 100];
 export const rectAlphaStep = 1;
+
+export const rectScaleMin = 20;
+export const rectScaleMax = 200;
+export const rectScaleDefault = 100;
+export const rectScaleStep = 1;

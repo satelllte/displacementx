@@ -12,6 +12,9 @@ import {
   rectAlphaMin,
   rectAlphaMax,
   rectAlphaDefault,
+  rectScaleMin,
+  rectScaleMax,
+  rectScaleDefault,
 } from './constants';
 import {randomInteger} from '@/utils/random';
 
@@ -20,6 +23,7 @@ type Values = {
   backgroundBrightness: number;
   rectBrightness: [number, number];
   rectAlpha: [number, number];
+  rectScale: number;
 };
 
 type Actions = {
@@ -29,6 +33,7 @@ type Actions = {
   ) => void;
   setRectBrightness: (rectBrightness: Values['rectBrightness']) => void;
   setRectAlpha: (rectAlpha: Values['rectAlpha']) => void;
+  setRectScale: (rectScale: Values['rectScale']) => void;
   randomize: () => void;
 };
 
@@ -37,6 +42,7 @@ export const useStore = create<Values & Actions>((set) => ({
   backgroundBrightness: backgroundBrightnessDefault,
   rectBrightness: rectBrightnessDefault,
   rectAlpha: rectAlphaDefault,
+  rectScale: rectScaleDefault,
   setIterations(iterations: Values['iterations']) {
     set(() => ({iterations}));
   },
@@ -50,6 +56,9 @@ export const useStore = create<Values & Actions>((set) => ({
   },
   setRectAlpha(rectAlpha: Values['rectAlpha']) {
     set(() => ({rectAlpha}));
+  },
+  setRectScale(rectScale: Values['rectScale']) {
+    set(() => ({rectScale}));
   },
   randomize() {
     set(() => ({
@@ -66,6 +75,7 @@ export const useStore = create<Values & Actions>((set) => ({
         randomInteger(rectAlphaMin, rectAlphaMax),
         randomInteger(rectAlphaMin, rectAlphaMax),
       ],
+      rectScale: randomInteger(rectScaleMin, rectScaleMax),
     }));
   },
 }));

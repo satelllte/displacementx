@@ -16,6 +16,9 @@ import {
   rectAlphaMin,
   rectAlphaMax,
   rectAlphaStep,
+  rectScaleMin,
+  rectScaleMax,
+  rectScaleStep,
 } from '../constants';
 
 export function SettingsSection() {
@@ -29,6 +32,8 @@ export function SettingsSection() {
   const setRectBrightness = useStore((state) => state.setRectBrightness);
   const rectAlpha = useStore((state) => state.rectAlpha);
   const setRectAlpha = useStore((state) => state.setRectAlpha);
+  const rectScale = useStore((state) => state.rectScale);
+  const setRectScale = useStore((state) => state.setRectScale);
 
   const randomize = useStore((state) => state.randomize);
 
@@ -68,6 +73,14 @@ export function SettingsSection() {
         step={rectAlphaStep}
         values={rectAlpha}
         setValues={setRectAlpha}
+      />
+      <Slider
+        label='Rect / Scale'
+        min={rectScaleMin}
+        max={rectScaleMax}
+        step={rectScaleStep}
+        value={rectScale}
+        setValue={setRectScale}
       />
       <div className='pt-8'>
         <Button onClick={randomize}>Randomize</Button>

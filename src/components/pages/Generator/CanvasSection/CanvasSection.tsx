@@ -31,8 +31,13 @@ export function CanvasSection() {
     if (!ctx2d) return;
     if (!ctx2dNormal) return;
 
-    const {iterations, backgroundBrightness, rectBrightness, rectAlpha} =
-      useStore.getState();
+    const {
+      iterations,
+      backgroundBrightness,
+      rectBrightness,
+      rectAlpha,
+      rectScale,
+    } = useStore.getState();
 
     draw({
       ctx2d,
@@ -42,6 +47,7 @@ export function CanvasSection() {
         backgroundBrightness,
         rectBrightness,
         rectAlpha,
+        rectScale,
       },
       onEnd(renderTimeMs) {
         // Set minumum "visible" render time to prevent very fast component updates (i.e., flickering)

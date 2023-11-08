@@ -6,7 +6,13 @@ export const draw = ({
   ctx2d,
   ctx2dNormal,
   onEnd,
-  props: {iterations, backgroundBrightness, rectBrightness, rectAlpha},
+  props: {
+    iterations,
+    backgroundBrightness,
+    rectBrightness,
+    rectAlpha,
+    rectScale,
+  },
 }: {
   ctx2d: CanvasRenderingContext2D;
   ctx2dNormal: CanvasRenderingContext2D;
@@ -16,6 +22,7 @@ export const draw = ({
     backgroundBrightness: number;
     rectBrightness: [number, number];
     rectAlpha: [number, number];
+    rectScale: number;
   };
 }): void => {
   const {width: w, height: h} = ctx2d.canvas;
@@ -39,8 +46,14 @@ export const draw = ({
         x: randomInteger(...rectBrightness),
         a: randomInteger(...rectAlpha),
       });
-      const rectW = randomInteger(Math.round(w / 16), Math.round(w / 8)); // TBD: randomize based on scale range
-      const rectH = randomInteger(Math.round(w / 16), Math.round(w / 8)); // TBD: randomize based on scale range
+      const rectW = Math.round(
+        randomInteger(Math.round(w / 16), Math.round(w / 8)) *
+          (rectScale / 100),
+      );
+      const rectH = Math.round(
+        randomInteger(Math.round(w / 16), Math.round(w / 8)) *
+          (rectScale / 100),
+      );
       const x = randomInteger(
         Math.round(-rectW / 2),
         Math.round(w - rectW / 2),
