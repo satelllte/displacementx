@@ -159,8 +159,8 @@ function Canvas({canvasRef, width, height, isRendering}: CanvasProps) {
   return (
     <div
       className={clsx(
-        'relative flex aspect-square w-full max-w-xl items-center justify-center border border-dashed border-white',
-        isRendering && 'border-red-700',
+        'relative flex aspect-square w-full max-w-xl items-center justify-center border border-dashed',
+        isRendering ? 'border-red-700' : 'border-white',
       )}
     >
       <canvas
