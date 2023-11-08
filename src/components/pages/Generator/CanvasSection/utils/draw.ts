@@ -56,12 +56,10 @@ export const draw = ({
 };
 
 const clearCanvas = (ctx2d: CanvasRenderingContext2D): void => {
-  ctx2d.clearRect(0, 0, ctx2d.canvas.width, ctx2d.canvas.height);
+  const {w, h} = getDimensions(ctx2d);
+  ctx2d.clearRect(0, 0, w, h);
 };
 
-/**
- * Fills with the grayscale background.
- */
 const drawBackground = ({
   ctx2d,
   backgroundBrightness,
@@ -69,15 +67,11 @@ const drawBackground = ({
   ctx2d: CanvasRenderingContext2D;
   backgroundBrightness: number;
 }): void => {
-  const {width: w, height: h} = ctx2d.canvas;
-
+  const {w, h} = getDimensions(ctx2d);
   ctx2d.fillStyle = xxx({x: backgroundBrightness});
   ctx2d.fillRect(0, 0, w, h);
 };
 
-/**
- * Draws the rectangle.
- */
 const drawRect = ({
   ctx2d,
   rectBrightness,
@@ -89,7 +83,7 @@ const drawRect = ({
   rectAlpha: NumberDual;
   rectScale: number;
 }): void => {
-  const {width: w, height: h} = ctx2d.canvas;
+  const {w, h} = getDimensions(ctx2d);
   ctx2d.fillStyle = xxxa({
     x: randomInteger(...rectBrightness),
     a: randomInteger(...rectAlpha),
@@ -117,21 +111,21 @@ const drawNormal = ({
   ctx2d: CanvasRenderingContext2D;
   ctx2dNormal: CanvasRenderingContext2D;
 }): void => {
-  const {width, height} = ctx2d.canvas;
+  const {w, h} = getDimensions(ctx2d);
 
-  const source = ctx2d.getImageData(0, 0, width, height);
-  const destination = ctx2dNormal.createImageData(width, height);
+  const source = ctx2d.getImageData(0, 0, w, h);
+  const destination = ctx2dNormal.createImageData(w, h);
 
-  for (let i = 0, l = width * height * 4; i < l; i += 4) {
+  for (let i = 0, l = w * h * 4; i < l; i += 4) {
     let x1;
     let x2;
     let y1;
     let y2;
 
-    if (i % (width * 4) === 0) {
+    if (i % (w * 4) === 0) {
       x1 = source.data[i];
       x2 = source.data[i + 4];
-    } else if (i % (width * 4) === (width - 1) * 4) {
+    } else if (i % (w * 4) === (w - 1) * 4) {
       x1 = source.data[i - 4];
       x2 = source.data[i];
     } else {
@@ -139,15 +133,15 @@ const drawNormal = ({
       x2 = source.data[i + 4];
     }
 
-    if (i < height * 4) {
+    if (i < h * 4) {
       y1 = source.data[i];
-      y2 = source.data[i + height * 4];
-    } else if (i > height * (height - 1) * 4) {
-      y1 = source.data[i - height * 4];
+      y2 = source.data[i + h * 4];
+    } else if (i > h * (h - 1) * 4) {
+      y1 = source.data[i - h * 4];
       y2 = source.data[i];
     } else {
-      y1 = source.data[i - height * 4];
-      y2 = source.data[i + height * 4];
+      y1 = source.data[i - h * 4];
+      y2 = source.data[i + h * 4];
     }
 
     destination.data[i] = x1 - x2 + 127;
@@ -158,3 +152,7 @@ const drawNormal = ({
 
   ctx2dNormal.putImageData(destination, 0, 0);
 };
+
+const getDimensions = (
+  ctx2d: CanvasRenderingContext2D,
+): {w: number; h: number} => ({w: ctx2d.canvas.width, h: ctx2d.canvas.height});
