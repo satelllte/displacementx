@@ -115,7 +115,7 @@ export function CanvasSection() {
           </span>
         </output>
       </div>
-      <div className='flex gap-1 pt-2'>
+      <div className='flex flex-wrap gap-1 pt-2'>
         <Button disabled={isRendering} onClick={render}>
           Render
         </Button>
