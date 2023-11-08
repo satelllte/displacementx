@@ -73,7 +73,7 @@ export function SettingsSection() {
         value={rectScale}
         setValue={setRectScale}
       />
-      <div className='pt-8'>
+      <div className='pt-2'>
         <Button onClick={randomize}>Randomize</Button>
       </div>
     </section>

@@ -3,5 +3,5 @@ type SectionTitleProps = {
 };
 
 export function SectionTitle({children}: SectionTitleProps) {
-  return <h2 className='pb-4 text-lg'>{children}</h2>;
+  return <h2 className='pb-2 text-lg'>{children}</h2>;
 }
