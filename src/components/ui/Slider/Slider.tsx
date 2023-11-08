@@ -1,5 +1,6 @@
 import {useId} from 'react';
 import * as RadixSlider from '@radix-ui/react-slider';
+import {type NumberRange} from '@/types';
 
 type SliderBaseProps = {
   readonly label: string;
@@ -16,8 +17,8 @@ type SliderSoloProps = SliderBaseProps & {
 
 type SliderDualProps = SliderBaseProps & {
   readonly dual: true;
-  readonly values: [number, number];
-  readonly setValues: (values: [number, number]) => void;
+  readonly values: NumberRange;
+  readonly setValues: (values: NumberRange) => void;
 };
 
 type SliderProps = SliderSoloProps | SliderDualProps;

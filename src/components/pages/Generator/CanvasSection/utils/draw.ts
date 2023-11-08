@@ -1,3 +1,4 @@
+import {type NumberRange} from '@/types';
 import {animateWithSubIterations} from '@/utils/animationFrame';
 import {xxx, xxxa} from '@/utils/colors';
 import {randomInteger} from '@/utils/random';
@@ -20,8 +21,8 @@ export const draw = ({
   props: {
     iterations: number;
     backgroundBrightness: number;
-    rectBrightness: [number, number];
-    rectAlpha: [number, number];
+    rectBrightness: NumberRange;
+    rectAlpha: NumberRange;
     rectScale: number;
   };
 }): void => {

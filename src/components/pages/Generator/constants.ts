@@ -1,3 +1,5 @@
+import {type NumberRange} from '@/types';
+
 export const iterationsMin = 10;
 export const iterationsMax = 2000;
 export const iterationsDefault = 100;
@@ -10,12 +12,12 @@ export const backgroundBrightnessStep = 1;
 
 export const rectBrightnessMin = 0;
 export const rectBrightnessMax = 255;
-export const rectBrightnessDefault: [number, number] = [0, 255];
+export const rectBrightnessDefault: NumberRange = [0, 255];
 export const rectBrightnessStep = 1;
 
 export const rectAlphaMin = 0;
 export const rectAlphaMax = 100;
-export const rectAlphaDefault: [number, number] = [50, 100];
+export const rectAlphaDefault: NumberRange = [50, 100];
 export const rectAlphaStep = 1;
 
 export const rectScaleMin = 20;

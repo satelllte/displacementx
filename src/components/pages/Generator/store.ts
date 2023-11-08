@@ -17,12 +17,13 @@ import {
   rectScaleDefault,
 } from './constants';
 import {randomInteger} from '@/utils/random';
+import {type NumberRange} from '@/types';
 
 type Values = {
   iterations: number;
   backgroundBrightness: number;
-  rectBrightness: [number, number];
-  rectAlpha: [number, number];
+  rectBrightness: NumberRange;
+  rectAlpha: NumberRange;
   rectScale: number;
 };
 
