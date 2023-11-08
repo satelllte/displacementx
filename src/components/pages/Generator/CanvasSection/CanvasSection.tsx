@@ -1,4 +1,5 @@
 'use client';
+import clsx from 'clsx';
 import {useRef, useState} from 'react';
 import {Button} from '@/components/ui/Button';
 import {useStore} from '../store';
@@ -106,26 +107,18 @@ export function CanvasSection() {
     <section>
       <SectionTitle>Output</SectionTitle>
       <div className='flex gap-1'>
-        <div className='relative flex aspect-square w-full max-w-xl items-center justify-center border border-dashed border-white'>
-          <canvas
-            ref={canvasRef}
-            className='absolute inset-0 max-h-full max-w-full'
-            width={width}
-            height={height}
-          >
-            HTML canvas is not supported in this browser
-          </canvas>
-        </div>
-        <div className='relative flex aspect-square w-full max-w-xl items-center justify-center border border-dashed border-white'>
-          <canvas
-            ref={canvasNormalRef}
-            className='absolute inset-0 max-h-full max-w-full'
-            width={width}
-            height={height}
-          >
-            HTML canvas is not supported in this browser
-          </canvas>
-        </div>
+        <Canvas
+          canvasRef={canvasRef}
+          width={width}
+          height={height}
+          isRendering={isRendering}
+        />
+        <Canvas
+          canvasRef={canvasNormalRef}
+          width={width}
+          height={height}
+          isRendering={isRendering}
+        />
       </div>
       <div>
         <output className='text-sm text-gray-400'>
@@ -152,5 +145,40 @@ export function CanvasSection() {
         </Button>
       </div>
     </section>
+  );
+}
+
+type CanvasProps = {
+  readonly canvasRef: React.RefObject<HTMLCanvasElement>;
+  readonly width: number;
+  readonly height: number;
+  readonly isRendering: boolean;
+};
+
+function Canvas({canvasRef, width, height, isRendering}: CanvasProps) {
+  return (
+    <div
+      className={clsx(
+        'relative flex aspect-square w-full max-w-xl items-center justify-center border border-dashed border-white',
+        isRendering && 'border-red-700',
+      )}
+    >
+      <canvas
+        ref={canvasRef}
+        className='absolute inset-0 max-h-full max-w-full'
+        width={width}
+        height={height}
+      >
+        HTML canvas is not supported in this browser
+      </canvas>
+      <div
+        className={clsx(
+          'absolute flex h-full w-full items-center justify-center bg-black/50 text-lg uppercase text-red-700',
+          !isRendering && 'hidden',
+        )}
+      >
+        Rendering
+      </div>
+    </div>
   );
 }
