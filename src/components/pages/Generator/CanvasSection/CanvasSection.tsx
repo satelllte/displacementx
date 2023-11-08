@@ -25,15 +25,8 @@ export function CanvasSection() {
     setIsPristine(false);
     setIsRendering(true);
 
-    const canvas = canvasRef.current;
-    const canvasNormal = canvasNormalRef.current;
-    if (!canvas) return;
-    if (!canvasNormal) return;
-
-    const ctx2d = canvas.getContext('2d');
-    const ctx2dNormal = canvasNormal.getContext('2d');
-    if (!ctx2d) return;
-    if (!ctx2dNormal) return;
+    const ctx2d = getCtx2d(canvasRef);
+    const ctx2dNormal = getCtx2d(canvasNormalRef);
 
     const {
       iterations,
@@ -85,15 +78,8 @@ export function CanvasSection() {
   };
 
   const onIs8kChange = (is8k: boolean) => {
-    const canvas = canvasRef.current;
-    const canvasNormal = canvasNormalRef.current;
-    if (!canvas) return;
-    if (!canvasNormal) return;
-
-    const ctx2d = canvas.getContext('2d');
-    const ctx2dNormal = canvasNormal.getContext('2d');
-    if (!ctx2d) return;
-    if (!ctx2dNormal) return;
+    const ctx2d = getCtx2d(canvasRef);
+    const ctx2dNormal = getCtx2d(canvasNormalRef);
 
     clearCanvas(ctx2d);
     clearCanvas(ctx2dNormal);
@@ -182,3 +168,15 @@ function Canvas({canvasRef, width, height, isRendering}: CanvasProps) {
     </div>
   );
 }
+
+const getCtx2d = (
+  canvasRef: React.RefObject<HTMLCanvasElement>,
+): CanvasRenderingContext2D => {
+  const canvas = canvasRef.current;
+  if (!canvas) throw new TypeError('Canvas not found in ref');
+
+  const ctx2d = canvas.getContext('2d');
+  if (!ctx2d) throw new TypeError('Error getting 2d context from canvas');
+
+  return ctx2d;
+};
