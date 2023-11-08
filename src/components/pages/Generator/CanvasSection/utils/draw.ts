@@ -1,4 +1,4 @@
-import {type NumberRange} from '@/types';
+import {type NumberDual} from '@/types';
 import {animateWithSubIterations} from '@/utils/animationFrame';
 import {xxx, xxxa} from '@/utils/colors';
 import {randomInteger} from '@/utils/random';
@@ -21,8 +21,8 @@ export const draw = ({
   props: {
     iterations: number;
     backgroundBrightness: number;
-    rectBrightness: NumberRange;
-    rectAlpha: NumberRange;
+    rectBrightness: NumberDual;
+    rectAlpha: NumberDual;
     rectScale: number;
   };
 }): void => {
@@ -85,8 +85,8 @@ const drawRect = ({
   rectScale,
 }: {
   ctx2d: CanvasRenderingContext2D;
-  rectBrightness: NumberRange;
-  rectAlpha: NumberRange;
+  rectBrightness: NumberDual;
+  rectAlpha: NumberDual;
   rectScale: number;
 }): void => {
   const {width: w, height: h} = ctx2d.canvas;

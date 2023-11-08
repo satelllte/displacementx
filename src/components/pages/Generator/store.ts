@@ -9,13 +9,13 @@ import {
   type SettingDualConstant,
 } from './constants';
 import {randomInteger} from '@/utils/random';
-import {type NumberRange} from '@/types';
+import {type NumberDual} from '@/types';
 
 type Values = {
   iterations: number;
   backgroundBrightness: number;
-  rectBrightness: NumberRange;
-  rectAlpha: NumberRange;
+  rectBrightness: NumberDual;
+  rectAlpha: NumberDual;
   rectScale: number;
 };
 
@@ -67,7 +67,7 @@ export const useStore = create<Values & Actions>((set) => ({
 const randSetting = (setting: SettingConstant) =>
   randomInteger(setting.min, setting.max);
 
-const randDualSetting = (setting: SettingDualConstant): NumberRange => [
+const randDualSetting = (setting: SettingDualConstant): NumberDual => [
   randomInteger(setting.min, setting.max),
   randomInteger(setting.min, setting.max),
 ];

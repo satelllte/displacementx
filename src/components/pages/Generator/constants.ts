@@ -1,4 +1,4 @@
-import {type NumberRange} from '@/types';
+import {type NumberDual} from '@/types';
 
 export type SettingConstant = {
   min: number;
@@ -10,7 +10,7 @@ export type SettingConstant = {
 export type SettingDualConstant = {
   min: number;
   max: number;
-  default: NumberRange;
+  default: NumberDual;
   step: number;
 };
 

@@ -1,1 +1,1 @@
-export type NumberRange = [number, number];
+export type NumberDual = [number, number];
