@@ -5,11 +5,14 @@ import {useStore} from '../store';
 import {SectionTitle} from '../SectionTitle';
 import {saveImage} from './utils/saveImage';
 import {draw} from './utils/draw';
-
-const canvasWidth = 4096;
-const canvasHeight = 4096;
+import {Switch} from '@/components/ui/Switch';
+import {clearCanvas} from './utils/clearCanvas';
 
 export function CanvasSection() {
+  const [is8k, setIs8k] = useState<boolean>(false);
+  const width = is8k ? 8192 : 4096;
+  const height = is8k ? 8192 : 4096;
+
   const [isPristine, setIsPristine] = useState<boolean>(true);
   const [isRendering, setIsRendering] = useState<boolean>(false);
   const [renderTimeMs, setRenderTimeMs] = useState<number | undefined>();
@@ -80,6 +83,25 @@ export function CanvasSection() {
     saveImage({canvas, fileName: 'displacementx-gen-normal'});
   };
 
+  const onIs8kChange = (is8k: boolean) => {
+    const canvas = canvasRef.current;
+    const canvasNormal = canvasNormalRef.current;
+    if (!canvas) return;
+    if (!canvasNormal) return;
+
+    const ctx2d = canvas.getContext('2d');
+    const ctx2dNormal = canvasNormal.getContext('2d');
+    if (!ctx2d) return;
+    if (!ctx2dNormal) return;
+
+    clearCanvas(ctx2d);
+    clearCanvas(ctx2dNormal);
+
+    setIsPristine(true);
+    setRenderTimeMs(undefined);
+    setIs8k(is8k);
+  };
+
   return (
     <section>
       <SectionTitle>Output</SectionTitle>
@@ -88,8 +110,8 @@ export function CanvasSection() {
           <canvas
             ref={canvasRef}
             className='absolute inset-0 max-h-full max-w-full'
-            width={canvasWidth}
-            height={canvasHeight}
+            width={width}
+            height={height}
           >
             HTML canvas is not supported in this browser
           </canvas>
@@ -98,8 +120,8 @@ export function CanvasSection() {
           <canvas
             ref={canvasNormalRef}
             className='absolute inset-0 max-h-full max-w-full'
-            width={canvasWidth}
-            height={canvasHeight}
+            width={width}
+            height={height}
           >
             HTML canvas is not supported in this browser
           </canvas>
@@ -115,7 +137,10 @@ export function CanvasSection() {
           </span>
         </output>
       </div>
-      <div className='flex flex-wrap gap-1 pt-2'>
+      <div className='pt-1'>
+        <Switch isOn={is8k} setIsOn={onIs8kChange} textOff='4K' textOn='8K' />
+      </div>
+      <div className='flex flex-wrap gap-1 pt-3'>
         <Button disabled={isRendering} onClick={render}>
           Render
         </Button>
