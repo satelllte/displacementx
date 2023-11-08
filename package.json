@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@radix-ui/react-slider": "1.1.2",
+    "@radix-ui/react-switch": "1.0.3",
     "clsx": "2.0.0",
     "geist": "1.0.0",
     "next": "14.0.1",

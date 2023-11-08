@@ -2,6 +2,8 @@ import {type NumberDual} from '@/types';
 import {animateWithSubIterations} from '@/utils/animationFrame';
 import {xxx, xxxa} from '@/utils/colors';
 import {randomInteger} from '@/utils/random';
+import {getCanvasDimensions} from './getCanvasDimensions';
+import {clearCanvas} from './clearCanvas';
 
 export const draw = ({
   ctx2d,
@@ -55,11 +57,6 @@ export const draw = ({
   });
 };
 
-const clearCanvas = (ctx2d: CanvasRenderingContext2D): void => {
-  const {w, h} = getDimensions(ctx2d);
-  ctx2d.clearRect(0, 0, w, h);
-};
-
 const drawBackground = ({
   ctx2d,
   backgroundBrightness,
@@ -67,7 +64,7 @@ const drawBackground = ({
   ctx2d: CanvasRenderingContext2D;
   backgroundBrightness: number;
 }): void => {
-  const {w, h} = getDimensions(ctx2d);
+  const {w, h} = getCanvasDimensions(ctx2d);
   ctx2d.fillStyle = xxx({x: backgroundBrightness});
   ctx2d.fillRect(0, 0, w, h);
 };
@@ -83,7 +80,7 @@ const drawRect = ({
   rectAlpha: NumberDual;
   rectScale: number;
 }): void => {
-  const {w, h} = getDimensions(ctx2d);
+  const {w, h} = getCanvasDimensions(ctx2d);
   ctx2d.fillStyle = xxxa({
     x: randomInteger(...rectBrightness),
     a: randomInteger(...rectAlpha),
@@ -111,7 +108,7 @@ const drawNormal = ({
   ctx2d: CanvasRenderingContext2D;
   ctx2dNormal: CanvasRenderingContext2D;
 }): void => {
-  const {w, h} = getDimensions(ctx2d);
+  const {w, h} = getCanvasDimensions(ctx2d);
 
   const source = ctx2d.getImageData(0, 0, w, h);
   const destination = ctx2dNormal.createImageData(w, h);
@@ -152,7 +149,3 @@ const drawNormal = ({
 
   ctx2dNormal.putImageData(destination, 0, 0);
 };
-
-const getDimensions = (
-  ctx2d: CanvasRenderingContext2D,
-): {w: number; h: number} => ({w: ctx2d.canvas.width, h: ctx2d.canvas.height});
