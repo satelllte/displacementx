@@ -5,17 +5,20 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "test:units": "vitest",
     "test:lint": "next lint --max-warnings=0 --format=compact",
     "test:format": "prettier . --check",
     "format": "prettier . --write"
   },
   "dependencies": {
+    "@radix-ui/react-slider": "1.1.2",
     "clsx": "2.0.0",
     "geist": "1.0.0",
     "next": "14.0.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "vaul": "0.7.7"
+    "vaul": "0.7.7",
+    "zustand": "4.4.6"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "14.0.1",
@@ -29,10 +32,12 @@
     "eslint-config-xo-react": "0.27.0",
     "eslint-config-xo-typescript": "1.0.1",
     "eslint-plugin-tailwindcss": "3.13.0",
+    "happy-dom": "12.10.3",
     "postcss": "8.4.31",
     "prettier": "3.0.3",
     "prettier-plugin-tailwindcss": "0.5.6",
     "tailwindcss": "3.3.5",
-    "typescript": "5.2.2"
+    "typescript": "5.2.2",
+    "vitest": "0.34.6"
   }
 }
