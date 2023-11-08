@@ -1,5 +1,5 @@
 import {animateWithSubIterations} from '@/utils/animationFrame';
-import {grayscale} from '@/utils/colors';
+import {xxx, xxxa} from '@/utils/colors';
 import {randomInteger} from '@/utils/random';
 
 export const draw = ({
@@ -27,7 +27,7 @@ export const draw = ({
   ctx2dNormal.clearRect(0, 0, w, h);
 
   // 1. Fill background
-  ctx2d.fillStyle = grayscale({brightnessAlpha: backgroundBrightness});
+  ctx2d.fillStyle = xxx({x: backgroundBrightness});
   ctx2d.fillRect(0, 0, w, h);
 
   animateWithSubIterations({
@@ -35,9 +35,9 @@ export const draw = ({
     iterationsPerFrame: 50,
     callback() {
       // 2. Draw rect
-      ctx2d.fillStyle = grayscale({
-        brightnessAlpha: randomInteger(...rectBrightness),
-        opacity: randomInteger(...rectAlpha),
+      ctx2d.fillStyle = xxxa({
+        x: randomInteger(...rectBrightness),
+        a: randomInteger(...rectAlpha),
       });
       const rectW = randomInteger(Math.round(w / 16), Math.round(w / 8)); // TBD: randomize based on scale range
       const rectH = randomInteger(Math.round(w / 16), Math.round(w / 8)); // TBD: randomize based on scale range

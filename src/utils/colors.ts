@@ -1,20 +1,31 @@
 /**
- * Converts brightness alpha (0 - 255) and opacity (0 - 100) to RGBA color like `#FFFFFFFF`.
+ * Converts RGB (0 - 255) numbers to string color in `rgb(r,g,b)` format.
  */
-export const grayscale = ({
-  brightnessAlpha,
-  opacity = 100,
-}: {
-  brightnessAlpha: number;
-  opacity?: number;
-}): string => {
-  const x = alphaToHex(brightnessAlpha);
-  const a = alphaToHex(Math.round((opacity / 100) * 255));
-  return `#${x}${x}${x}${a}`;
-};
+export const rgb = ({r, g, b}: {r: number; g: number; b: number}): string =>
+  `rgb(${r},${g},${b})`;
 
 /**
- * Converts alpha (0 - 255) to hex color like `#FF`.
+ * Converts RGB (0 - 255) + A (0 - 100) numbers to string color in `rgb(r,g,b,a)` format.
  */
-const alphaToHex = (alpha: number): string =>
-  alpha.toString(16).padStart(2, '0');
+export const rgba = ({
+  r,
+  g,
+  b,
+  a,
+}: {
+  r: number;
+  g: number;
+  b: number;
+  a: number;
+}): string => `rgb(${r},${g},${b},${a / 100})`;
+
+/**
+ * Converts X (0 - 255) number to grayscale string color in `rgb(x,x,x)` format.
+ */
+export const xxx = ({x}: {x: number}): string => rgb({r: x, g: x, b: x});
+
+/**
+ * Converts X (0 - 255) + A (0 - 100) numbers to grayscale string color in `rgb(x,x,x,a)` format.
+ */
+export const xxxa = ({x, a}: {x: number; a: number}): string =>
+  rgba({r: x, g: x, b: x, a});
