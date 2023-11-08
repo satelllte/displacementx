@@ -4,35 +4,26 @@ import {useStore} from '../store';
 import {SectionTitle} from '../SectionTitle';
 import {Button} from '@/components/ui/Button';
 import {
-  iterationsMin,
-  iterationsMax,
-  iterationsStep,
-  backgroundBrightnessMin,
-  backgroundBrightnessMax,
-  backgroundBrightnessStep,
-  rectBrightnessMin,
-  rectBrightnessMax,
-  rectBrightnessStep,
-  rectAlphaMin,
-  rectAlphaMax,
-  rectAlphaStep,
-  rectScaleMin,
-  rectScaleMax,
-  rectScaleStep,
+  iterations as iterationsConst,
+  backgroundBrightness as backgroundBrightnessConst,
+  rectBrightness as rectBrightnessConst,
+  rectAlpha as rectAlphaConst,
+  rectScale as rectScaleConst,
 } from '../constants';
 
 export function SettingsSection() {
   const iterations = useStore((state) => state.iterations);
-  const setIterations = useStore((state) => state.setIterations);
   const backgroundBrightness = useStore((state) => state.backgroundBrightness);
+  const rectBrightness = useStore((state) => state.rectBrightness);
+  const rectAlpha = useStore((state) => state.rectAlpha);
+  const rectScale = useStore((state) => state.rectScale);
+
+  const setIterations = useStore((state) => state.setIterations);
   const setBackgroundBrightness = useStore(
     (state) => state.setBackgroundBrightness,
   );
-  const rectBrightness = useStore((state) => state.rectBrightness);
   const setRectBrightness = useStore((state) => state.setRectBrightness);
-  const rectAlpha = useStore((state) => state.rectAlpha);
   const setRectAlpha = useStore((state) => state.setRectAlpha);
-  const rectScale = useStore((state) => state.rectScale);
   const setRectScale = useStore((state) => state.setRectScale);
 
   const randomize = useStore((state) => state.randomize);
@@ -42,43 +33,43 @@ export function SettingsSection() {
       <SectionTitle>Settings</SectionTitle>
       <Slider
         label='Iterations'
-        min={iterationsMin}
-        max={iterationsMax}
-        step={iterationsStep}
+        min={iterationsConst.min}
+        max={iterationsConst.max}
+        step={iterationsConst.step}
         value={iterations}
         setValue={setIterations}
       />
       <Slider
         label='Background brightness'
-        min={backgroundBrightnessMin}
-        max={backgroundBrightnessMax}
-        step={backgroundBrightnessStep}
+        min={backgroundBrightnessConst.min}
+        max={backgroundBrightnessConst.max}
+        step={backgroundBrightnessConst.step}
         value={backgroundBrightness}
         setValue={setBackgroundBrightness}
       />
       <Slider
         dual
         label='Rect / Brightness'
-        min={rectBrightnessMin}
-        max={rectBrightnessMax}
-        step={rectBrightnessStep}
+        min={rectBrightnessConst.min}
+        max={rectBrightnessConst.max}
+        step={rectBrightnessConst.step}
         values={rectBrightness}
         setValues={setRectBrightness}
       />
       <Slider
         dual
         label='Rect / Alpha'
-        min={rectAlphaMin}
-        max={rectAlphaMax}
-        step={rectAlphaStep}
+        min={rectAlphaConst.min}
+        max={rectAlphaConst.max}
+        step={rectAlphaConst.step}
         values={rectAlpha}
         setValues={setRectAlpha}
       />
       <Slider
         label='Rect / Scale'
-        min={rectScaleMin}
-        max={rectScaleMax}
-        step={rectScaleStep}
+        min={rectScaleConst.min}
+        max={rectScaleConst.max}
+        step={rectScaleConst.step}
         value={rectScale}
         setValue={setRectScale}
       />

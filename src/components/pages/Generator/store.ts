@@ -1,20 +1,12 @@
 import {create} from 'zustand';
 import {
-  iterationsMin,
-  iterationsMax,
-  iterationsDefault,
-  backgroundBrightnessMin,
-  backgroundBrightnessMax,
-  backgroundBrightnessDefault,
-  rectBrightnessMin,
-  rectBrightnessMax,
-  rectBrightnessDefault,
-  rectAlphaMin,
-  rectAlphaMax,
-  rectAlphaDefault,
-  rectScaleMin,
-  rectScaleMax,
-  rectScaleDefault,
+  iterations,
+  backgroundBrightness,
+  rectBrightness,
+  rectAlpha,
+  rectScale,
+  type SettingConstant,
+  type SettingDualConstant,
 } from './constants';
 import {randomInteger} from '@/utils/random';
 import {type NumberRange} from '@/types';
@@ -39,11 +31,11 @@ type Actions = {
 };
 
 export const useStore = create<Values & Actions>((set) => ({
-  iterations: iterationsDefault,
-  backgroundBrightness: backgroundBrightnessDefault,
-  rectBrightness: rectBrightnessDefault,
-  rectAlpha: rectAlphaDefault,
-  rectScale: rectScaleDefault,
+  iterations: iterations.default,
+  backgroundBrightness: backgroundBrightness.default,
+  rectBrightness: rectBrightness.default,
+  rectAlpha: rectAlpha.default,
+  rectScale: rectScale.default,
   setIterations(iterations: Values['iterations']) {
     set(() => ({iterations}));
   },
@@ -63,20 +55,19 @@ export const useStore = create<Values & Actions>((set) => ({
   },
   randomize() {
     set(() => ({
-      iterations: randomInteger(iterationsMin, iterationsMax),
-      backgroundBrightness: randomInteger(
-        backgroundBrightnessMin,
-        backgroundBrightnessMax,
-      ),
-      rectBrightness: [
-        randomInteger(rectBrightnessMin, rectBrightnessMax),
-        randomInteger(rectBrightnessMin, rectBrightnessMax),
-      ],
-      rectAlpha: [
-        randomInteger(rectAlphaMin, rectAlphaMax),
-        randomInteger(rectAlphaMin, rectAlphaMax),
-      ],
-      rectScale: randomInteger(rectScaleMin, rectScaleMax),
+      iterations: randSetting(iterations),
+      backgroundBrightness: randSetting(backgroundBrightness),
+      rectBrightness: randDualSetting(rectBrightness),
+      rectAlpha: randDualSetting(rectAlpha),
+      rectScale: randSetting(rectScale),
     }));
   },
 }));
+
+const randSetting = (setting: SettingConstant) =>
+  randomInteger(setting.min, setting.max);
+
+const randDualSetting = (setting: SettingDualConstant): NumberRange => [
+  randomInteger(setting.min, setting.max),
+  randomInteger(setting.min, setting.max),
+];
