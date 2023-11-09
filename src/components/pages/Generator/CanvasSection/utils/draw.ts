@@ -15,6 +15,11 @@ export const draw = ({
     rectBrightness,
     rectAlpha,
     rectScale,
+    gridBrightness,
+    gridAlpha,
+    gridScale,
+    gridAmount,
+    gridGap,
   },
 }: {
   ctx2d: CanvasRenderingContext2D;
@@ -26,6 +31,11 @@ export const draw = ({
     rectBrightness: NumberDual;
     rectAlpha: NumberDual;
     rectScale: number;
+    gridBrightness: NumberDual;
+    gridAlpha: NumberDual;
+    gridScale: number;
+    gridAmount: NumberDual;
+    gridGap: number;
   };
 }): void => {
   const renderStartTimeMs = performance.now();
@@ -41,13 +51,30 @@ export const draw = ({
     iterations,
     iterationsPerFrame: 50,
     callback() {
-      // 2. Draw rect
-      drawRect({
-        ctx2d,
-        rectBrightness,
-        rectAlpha,
-        rectScale,
-      });
+      switch (randomInteger(0, 1)) {
+        case 0:
+          // 2. Draw rect
+          drawRect({
+            ctx2d,
+            rectBrightness,
+            rectAlpha,
+            rectScale,
+          });
+          break;
+        case 1:
+          // 3. Draw grid
+          drawGrid({
+            ctx2d,
+            gridBrightness,
+            gridAlpha,
+            gridScale,
+            gridAmount,
+            gridGap,
+          });
+          break;
+        default:
+          break;
+      }
     },
     onEnd() {
       drawNormal({ctx2d, ctx2dNormal});
@@ -94,6 +121,28 @@ const drawRect = ({
   const x = randomInteger(Math.round(-rectW / 2), Math.round(w - rectW / 2));
   const y = randomInteger(Math.round(-rectH / 2), Math.round(h - rectH / 2));
   ctx2d.fillRect(x, y, rectW, rectH);
+};
+
+const drawGrid = ({
+  ctx2d,
+  gridBrightness,
+  gridAlpha,
+  gridScale,
+  gridAmount,
+  gridGap,
+}: {
+  ctx2d: CanvasRenderingContext2D;
+  gridBrightness: NumberDual;
+  gridAlpha: NumberDual;
+  gridScale: number;
+  gridAmount: NumberDual;
+  gridGap: number;
+}): void => {
+  const {w, h} = getCanvasDimensions(ctx2d);
+
+  // ...
+  // ...
+  // ...
 };
 
 /**
