@@ -80,31 +80,31 @@ export function SettingsSection() {
         constant={rectScaleConst}
       />
       <SliderDualWrapper
-        label='🚧 Grid / Brightness 🚧'
+        label='Grid / Brightness'
         values={gridBrightness}
         setValues={setGridBrightness}
         constant={gridBrightnessConst}
       />
       <SliderDualWrapper
-        label='🚧 Grid / Alpha 🚧'
+        label='Grid / Alpha'
         values={gridAlpha}
         setValues={setGridAlpha}
         constant={gridAlphaConst}
       />
       <SliderWrapper
-        label='🚧 Grid / Scale 🚧'
+        label='Grid / Scale'
         value={gridScale}
         setValue={setGridScale}
         constant={gridScaleConst}
       />
       <SliderDualWrapper
-        label='🚧 Grid / Amount 🚧'
+        label='Grid / Amount'
         values={gridAmount}
         setValues={setGridAmount}
         constant={gridAmountConst}
       />
       <SliderWrapper
-        label='🚧 Grid / Gap 🚧'
+        label='Grid / Gap'
         value={gridGap}
         setValue={setGridGap}
         constant={gridGapConst}
