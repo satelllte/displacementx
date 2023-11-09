@@ -40,11 +40,9 @@ export const draw = ({
 }): void => {
   const renderStartTimeMs = performance.now();
 
-  // 0. Clear canvases
   clearCanvas(ctx2d);
   clearCanvas(ctx2dNormal);
 
-  // 1. Fill background
   drawBackground({ctx2d, backgroundBrightness});
 
   animateWithSubIterations({
@@ -53,7 +51,6 @@ export const draw = ({
     callback() {
       switch (randomInteger(0, 1)) {
         case 0:
-          // 2. Draw rect
           drawRect({
             ctx2d,
             rectBrightness,
@@ -62,7 +59,6 @@ export const draw = ({
           });
           break;
         case 1:
-          // 3. Draw grid
           drawGrid({
             ctx2d,
             gridBrightness,
@@ -140,9 +136,29 @@ const drawGrid = ({
 }): void => {
   const {w, h} = getCanvasDimensions(ctx2d);
 
-  // ...
-  // ...
-  // ...
+  ctx2d.fillStyle = xxxa({
+    x: randomInteger(...gridBrightness),
+    a: randomInteger(...gridAlpha),
+  });
+
+  const x0 = randomInteger(Math.round(-w / 16), Math.round(w));
+  const y0 = randomInteger(Math.round(-h / 16), Math.round(h));
+  const xn = randomInteger(...gridAmount);
+  const yn = randomInteger(...gridAmount);
+  const scale = gridScale / 100;
+  const gap = gridGap / 100;
+  const size = Math.round(
+    randomInteger(Math.round(w / 256), Math.round(w / 16)) * scale,
+  );
+
+  for (let i = 0, x = x0; i < xn; i++) {
+    for (let j = 0, y = y0; j < yn; j++) {
+      ctx2d.fillRect(x, y, size, size);
+      y += size + Math.round(size * gap);
+    }
+
+    x += size + Math.round(size * gap);
+  }
 };
 
 /**
