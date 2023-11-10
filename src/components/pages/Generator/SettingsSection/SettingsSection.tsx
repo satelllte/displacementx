@@ -9,7 +9,15 @@ import {
   rectBrightness as rectBrightnessConst,
   rectAlpha as rectAlphaConst,
   rectScale as rectScaleConst,
+  gridBrightness as gridBrightnessConst,
+  gridAlpha as gridAlphaConst,
+  gridScale as gridScaleConst,
+  gridAmount as gridAmountConst,
+  gridGap as gridGapConst,
+  type SettingConstant,
+  type SettingDualConstant,
 } from '../constants';
+import {type NumberDual} from '@/types';
 
 export function SettingsSection() {
   const iterations = useStore((state) => state.iterations);
@@ -17,6 +25,11 @@ export function SettingsSection() {
   const rectBrightness = useStore((state) => state.rectBrightness);
   const rectAlpha = useStore((state) => state.rectAlpha);
   const rectScale = useStore((state) => state.rectScale);
+  const gridBrightness = useStore((state) => state.gridBrightness);
+  const gridAlpha = useStore((state) => state.gridAlpha);
+  const gridScale = useStore((state) => state.gridScale);
+  const gridAmount = useStore((state) => state.gridAmount);
+  const gridGap = useStore((state) => state.gridGap);
 
   const setIterations = useStore((state) => state.setIterations);
   const setBackgroundBrightness = useStore(
@@ -25,57 +38,127 @@ export function SettingsSection() {
   const setRectBrightness = useStore((state) => state.setRectBrightness);
   const setRectAlpha = useStore((state) => state.setRectAlpha);
   const setRectScale = useStore((state) => state.setRectScale);
+  const setGridBrightness = useStore((state) => state.setGridBrightness);
+  const setGridAlpha = useStore((state) => state.setGridAlpha);
+  const setGridScale = useStore((state) => state.setGridScale);
+  const setGridAmount = useStore((state) => state.setGridAmount);
+  const setGridGap = useStore((state) => state.setGridGap);
 
   const randomize = useStore((state) => state.randomize);
 
   return (
     <section>
       <SectionTitle>Settings</SectionTitle>
-      <Slider
+      <SliderWrapper
         label='Iterations'
-        min={iterationsConst.min}
-        max={iterationsConst.max}
-        step={iterationsConst.step}
         value={iterations}
         setValue={setIterations}
+        constant={iterationsConst}
       />
-      <Slider
+      <SliderWrapper
         label='Background brightness'
-        min={backgroundBrightnessConst.min}
-        max={backgroundBrightnessConst.max}
-        step={backgroundBrightnessConst.step}
         value={backgroundBrightness}
         setValue={setBackgroundBrightness}
+        constant={backgroundBrightnessConst}
       />
-      <Slider
-        dual
+      <SliderDualWrapper
         label='Rect / Brightness'
-        min={rectBrightnessConst.min}
-        max={rectBrightnessConst.max}
-        step={rectBrightnessConst.step}
         values={rectBrightness}
         setValues={setRectBrightness}
+        constant={rectBrightnessConst}
       />
-      <Slider
-        dual
+      <SliderDualWrapper
         label='Rect / Alpha'
-        min={rectAlphaConst.min}
-        max={rectAlphaConst.max}
-        step={rectAlphaConst.step}
         values={rectAlpha}
         setValues={setRectAlpha}
+        constant={rectAlphaConst}
       />
-      <Slider
+      <SliderWrapper
         label='Rect / Scale'
-        min={rectScaleConst.min}
-        max={rectScaleConst.max}
-        step={rectScaleConst.step}
         value={rectScale}
         setValue={setRectScale}
+        constant={rectScaleConst}
+      />
+      <SliderDualWrapper
+        label='Grid / Brightness'
+        values={gridBrightness}
+        setValues={setGridBrightness}
+        constant={gridBrightnessConst}
+      />
+      <SliderDualWrapper
+        label='Grid / Alpha'
+        values={gridAlpha}
+        setValues={setGridAlpha}
+        constant={gridAlphaConst}
+      />
+      <SliderWrapper
+        label='Grid / Scale'
+        value={gridScale}
+        setValue={setGridScale}
+        constant={gridScaleConst}
+      />
+      <SliderDualWrapper
+        label='Grid / Amount'
+        values={gridAmount}
+        setValues={setGridAmount}
+        constant={gridAmountConst}
+      />
+      <SliderWrapper
+        label='Grid / Gap'
+        value={gridGap}
+        setValue={setGridGap}
+        constant={gridGapConst}
       />
       <div className='pt-2'>
         <Button onClick={randomize}>Randomize</Button>
       </div>
     </section>
+  );
+}
+
+function SliderWrapper({
+  label,
+  value,
+  setValue,
+  constant,
+}: {
+  readonly label: string;
+  readonly value: number;
+  readonly setValue: (value: number) => void;
+  readonly constant: SettingConstant;
+}) {
+  return (
+    <Slider
+      label={label}
+      min={constant.min}
+      max={constant.max}
+      step={constant.step}
+      value={value}
+      setValue={setValue}
+    />
+  );
+}
+
+function SliderDualWrapper({
+  label,
+  values,
+  setValues,
+  constant,
+}: {
+  readonly label: string;
+  readonly values: NumberDual;
+  readonly setValues: (values: NumberDual) => void;
+  readonly constant: SettingDualConstant;
+}) {
+  return (
+    <Slider
+      dual
+      label={label}
+      min={constant.min}
+      max={constant.max}
+      step={constant.step}
+      values={values}
+      setValues={setValues}
+    />
   );
 }
