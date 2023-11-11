@@ -1,8 +1,9 @@
 'use client';
 import {Slider} from '@/components/ui/Slider';
+import {Button} from '@/components/ui/Button';
 import {useStore} from '../store';
 import {SectionTitle} from '../SectionTitle';
-import {Button} from '@/components/ui/Button';
+import {type NumberDual} from '@/types';
 import {
   iterations as iterationsConst,
   backgroundBrightness as backgroundBrightnessConst,
@@ -17,14 +18,18 @@ import {
   type SettingConstant,
   type SettingDualConstant,
 } from '../constants';
-import {type NumberDual} from '@/types';
+import {Group} from './Group';
 
 export function SettingsSection() {
   const iterations = useStore((state) => state.iterations);
   const backgroundBrightness = useStore((state) => state.backgroundBrightness);
+
+  const rectEnabled = useStore((state) => state.rectEnabled);
   const rectBrightness = useStore((state) => state.rectBrightness);
   const rectAlpha = useStore((state) => state.rectAlpha);
   const rectScale = useStore((state) => state.rectScale);
+
+  const gridEnabled = useStore((state) => state.gridEnabled);
   const gridBrightness = useStore((state) => state.gridBrightness);
   const gridAlpha = useStore((state) => state.gridAlpha);
   const gridScale = useStore((state) => state.gridScale);
@@ -35,9 +40,13 @@ export function SettingsSection() {
   const setBackgroundBrightness = useStore(
     (state) => state.setBackgroundBrightness,
   );
+
+  const setRectEnabled = useStore((state) => state.setRectEnabled);
   const setRectBrightness = useStore((state) => state.setRectBrightness);
   const setRectAlpha = useStore((state) => state.setRectAlpha);
   const setRectScale = useStore((state) => state.setRectScale);
+
+  const setGridEnabled = useStore((state) => state.setGridEnabled);
   const setGridBrightness = useStore((state) => state.setGridBrightness);
   const setGridAlpha = useStore((state) => state.setGridAlpha);
   const setGridScale = useStore((state) => state.setGridScale);
@@ -49,66 +58,84 @@ export function SettingsSection() {
   return (
     <section>
       <SectionTitle>Settings</SectionTitle>
-      <SliderWrapper
-        label='Iterations'
-        value={iterations}
-        setValue={setIterations}
-        constant={iterationsConst}
-      />
-      <SliderWrapper
-        label='Background brightness'
-        value={backgroundBrightness}
-        setValue={setBackgroundBrightness}
-        constant={backgroundBrightnessConst}
-      />
-      <SliderDualWrapper
-        label='Rect / Brightness'
-        values={rectBrightness}
-        setValues={setRectBrightness}
-        constant={rectBrightnessConst}
-      />
-      <SliderDualWrapper
-        label='Rect / Alpha'
-        values={rectAlpha}
-        setValues={setRectAlpha}
-        constant={rectAlphaConst}
-      />
-      <SliderWrapper
-        label='Rect / Scale'
-        value={rectScale}
-        setValue={setRectScale}
-        constant={rectScaleConst}
-      />
-      <SliderDualWrapper
-        label='Grid / Brightness'
-        values={gridBrightness}
-        setValues={setGridBrightness}
-        constant={gridBrightnessConst}
-      />
-      <SliderDualWrapper
-        label='Grid / Alpha'
-        values={gridAlpha}
-        setValues={setGridAlpha}
-        constant={gridAlphaConst}
-      />
-      <SliderWrapper
-        label='Grid / Scale'
-        value={gridScale}
-        setValue={setGridScale}
-        constant={gridScaleConst}
-      />
-      <SliderDualWrapper
-        label='Grid / Amount'
-        values={gridAmount}
-        setValues={setGridAmount}
-        constant={gridAmountConst}
-      />
-      <SliderWrapper
-        label='Grid / Gap'
-        value={gridGap}
-        setValue={setGridGap}
-        constant={gridGapConst}
-      />
+      <div className='flex flex-col gap-4'>
+        <Group title='Basics'>
+          <SliderWrapper
+            label='Iterations'
+            value={iterations}
+            setValue={setIterations}
+            constant={iterationsConst}
+          />
+          <SliderWrapper
+            label='Background brightness'
+            value={backgroundBrightness}
+            setValue={setBackgroundBrightness}
+            constant={backgroundBrightnessConst}
+          />
+        </Group>
+        <Group
+          withSwitch
+          title='Rect'
+          enabled={rectEnabled}
+          setEnabled={setRectEnabled}
+        >
+          <SliderDualWrapper
+            label='Brightness'
+            values={rectBrightness}
+            setValues={setRectBrightness}
+            constant={rectBrightnessConst}
+          />
+          <SliderDualWrapper
+            label='Alpha'
+            values={rectAlpha}
+            setValues={setRectAlpha}
+            constant={rectAlphaConst}
+          />
+          <SliderWrapper
+            label='Scale'
+            value={rectScale}
+            setValue={setRectScale}
+            constant={rectScaleConst}
+          />
+        </Group>
+        <Group
+          withSwitch
+          title='Grid'
+          enabled={gridEnabled}
+          setEnabled={setGridEnabled}
+        >
+          <SliderDualWrapper
+            label='Brightness'
+            values={gridBrightness}
+            setValues={setGridBrightness}
+            constant={gridBrightnessConst}
+          />
+          <SliderDualWrapper
+            label='Alpha'
+            values={gridAlpha}
+            setValues={setGridAlpha}
+            constant={gridAlphaConst}
+          />
+          <SliderWrapper
+            label='Scale'
+            value={gridScale}
+            setValue={setGridScale}
+            constant={gridScaleConst}
+          />
+          <SliderDualWrapper
+            label='Amount'
+            values={gridAmount}
+            setValues={setGridAmount}
+            constant={gridAmountConst}
+          />
+          <SliderWrapper
+            label='Gap'
+            value={gridGap}
+            setValue={setGridGap}
+            constant={gridGapConst}
+          />
+        </Group>
+      </div>
       <div className='pt-2'>
         <Button onClick={randomize}>Randomize</Button>
       </div>

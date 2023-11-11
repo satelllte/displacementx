@@ -31,9 +31,11 @@ export function CanvasSection() {
     const {
       iterations,
       backgroundBrightness,
+      rectEnabled,
       rectBrightness,
       rectAlpha,
       rectScale,
+      gridEnabled,
       gridBrightness,
       gridAlpha,
       gridScale,
@@ -47,9 +49,11 @@ export function CanvasSection() {
       props: {
         iterations,
         backgroundBrightness,
+        rectEnabled,
         rectBrightness,
         rectAlpha,
         rectScale,
+        gridEnabled,
         gridBrightness,
         gridAlpha,
         gridScale,

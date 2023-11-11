@@ -12,9 +12,11 @@ export const draw = ({
   props: {
     iterations,
     backgroundBrightness,
+    rectEnabled,
     rectBrightness,
     rectAlpha,
     rectScale,
+    gridEnabled,
     gridBrightness,
     gridAlpha,
     gridScale,
@@ -28,9 +30,11 @@ export const draw = ({
   props: {
     iterations: number;
     backgroundBrightness: number;
+    rectEnabled: boolean;
     rectBrightness: NumberDual;
     rectAlpha: NumberDual;
     rectScale: number;
+    gridEnabled: boolean;
     gridBrightness: NumberDual;
     gridAlpha: NumberDual;
     gridScale: number;
@@ -51,6 +55,7 @@ export const draw = ({
     callback() {
       switch (randomInteger(0, 1)) {
         case 0:
+          if (!rectEnabled) break;
           drawRect({
             ctx2d,
             rectBrightness,
@@ -59,6 +64,7 @@ export const draw = ({
           });
           break;
         case 1:
+          if (!gridEnabled) break;
           drawGrid({
             ctx2d,
             gridBrightness,
