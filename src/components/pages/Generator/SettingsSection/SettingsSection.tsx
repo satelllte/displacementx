@@ -262,7 +262,7 @@ export function SettingsSection() {
         </Group>
         <Group
           withSwitch
-          title='🚧 Lines 🚧'
+          title='Lines'
           enabled={linesEnabled}
           setEnabled={setLinesEnabled}
         >
