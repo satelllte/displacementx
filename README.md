@@ -8,7 +8,7 @@ Live at ▶ **[displacementx.vercel.app](https://displacementx.vercel.app/)**
 
 ## Status
 
-The application is still in development. But it can be already usable.
+The application is still in development, but it's already usable to some extent.
 
 ## Development
 
