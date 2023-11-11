@@ -2,9 +2,11 @@ import {create} from 'zustand';
 import {
   iterations,
   backgroundBrightness,
+  rectEnabled,
   rectBrightness,
   rectAlpha,
   rectScale,
+  gridEnabled,
   gridBrightness,
   gridAlpha,
   gridScale,
@@ -19,9 +21,11 @@ import {type NumberDual} from '@/types';
 type Values = {
   iterations: number;
   backgroundBrightness: number;
+  rectEnabled: boolean;
   rectBrightness: NumberDual;
   rectAlpha: NumberDual;
   rectScale: number;
+  gridEnabled: boolean;
   gridBrightness: NumberDual;
   gridAlpha: NumberDual;
   gridScale: number;
@@ -34,9 +38,11 @@ type Actions = {
   setBackgroundBrightness: (
     backgroundBrightness: Values['backgroundBrightness'],
   ) => void;
+  setRectEnabled: (rectEnabled: Values['rectEnabled']) => void;
   setRectBrightness: (rectBrightness: Values['rectBrightness']) => void;
   setRectAlpha: (rectAlpha: Values['rectAlpha']) => void;
   setRectScale: (rectScale: Values['rectScale']) => void;
+  setGridEnabled: (gridEnabled: Values['gridEnabled']) => void;
   setGridBrightness: (gridBrightness: Values['gridBrightness']) => void;
   setGridAlpha: (gridAlpha: Values['gridAlpha']) => void;
   setGridScale: (gridScale: Values['gridScale']) => void;
@@ -48,9 +54,11 @@ type Actions = {
 export const useStore = create<Values & Actions>((set) => ({
   iterations: iterations.default,
   backgroundBrightness: backgroundBrightness.default,
+  rectEnabled: rectEnabled.default,
   rectBrightness: rectBrightness.default,
   rectAlpha: rectAlpha.default,
   rectScale: rectScale.default,
+  gridEnabled: gridEnabled.default,
   gridBrightness: gridBrightness.default,
   gridAlpha: gridAlpha.default,
   gridScale: gridScale.default,
@@ -64,6 +72,9 @@ export const useStore = create<Values & Actions>((set) => ({
   ) {
     set(() => ({backgroundBrightness}));
   },
+  setRectEnabled(rectEnabled: Values['rectEnabled']) {
+    set(() => ({rectEnabled}));
+  },
   setRectBrightness(rectBrightness: Values['rectBrightness']) {
     set(() => ({rectBrightness}));
   },
@@ -72,6 +83,9 @@ export const useStore = create<Values & Actions>((set) => ({
   },
   setRectScale(rectScale: Values['rectScale']) {
     set(() => ({rectScale}));
+  },
+  setGridEnabled(gridEnabled: Values['gridEnabled']) {
+    set(() => ({gridEnabled}));
   },
   setGridBrightness(gridBrightness: Values['gridBrightness']) {
     set(() => ({gridBrightness}));
@@ -92,9 +106,11 @@ export const useStore = create<Values & Actions>((set) => ({
     set(() => ({
       iterations: randSetting(iterations),
       backgroundBrightness: randSetting(backgroundBrightness),
+      rectEnabled: randomInteger(0, 1) === 0, // TODO: create `randomBoolean` util
       rectBrightness: randDualSetting(rectBrightness),
       rectAlpha: randDualSetting(rectAlpha),
       rectScale: randSetting(rectScale),
+      gridEnabled: randomInteger(0, 1) === 0, // TODO: create `randomBoolean` util
       gridBrightness: randDualSetting(gridBrightness),
       gridAlpha: randDualSetting(gridAlpha),
       gridScale: randSetting(gridScale),

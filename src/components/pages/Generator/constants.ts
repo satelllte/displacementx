@@ -14,6 +14,10 @@ export type SettingDualConstant = {
   step: number;
 };
 
+export type SettingBooleanConstant = {
+  default: boolean;
+};
+
 export const iterations: SettingConstant = {
   min: 10,
   max: 2000,
@@ -26,6 +30,10 @@ export const backgroundBrightness: SettingConstant = {
   max: 255,
   default: 32,
   step: 1,
+};
+
+export const rectEnabled: SettingBooleanConstant = {
+  default: true,
 };
 
 export const rectBrightness: SettingDualConstant = {
@@ -47,6 +55,10 @@ export const rectScale: SettingConstant = {
   max: 200,
   default: 100,
   step: 1,
+};
+
+export const gridEnabled: SettingBooleanConstant = {
+  default: true,
 };
 
 export const gridBrightness: SettingDualConstant = {

@@ -1,10 +1,8 @@
 'use client';
-import {useState} from 'react';
 import {Slider} from '@/components/ui/Slider';
 import {Button} from '@/components/ui/Button';
 import {useStore} from '../store';
 import {SectionTitle} from '../SectionTitle';
-import {Group} from './Group';
 import {type NumberDual} from '@/types';
 import {
   iterations as iterationsConst,
@@ -20,17 +18,18 @@ import {
   type SettingConstant,
   type SettingDualConstant,
 } from '../constants';
+import {Group} from './Group';
 
 export function SettingsSection() {
   const iterations = useStore((state) => state.iterations);
   const backgroundBrightness = useStore((state) => state.backgroundBrightness);
 
-  const [rectEnabled, setRectEnabled] = useState<boolean>(false);
+  const rectEnabled = useStore((state) => state.rectEnabled);
   const rectBrightness = useStore((state) => state.rectBrightness);
   const rectAlpha = useStore((state) => state.rectAlpha);
   const rectScale = useStore((state) => state.rectScale);
 
-  const [gridEnabled, setGridEnabled] = useState<boolean>(false);
+  const gridEnabled = useStore((state) => state.gridEnabled);
   const gridBrightness = useStore((state) => state.gridBrightness);
   const gridAlpha = useStore((state) => state.gridAlpha);
   const gridScale = useStore((state) => state.gridScale);
@@ -42,10 +41,12 @@ export function SettingsSection() {
     (state) => state.setBackgroundBrightness,
   );
 
+  const setRectEnabled = useStore((state) => state.setRectEnabled);
   const setRectBrightness = useStore((state) => state.setRectBrightness);
   const setRectAlpha = useStore((state) => state.setRectAlpha);
   const setRectScale = useStore((state) => state.setRectScale);
 
+  const setGridEnabled = useStore((state) => state.setGridEnabled);
   const setGridBrightness = useStore((state) => state.setGridBrightness);
   const setGridAlpha = useStore((state) => state.setGridAlpha);
   const setGridScale = useStore((state) => state.setGridScale);
