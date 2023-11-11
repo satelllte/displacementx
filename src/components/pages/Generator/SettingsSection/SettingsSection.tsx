@@ -156,7 +156,7 @@ export function SettingsSection() {
         </Group>
         <Group
           withSwitch
-          title='🚧 Cols 🚧'
+          title='Cols'
           enabled={colsEnabled}
           setEnabled={setColsEnabled}
         >
