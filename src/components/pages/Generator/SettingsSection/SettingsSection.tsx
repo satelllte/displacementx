@@ -25,6 +25,9 @@ import {
   rowsScale as rowsScaleConst,
   rowsAmount as rowsAmountConst,
   rowsGap as rowsGapConst,
+  linesBrightness as linesBrightnessConst,
+  linesAlpha as linesAlphaConst,
+  linesWidth as linesWidthConst,
   type SettingConstant,
   type SettingDualConstant,
 } from '../constants';
@@ -60,6 +63,11 @@ export function SettingsSection() {
   const rowsAmount = useStore((state) => state.rowsAmount);
   const rowsGap = useStore((state) => state.rowsGap);
 
+  const linesEnabled = useStore((state) => state.linesEnabled);
+  const linesBrightness = useStore((state) => state.linesBrightness);
+  const linesAlpha = useStore((state) => state.linesAlpha);
+  const linesWidth = useStore((state) => state.linesWidth);
+
   const setIterations = useStore((state) => state.setIterations);
   const setBackgroundBrightness = useStore(
     (state) => state.setBackgroundBrightness,
@@ -90,6 +98,11 @@ export function SettingsSection() {
   const setRowsScale = useStore((state) => state.setRowsScale);
   const setRowsAmount = useStore((state) => state.setRowsAmount);
   const setRowsGap = useStore((state) => state.setRowsGap);
+
+  const setLinesEnabled = useStore((state) => state.setLinesEnabled);
+  const setLinesBrightness = useStore((state) => state.setLinesBrightness);
+  const setLinesAlpha = useStore((state) => state.setLinesAlpha);
+  const setLinesWidth = useStore((state) => state.setLinesWidth);
 
   const randomize = useStore((state) => state.randomize);
 
@@ -245,6 +258,31 @@ export function SettingsSection() {
             value={rowsGap}
             setValue={setRowsGap}
             constant={rowsGapConst}
+          />
+        </Group>
+        <Group
+          withSwitch
+          title='🚧 Lines 🚧'
+          enabled={linesEnabled}
+          setEnabled={setLinesEnabled}
+        >
+          <SliderDualWrapper
+            label='Brightness'
+            values={linesBrightness}
+            setValues={setLinesBrightness}
+            constant={linesBrightnessConst}
+          />
+          <SliderDualWrapper
+            label='Alpha'
+            values={linesAlpha}
+            setValues={setLinesAlpha}
+            constant={linesAlphaConst}
+          />
+          <SliderDualWrapper
+            label='Width'
+            values={linesWidth}
+            setValues={setLinesWidth}
+            constant={linesWidthConst}
           />
         </Group>
       </div>

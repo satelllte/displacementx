@@ -24,6 +24,10 @@ import {
   rowsScale,
   rowsAmount,
   rowsGap,
+  linesEnabled,
+  linesBrightness,
+  linesAlpha,
+  linesWidth,
   type SettingConstant,
   type SettingDualConstant,
 } from './constants';
@@ -55,6 +59,10 @@ type Values = {
   rowsScale: number;
   rowsAmount: NumberDual;
   rowsGap: number;
+  linesEnabled: boolean;
+  linesBrightness: NumberDual;
+  linesAlpha: NumberDual;
+  linesWidth: NumberDual;
 };
 
 type Actions = {
@@ -84,6 +92,10 @@ type Actions = {
   setRowsScale: (rowsScale: Values['rowsScale']) => void;
   setRowsAmount: (rowsAmount: Values['rowsAmount']) => void;
   setRowsGap: (rowsGap: Values['rowsGap']) => void;
+  setLinesEnabled: (linesEnabled: Values['linesEnabled']) => void;
+  setLinesBrightness: (linesBrightness: Values['linesBrightness']) => void;
+  setLinesAlpha: (linesAlpha: Values['linesAlpha']) => void;
+  setLinesWidth: (linesWidth: Values['linesWidth']) => void;
   randomize: () => void;
 };
 
@@ -112,6 +124,10 @@ export const useStore = create<Values & Actions>((set) => ({
   rowsScale: rowsScale.default,
   rowsAmount: rowsAmount.default,
   rowsGap: rowsGap.default,
+  linesEnabled: linesEnabled.default,
+  linesBrightness: linesBrightness.default,
+  linesAlpha: linesAlpha.default,
+  linesWidth: linesWidth.default,
   setIterations(iterations: Values['iterations']) {
     set(() => ({iterations}));
   },
@@ -186,6 +202,18 @@ export const useStore = create<Values & Actions>((set) => ({
   setRowsGap(rowsGap: Values['rowsGap']) {
     set(() => ({rowsGap}));
   },
+  setLinesEnabled(linesEnabled: Values['linesEnabled']) {
+    set(() => ({linesEnabled}));
+  },
+  setLinesBrightness(linesBrightness: Values['linesBrightness']) {
+    set(() => ({linesBrightness}));
+  },
+  setLinesAlpha(linesAlpha: Values['linesAlpha']) {
+    set(() => ({linesAlpha}));
+  },
+  setLinesWidth(linesWidth: Values['linesWidth']) {
+    set(() => ({linesWidth}));
+  },
   randomize() {
     set(() => ({
       iterations: randSetting(iterations),
@@ -207,11 +235,15 @@ export const useStore = create<Values & Actions>((set) => ({
       colsAmount: randDualSetting(colsAmount),
       colsGap: randSetting(colsGap),
       rowsEnabled: randomBoolean(),
-      rowsBrightness: randDualSetting(colsBrightness),
-      rowsAlpha: randDualSetting(colsAlpha),
-      rowsScale: randSetting(colsScale),
-      rowsAmount: randDualSetting(colsAmount),
-      rowsGap: randSetting(colsGap),
+      rowsBrightness: randDualSetting(rowsBrightness),
+      rowsAlpha: randDualSetting(rowsAlpha),
+      rowsScale: randSetting(rowsScale),
+      rowsAmount: randDualSetting(rowsAmount),
+      rowsGap: randSetting(rowsGap),
+      linesEnabled: randomBoolean(),
+      linesBrightness: randDualSetting(linesBrightness),
+      linesAlpha: randDualSetting(linesAlpha),
+      linesWidth: randDualSetting(linesWidth),
     }));
   },
 }));
