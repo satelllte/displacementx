@@ -99,3 +99,10 @@ export const colsAlpha: SettingDualConstant = _alpha80to100;
 export const colsScale: SettingConstant = _scale20to200;
 export const colsAmount: SettingDualConstant = _amount2to10;
 export const colsGap: SettingConstant = _gap;
+
+export const rowsEnabled: SettingBooleanConstant = _booleanTrue;
+export const rowsBrightness: SettingDualConstant = _brightnessRange;
+export const rowsAlpha: SettingDualConstant = _alpha80to100;
+export const rowsScale: SettingConstant = _scale20to200;
+export const rowsAmount: SettingDualConstant = _amount2to10;
+export const rowsGap: SettingConstant = _gap;

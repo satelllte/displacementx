@@ -28,6 +28,12 @@ export const draw = ({
     colsScale,
     colsAmount,
     colsGap,
+    rowsEnabled,
+    rowsBrightness,
+    rowsAlpha,
+    rowsScale,
+    rowsAmount,
+    rowsGap,
   },
 }: {
   ctx2d: CanvasRenderingContext2D;
@@ -52,6 +58,12 @@ export const draw = ({
     colsScale: number;
     colsAmount: NumberDual;
     colsGap: number;
+    rowsEnabled: boolean;
+    rowsBrightness: NumberDual;
+    rowsAlpha: NumberDual;
+    rowsScale: number;
+    rowsAmount: NumberDual;
+    rowsGap: number;
   };
 }): void => {
   const renderStartTimeMs = performance.now();
@@ -65,7 +77,7 @@ export const draw = ({
     iterations,
     iterationsPerFrame: 50,
     callback() {
-      switch (randomInteger(0, 2)) {
+      switch (randomInteger(0, 3)) {
         case 0:
           if (!rectEnabled) break;
           drawRect({
@@ -95,6 +107,17 @@ export const draw = ({
             colsScale,
             colsAmount,
             colsGap,
+          });
+          break;
+        case 3:
+          if (!rowsEnabled) break;
+          drawRows({
+            ctx2d,
+            rowsBrightness,
+            rowsAlpha,
+            rowsScale,
+            rowsAmount,
+            rowsGap,
           });
           break;
         default:
@@ -225,6 +248,44 @@ const drawCols = ({
   for (let i = 0, x = x0; i < xn; i++) {
     ctx2d.fillRect(x, y0, sizeW, sizeH);
     x += sizeW + Math.round(sizeW * gap);
+  }
+};
+
+const drawRows = ({
+  ctx2d,
+  rowsBrightness,
+  rowsAlpha,
+  rowsScale,
+  rowsAmount,
+  rowsGap,
+}: {
+  ctx2d: CanvasRenderingContext2D;
+  rowsBrightness: NumberDual;
+  rowsAlpha: NumberDual;
+  rowsScale: number;
+  rowsAmount: NumberDual;
+  rowsGap: number;
+}): void => {
+  const {w, h} = getCanvasDimensions(ctx2d);
+
+  ctx2d.fillStyle = xxxa({
+    x: randomInteger(...rowsBrightness),
+    a: randomInteger(...rowsAlpha),
+  });
+
+  const x0 = randomInteger(Math.round(-w / 16), Math.round(w));
+  const y0 = randomInteger(Math.round(-h / 16), Math.round(h));
+  const yn = randomInteger(...rowsAmount);
+  const scale = rowsScale / 100;
+  const gap = rowsGap / 100;
+  const sizeH = Math.round(
+    randomInteger(Math.round(w / 256), Math.round(w / 16)) * scale,
+  );
+  const sizeW = Math.round(sizeH * randomInteger(1, 10));
+
+  for (let i = 0, y = y0; i < yn; i++) {
+    ctx2d.fillRect(x0, y, sizeW, sizeH);
+    y += sizeH + Math.round(sizeH * gap);
   }
 };
 

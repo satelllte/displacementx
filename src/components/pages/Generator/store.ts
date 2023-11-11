@@ -18,6 +18,12 @@ import {
   colsScale,
   colsAmount,
   colsGap,
+  rowsEnabled,
+  rowsBrightness,
+  rowsAlpha,
+  rowsScale,
+  rowsAmount,
+  rowsGap,
   type SettingConstant,
   type SettingDualConstant,
 } from './constants';
@@ -43,6 +49,12 @@ type Values = {
   colsScale: number;
   colsAmount: NumberDual;
   colsGap: number;
+  rowsEnabled: boolean;
+  rowsBrightness: NumberDual;
+  rowsAlpha: NumberDual;
+  rowsScale: number;
+  rowsAmount: NumberDual;
+  rowsGap: number;
 };
 
 type Actions = {
@@ -66,6 +78,12 @@ type Actions = {
   setColsScale: (colsScale: Values['colsScale']) => void;
   setColsAmount: (colsAmount: Values['colsAmount']) => void;
   setColsGap: (colsGap: Values['colsGap']) => void;
+  setRowsEnabled: (rowsEnabled: Values['rowsEnabled']) => void;
+  setRowsBrightness: (rowsBrightness: Values['rowsBrightness']) => void;
+  setRowsAlpha: (rowsAlpha: Values['rowsAlpha']) => void;
+  setRowsScale: (rowsScale: Values['rowsScale']) => void;
+  setRowsAmount: (rowsAmount: Values['rowsAmount']) => void;
+  setRowsGap: (rowsGap: Values['rowsGap']) => void;
   randomize: () => void;
 };
 
@@ -88,6 +106,12 @@ export const useStore = create<Values & Actions>((set) => ({
   colsScale: colsScale.default,
   colsAmount: colsAmount.default,
   colsGap: colsGap.default,
+  rowsEnabled: rowsEnabled.default,
+  rowsBrightness: rowsBrightness.default,
+  rowsAlpha: rowsAlpha.default,
+  rowsScale: rowsScale.default,
+  rowsAmount: rowsAmount.default,
+  rowsGap: rowsGap.default,
   setIterations(iterations: Values['iterations']) {
     set(() => ({iterations}));
   },
@@ -144,6 +168,24 @@ export const useStore = create<Values & Actions>((set) => ({
   setColsGap(colsGap: Values['colsGap']) {
     set(() => ({colsGap}));
   },
+  setRowsEnabled(rowsEnabled: Values['rowsEnabled']) {
+    set(() => ({rowsEnabled}));
+  },
+  setRowsBrightness(rowsBrightness: Values['rowsBrightness']) {
+    set(() => ({rowsBrightness}));
+  },
+  setRowsAlpha(rowsAlpha: Values['rowsAlpha']) {
+    set(() => ({rowsAlpha}));
+  },
+  setRowsScale(rowsScale: Values['rowsScale']) {
+    set(() => ({rowsScale}));
+  },
+  setRowsAmount(rowsAmount: Values['rowsAmount']) {
+    set(() => ({rowsAmount}));
+  },
+  setRowsGap(rowsGap: Values['rowsGap']) {
+    set(() => ({rowsGap}));
+  },
   randomize() {
     set(() => ({
       iterations: randSetting(iterations),
@@ -164,6 +206,12 @@ export const useStore = create<Values & Actions>((set) => ({
       colsScale: randSetting(colsScale),
       colsAmount: randDualSetting(colsAmount),
       colsGap: randSetting(colsGap),
+      rowsEnabled: randomBoolean(),
+      rowsBrightness: randDualSetting(colsBrightness),
+      rowsAlpha: randDualSetting(colsAlpha),
+      rowsScale: randSetting(colsScale),
+      rowsAmount: randDualSetting(colsAmount),
+      rowsGap: randSetting(colsGap),
     }));
   },
 }));
