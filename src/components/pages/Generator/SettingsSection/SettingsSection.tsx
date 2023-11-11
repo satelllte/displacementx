@@ -20,6 +20,11 @@ import {
   colsScale as colsScaleConst,
   colsAmount as colsAmountConst,
   colsGap as colsGapConst,
+  rowsBrightness as rowsBrightnessConst,
+  rowsAlpha as rowsAlphaConst,
+  rowsScale as rowsScaleConst,
+  rowsAmount as rowsAmountConst,
+  rowsGap as rowsGapConst,
   type SettingConstant,
   type SettingDualConstant,
 } from '../constants';
@@ -48,6 +53,13 @@ export function SettingsSection() {
   const colsAmount = useStore((state) => state.colsAmount);
   const colsGap = useStore((state) => state.colsGap);
 
+  const rowsEnabled = useStore((state) => state.rowsEnabled);
+  const rowsBrightness = useStore((state) => state.rowsBrightness);
+  const rowsAlpha = useStore((state) => state.rowsAlpha);
+  const rowsScale = useStore((state) => state.rowsScale);
+  const rowsAmount = useStore((state) => state.rowsAmount);
+  const rowsGap = useStore((state) => state.rowsGap);
+
   const setIterations = useStore((state) => state.setIterations);
   const setBackgroundBrightness = useStore(
     (state) => state.setBackgroundBrightness,
@@ -71,6 +83,13 @@ export function SettingsSection() {
   const setColsScale = useStore((state) => state.setColsScale);
   const setColsAmount = useStore((state) => state.setColsAmount);
   const setColsGap = useStore((state) => state.setColsGap);
+
+  const setRowsEnabled = useStore((state) => state.setRowsEnabled);
+  const setRowsBrightness = useStore((state) => state.setRowsBrightness);
+  const setRowsAlpha = useStore((state) => state.setRowsAlpha);
+  const setRowsScale = useStore((state) => state.setRowsScale);
+  const setRowsAmount = useStore((state) => state.setRowsAmount);
+  const setRowsGap = useStore((state) => state.setRowsGap);
 
   const randomize = useStore((state) => state.randomize);
 
@@ -189,6 +208,43 @@ export function SettingsSection() {
             value={colsGap}
             setValue={setColsGap}
             constant={colsGapConst}
+          />
+        </Group>
+        <Group
+          withSwitch
+          title='Rows'
+          enabled={rowsEnabled}
+          setEnabled={setRowsEnabled}
+        >
+          <SliderDualWrapper
+            label='Brightness'
+            values={rowsBrightness}
+            setValues={setRowsBrightness}
+            constant={rowsBrightnessConst}
+          />
+          <SliderDualWrapper
+            label='Alpha'
+            values={rowsAlpha}
+            setValues={setRowsAlpha}
+            constant={rowsAlphaConst}
+          />
+          <SliderWrapper
+            label='Scale'
+            value={rowsScale}
+            setValue={setRowsScale}
+            constant={rowsScaleConst}
+          />
+          <SliderDualWrapper
+            label='Amount'
+            values={rowsAmount}
+            setValues={setRowsAmount}
+            constant={rowsAmountConst}
+          />
+          <SliderWrapper
+            label='Gap'
+            value={rowsGap}
+            setValue={setRowsGap}
+            constant={rowsGapConst}
           />
         </Group>
       </div>
