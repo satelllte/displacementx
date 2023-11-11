@@ -15,7 +15,7 @@ import {
   type SettingConstant,
   type SettingDualConstant,
 } from './constants';
-import {randomInteger} from '@/utils/random';
+import {randomBoolean, randomInteger} from '@/utils/random';
 import {type NumberDual} from '@/types';
 
 type Values = {
@@ -106,11 +106,11 @@ export const useStore = create<Values & Actions>((set) => ({
     set(() => ({
       iterations: randSetting(iterations),
       backgroundBrightness: randSetting(backgroundBrightness),
-      rectEnabled: randomInteger(0, 1) === 0, // TODO: create `randomBoolean` util
+      rectEnabled: randomBoolean(),
       rectBrightness: randDualSetting(rectBrightness),
       rectAlpha: randDualSetting(rectAlpha),
       rectScale: randSetting(rectScale),
-      gridEnabled: randomInteger(0, 1) === 0, // TODO: create `randomBoolean` util
+      gridEnabled: randomBoolean(),
       gridBrightness: randDualSetting(gridBrightness),
       gridAlpha: randDualSetting(gridAlpha),
       gridScale: randSetting(gridScale),

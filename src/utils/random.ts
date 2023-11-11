@@ -1,4 +1,9 @@
 /**
+ * Results with random boolean value
+ */
+export const randomBoolean = (): boolean => Math.random() >= 0.5;
+
+/**
  * Results with random integer value in [min..max] range (inclusive)
  */
 export const randomInteger = (min: number, max: number): number => {
