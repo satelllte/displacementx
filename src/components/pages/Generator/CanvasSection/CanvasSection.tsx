@@ -41,6 +41,12 @@ export function CanvasSection() {
       gridScale,
       gridAmount,
       gridGap,
+      colsEnabled,
+      colsBrightness,
+      colsAlpha,
+      colsScale,
+      colsAmount,
+      colsGap,
     } = useStore.getState();
 
     draw({
@@ -59,6 +65,12 @@ export function CanvasSection() {
         gridScale,
         gridAmount,
         gridGap,
+        colsEnabled,
+        colsBrightness,
+        colsAlpha,
+        colsScale,
+        colsAmount,
+        colsGap,
       },
       onEnd(renderTimeMs) {
         // Set minumum "visible" render time to prevent very fast component updates (i.e., flickering)

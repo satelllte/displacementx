@@ -15,6 +15,11 @@ import {
   gridScale as gridScaleConst,
   gridAmount as gridAmountConst,
   gridGap as gridGapConst,
+  colsBrightness as colsBrightnessConst,
+  colsAlpha as colsAlphaConst,
+  colsScale as colsScaleConst,
+  colsAmount as colsAmountConst,
+  colsGap as colsGapConst,
   type SettingConstant,
   type SettingDualConstant,
 } from '../constants';
@@ -36,6 +41,13 @@ export function SettingsSection() {
   const gridAmount = useStore((state) => state.gridAmount);
   const gridGap = useStore((state) => state.gridGap);
 
+  const colsEnabled = useStore((state) => state.colsEnabled);
+  const colsBrightness = useStore((state) => state.colsBrightness);
+  const colsAlpha = useStore((state) => state.colsAlpha);
+  const colsScale = useStore((state) => state.colsScale);
+  const colsAmount = useStore((state) => state.colsAmount);
+  const colsGap = useStore((state) => state.colsGap);
+
   const setIterations = useStore((state) => state.setIterations);
   const setBackgroundBrightness = useStore(
     (state) => state.setBackgroundBrightness,
@@ -52,6 +64,13 @@ export function SettingsSection() {
   const setGridScale = useStore((state) => state.setGridScale);
   const setGridAmount = useStore((state) => state.setGridAmount);
   const setGridGap = useStore((state) => state.setGridGap);
+
+  const setColsEnabled = useStore((state) => state.setColsEnabled);
+  const setColsBrightness = useStore((state) => state.setColsBrightness);
+  const setColsAlpha = useStore((state) => state.setColsAlpha);
+  const setColsScale = useStore((state) => state.setColsScale);
+  const setColsAmount = useStore((state) => state.setColsAmount);
+  const setColsGap = useStore((state) => state.setColsGap);
 
   const randomize = useStore((state) => state.randomize);
 
@@ -133,6 +152,43 @@ export function SettingsSection() {
             value={gridGap}
             setValue={setGridGap}
             constant={gridGapConst}
+          />
+        </Group>
+        <Group
+          withSwitch
+          title='Cols'
+          enabled={colsEnabled}
+          setEnabled={setColsEnabled}
+        >
+          <SliderDualWrapper
+            label='Brightness'
+            values={colsBrightness}
+            setValues={setColsBrightness}
+            constant={colsBrightnessConst}
+          />
+          <SliderDualWrapper
+            label='Alpha'
+            values={colsAlpha}
+            setValues={setColsAlpha}
+            constant={colsAlphaConst}
+          />
+          <SliderWrapper
+            label='Scale'
+            value={colsScale}
+            setValue={setColsScale}
+            constant={colsScaleConst}
+          />
+          <SliderDualWrapper
+            label='Amount'
+            values={colsAmount}
+            setValues={setColsAmount}
+            constant={colsAmountConst}
+          />
+          <SliderWrapper
+            label='Gap'
+            value={colsGap}
+            setValue={setColsGap}
+            constant={colsGapConst}
           />
         </Group>
       </div>
