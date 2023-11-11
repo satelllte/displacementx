@@ -106,3 +106,13 @@ export const rowsAlpha: SettingDualConstant = _alpha80to100;
 export const rowsScale: SettingConstant = _scale20to200;
 export const rowsAmount: SettingDualConstant = _amount2to10;
 export const rowsGap: SettingConstant = _gap;
+
+export const linesEnabled: SettingBooleanConstant = _booleanTrue;
+export const linesBrightness: SettingDualConstant = _brightnessRange;
+export const linesAlpha: SettingDualConstant = _alpha80to100;
+export const linesWidth: SettingDualConstant = {
+  min: 1,
+  max: 50,
+  default: [5, 10],
+  step: 1,
+};

@@ -1,7 +1,7 @@
 import {type NumberDual} from '@/types';
 import {animateWithSubIterations} from '@/utils/animationFrame';
 import {xxx, xxxa} from '@/utils/colors';
-import {randomInteger} from '@/utils/random';
+import {randomBoolean, randomInteger} from '@/utils/random';
 import {getCanvasDimensions} from './getCanvasDimensions';
 import {clearCanvas} from './clearCanvas';
 
@@ -34,6 +34,10 @@ export const draw = ({
     rowsScale,
     rowsAmount,
     rowsGap,
+    linesEnabled,
+    linesBrightness,
+    linesAlpha,
+    linesWidth,
   },
 }: {
   ctx2d: CanvasRenderingContext2D;
@@ -64,6 +68,10 @@ export const draw = ({
     rowsScale: number;
     rowsAmount: NumberDual;
     rowsGap: number;
+    linesEnabled: boolean;
+    linesBrightness: NumberDual;
+    linesAlpha: NumberDual;
+    linesWidth: NumberDual;
   };
 }): void => {
   const renderStartTimeMs = performance.now();
@@ -77,7 +85,7 @@ export const draw = ({
     iterations,
     iterationsPerFrame: 50,
     callback() {
-      switch (randomInteger(0, 3)) {
+      switch (randomInteger(0, 4)) {
         case 0:
           if (!rectEnabled) break;
           drawRect({
@@ -118,6 +126,15 @@ export const draw = ({
             rowsScale,
             rowsAmount,
             rowsGap,
+          });
+          break;
+        case 4:
+          if (!linesEnabled) break;
+          drawLines({
+            ctx2d,
+            linesBrightness,
+            linesAlpha,
+            linesWidth,
           });
           break;
         default:
@@ -286,6 +303,37 @@ const drawRows = ({
   for (let i = 0, y = y0; i < yn; i++) {
     ctx2d.fillRect(x0, y, sizeW, sizeH);
     y += sizeH + Math.round(sizeH * gap);
+  }
+};
+
+const drawLines = ({
+  ctx2d,
+  linesBrightness,
+  linesAlpha,
+  linesWidth,
+}: {
+  ctx2d: CanvasRenderingContext2D;
+  linesBrightness: NumberDual;
+  linesAlpha: NumberDual;
+  linesWidth: NumberDual;
+}): void => {
+  const {w, h} = getCanvasDimensions(ctx2d);
+
+  ctx2d.fillStyle = xxxa({
+    x: randomInteger(...linesBrightness),
+    a: randomInteger(...linesAlpha),
+  });
+
+  if (randomBoolean()) {
+    // Horizontal
+    const y = randomInteger(Math.round(-h / 16), Math.round(h));
+    const thickness = Math.round(randomInteger(...linesWidth) * (h / 2500));
+    ctx2d.fillRect(0, y, w, thickness);
+  } else {
+    // Vertical
+    const x = randomInteger(Math.round(-w / 16), Math.round(w));
+    const thickness = Math.round(randomInteger(...linesWidth) * (w / 2500));
+    ctx2d.fillRect(x, 0, thickness, h);
   }
 };
 
