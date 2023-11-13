@@ -85,6 +85,11 @@ export const draw = ({
     iterations,
     iterationsPerFrame: 50,
     callback() {
+      drawSprite({
+        ctx2d,
+      });
+      return;
+
       switch (randomInteger(0, 4)) {
         case 0:
           if (!rectEnabled) break;
@@ -335,6 +340,19 @@ const drawLines = ({
     const thickness = Math.round(randomInteger(...linesWidth) * (w / 2500));
     ctx2d.fillRect(x, 0, thickness, h);
   }
+};
+
+// TODO: this should be async
+const drawSprite = ({ctx2d}: {ctx2d: CanvasRenderingContext2D}): void => {
+  const {w, h} = getCanvasDimensions(ctx2d);
+
+  const spriteUrl = '/sprites/001.svg';
+
+  const sprite = new Image();
+  sprite.src = spriteUrl;
+  sprite.onload = () => {
+    ctx2d.drawImage(sprite, 0, 0, Math.round(w), Math.round(h));
+  };
 };
 
 /**
