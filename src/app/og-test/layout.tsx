@@ -4,7 +4,7 @@ const title = 'OG Title';
 const description = 'OG Description';
 const images = [
   {
-    url: 'https://placehold.co/1200x630.png',
+    url: 'https://res.cloudinary.com/drudlafqg/image/upload/c_crop,h_630,w_1200/co_rgb:000000,l_text:open%20sans_100_normal_left:Open%20Graph%20HELLO/fl_layer_apply/FFCDD8_1024x_w5cfox.jpg',
     alt: description,
     width: 1200,
     height: 630,
