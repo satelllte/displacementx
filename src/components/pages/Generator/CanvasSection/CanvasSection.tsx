@@ -159,7 +159,7 @@ export function CanvasSection() {
       if (isNormalPreviewNew) {
         // Draw normal preview
         canvasOriginalPreviewDataUrl.current = ctx2d.canvas.toDataURL();
-        drawNormal({ctx2d, ctx2dNormal: ctx2d});
+        drawNormal(ctx2d);
       } else {
         // Restore original preview
         const dataUrl = canvasOriginalPreviewDataUrl.current;

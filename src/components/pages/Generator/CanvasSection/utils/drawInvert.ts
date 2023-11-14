@@ -1,8 +1,5 @@
 import {getCanvasDimensions} from './getCanvasDimensions';
 
-/**
- * Inverts canvas.
- */
 export const drawInvert = (ctx2d: CanvasRenderingContext2D): void => {
   const {w, h} = getCanvasDimensions(ctx2d);
 
