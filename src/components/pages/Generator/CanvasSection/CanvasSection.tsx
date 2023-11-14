@@ -7,9 +7,10 @@ import {SectionTitle} from '../SectionTitle';
 import {saveImage} from './utils/saveImage';
 import {draw} from './utils/draw';
 import {Switch} from '@/components/ui/Switch';
+import {getCanvasDimensions} from './utils/getCanvasDimensions';
 import {clearCanvas} from './utils/clearCanvas';
 import {drawNormal} from './utils/drawNormal';
-import {getCanvasDimensions} from './utils/getCanvasDimensions';
+import {drawInvert} from './utils/drawInvert';
 
 export function CanvasSection() {
   const [is8k, setIs8k] = useState<boolean>(false);
@@ -129,6 +130,24 @@ export function CanvasSection() {
     setIs8k(is8k);
   };
 
+  const invert = () => {
+    const renderTimeStartMs: number = performance.now();
+    setIsRendering(true);
+    setIsNormalPreview(false);
+
+    const updateCanvas = () => {
+      const ctx2d = getCtx2d(canvasRef);
+      drawInvert(ctx2d);
+    };
+
+    // Put a small timeout to allow the UI to update before canvas takes the main thread over
+    setTimeout(() => {
+      updateCanvas();
+      setIsRendering(false);
+      setRenderTimeMs(performance.now() - renderTimeStartMs);
+    }, 20);
+  };
+
   const toggleNormalPreview = () => {
     const isNormalPreviewNew = !isNormalPreview;
     const renderTimeStartMs: number = performance.now();
@@ -197,6 +216,12 @@ export function CanvasSection() {
         </Button>
       </div>
       <div className='flex flex-wrap gap-1 pt-2'>
+        <Button
+          disabled={isPristine || isRendering || isNormalPreview}
+          onClick={invert}
+        >
+          Invert
+        </Button>
         <Button
           disabled={isPristine || isRendering}
           onClick={toggleNormalPreview}
