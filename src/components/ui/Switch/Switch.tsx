@@ -3,19 +3,20 @@ import clsx from 'clsx';
 import {useId} from 'react';
 
 type SwitchProps = {
-  readonly textOff: string;
-  readonly textOn: string;
   readonly isOn: boolean;
   readonly setIsOn: (checked: boolean) => void;
+  readonly labels?: [string, string];
 };
 
-export function Switch({textOff, textOn, isOn, setIsOn}: SwitchProps) {
+export function Switch({labels, isOn, setIsOn}: SwitchProps) {
   const id = useId();
   return (
     <div className='flex items-center gap-2'>
-      <Label htmlFor={id} isActive={!isOn}>
-        {textOff}
-      </Label>
+      {labels && (
+        <Label htmlFor={id} isActive={!isOn}>
+          {labels[0]}
+        </Label>
+      )}
       <RadixSwitch.Root
         id={id}
         checked={isOn}
@@ -24,9 +25,11 @@ export function Switch({textOff, textOn, isOn, setIsOn}: SwitchProps) {
       >
         <RadixSwitch.Thumb className='block h-full w-4 bg-white shadow-[0_2px_2px] shadow-black transition-transform duration-100 will-change-transform data-[state=checked]:translate-x-full' />
       </RadixSwitch.Root>
-      <Label htmlFor={id} isActive={isOn}>
-        {textOn}
-      </Label>
+      {labels && (
+        <Label htmlFor={id} isActive={isOn}>
+          {labels[1]}
+        </Label>
+      )}
     </div>
   );
 }

@@ -31,12 +31,7 @@ export function Group(props: GroupProps) {
           {props.title}
         </div>
         {props.withSwitch && (
-          <Switch
-            isOn={props.enabled}
-            setIsOn={props.setEnabled}
-            textOff='Off'
-            textOn='On'
-          />
+          <Switch isOn={props.enabled} setIsOn={props.setEnabled} />
         )}
       </div>
       <div
