@@ -2,7 +2,9 @@ import Link from 'next/link';
 import {GitHubLogoIcon} from '@radix-ui/react-icons';
 import {CanvasSection} from './CanvasSection';
 import {SettingsSection} from './SettingsSection';
-import {version} from '../../../../package.json';
+
+import packageJson from '../../../../package.json';
+const {version} = packageJson;
 
 export function Generator() {
   return (
