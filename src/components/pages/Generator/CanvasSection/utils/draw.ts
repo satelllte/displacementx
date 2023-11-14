@@ -75,7 +75,6 @@ export const draw = ({
   const renderStartTimeMs = performance.now();
 
   clearCanvas(ctx2d);
-  // ClearCanvas(ctx2dNormal);
 
   drawBackground({ctx2d, backgroundBrightness});
 
@@ -140,7 +139,6 @@ export const draw = ({
       }
     },
     onEnd() {
-      // DrawNormal({ctx2d, ctx2dNormal});
       const renderTimeMs = performance.now() - renderStartTimeMs;
       onEnd(renderTimeMs);
     },
