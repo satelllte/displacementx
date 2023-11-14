@@ -163,7 +163,7 @@ export function CanvasSection() {
         </output>
       </div>
       <div className='pt-1'>
-        <Switch isOn={is8k} setIsOn={onIs8kChange} textOff='4K' textOn='8K' />
+        <Switch isOn={is8k} setIsOn={onIs8kChange} labels={['4K', '8K']} />
       </div>
       <div className='flex flex-wrap gap-1 pt-3'>
         <Button disabled={isRendering} onClick={render}>

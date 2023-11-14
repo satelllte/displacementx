@@ -108,7 +108,10 @@ export function SettingsSection() {
 
   return (
     <section>
-      <SectionTitle>Settings</SectionTitle>
+      <div className='flex items-center justify-between'>
+        <SectionTitle>Settings</SectionTitle>
+        <Button onClick={randomize}>Randomize</Button>
+      </div>
       <div className='flex flex-col gap-4'>
         <Group title='Basics'>
           <SliderWrapper
@@ -285,9 +288,6 @@ export function SettingsSection() {
             constant={linesWidthConst}
           />
         </Group>
-      </div>
-      <div className='pt-2'>
-        <Button onClick={randomize}>Randomize</Button>
       </div>
     </section>
   );

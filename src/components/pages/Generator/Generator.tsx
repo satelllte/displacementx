@@ -3,11 +3,17 @@ import {GitHubLogoIcon} from '@radix-ui/react-icons';
 import {CanvasSection} from './CanvasSection';
 import {SettingsSection} from './SettingsSection';
 
+import packageJson from '../../../../package.json';
+const {version} = packageJson;
+
 export function Generator() {
   return (
     <div className='mx-auto max-w-screen-2xl'>
-      <header className='flex flex-row items-center justify-between p-4'>
-        <h1 className='select-none text-2xl sm:text-3xl'>Displacement X</h1>
+      <header className='flex flex-row items-start justify-between p-4'>
+        <div>
+          <h1 className='select-none text-2xl sm:text-3xl'>Displacement X</h1>
+          <span className='text-xs text-white/50'>{`v${version}`}</span>
+        </div>
         <Link
           className='focus-visible:outline focus-visible:outline-2 focus-visible:outline-red-700'
           href='https://github.com/satelllte/displacementx'
