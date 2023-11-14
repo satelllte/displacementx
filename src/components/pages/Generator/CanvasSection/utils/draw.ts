@@ -81,16 +81,13 @@ export const draw = ({
 
   drawBackground({ctx2d, backgroundBrightness});
 
+  const drawSpritePromises: Array<Promise<void>> = [];
+
   animateWithSubIterations({
     iterations,
     iterationsPerFrame: 50,
     callback() {
-      drawSprite({
-        ctx2d,
-      });
-      return;
-
-      switch (randomInteger(0, 4)) {
+      switch (randomInteger(0, 5)) {
         case 0:
           if (!rectEnabled) break;
           drawRect({
@@ -142,14 +139,28 @@ export const draw = ({
             linesWidth,
           });
           break;
+        case 5:
+          // TODO: add "spriteEnabled" condition
+          drawSpritePromises.push(
+            drawSprite({
+              ctx2d,
+            }),
+          );
+          break;
         default:
           break;
       }
     },
     onEnd() {
-      drawNormal({ctx2d, ctx2dNormal});
-      const renderTimeMs = performance.now() - renderStartTimeMs;
-      onEnd(renderTimeMs);
+      Promise.all(drawSpritePromises)
+        .then(() => {
+          drawNormal({ctx2d, ctx2dNormal});
+          const renderTimeMs = performance.now() - renderStartTimeMs;
+          onEnd(renderTimeMs);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
   });
 };
@@ -342,18 +353,24 @@ const drawLines = ({
   }
 };
 
-// TODO: this should be async
-const drawSprite = ({ctx2d}: {ctx2d: CanvasRenderingContext2D}): void => {
-  const {w, h} = getCanvasDimensions(ctx2d);
-
-  const spriteUrl = '/sprites/001.svg';
-
-  const sprite = new Image();
-  sprite.src = spriteUrl;
-  sprite.onload = () => {
-    ctx2d.drawImage(sprite, 0, 0, Math.round(w), Math.round(h));
-  };
-};
+const drawSprite = async ({
+  ctx2d,
+}: {
+  ctx2d: CanvasRenderingContext2D;
+}): Promise<void> =>
+  new Promise((resolve) => {
+    const {w, h} = getCanvasDimensions(ctx2d);
+    const sprite = new Image();
+    const spriteId = randomInteger(1, 17);
+    sprite.src = `/sprites/0${spriteId >= 10 ? spriteId : `0${spriteId}`}.svg`;
+    sprite.onload = () => {
+      const size = randomInteger(Math.round(w / 32), Math.round(w / 2));
+      const x = randomInteger(Math.round(-w / 16), Math.round(w));
+      const y = randomInteger(Math.round(-h / 16), Math.round(h));
+      ctx2d.drawImage(sprite, x, y, size, size);
+      resolve();
+    };
+  });
 
 /**
  * Draws the normal map.
