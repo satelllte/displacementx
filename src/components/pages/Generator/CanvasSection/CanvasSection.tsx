@@ -27,6 +27,7 @@ export function CanvasSection() {
   const render = () => {
     setIsPristine(false);
     setIsRendering(true);
+    setIsNormalPreview(false);
 
     const ctx2d = getCtx2d(canvasRef);
 
