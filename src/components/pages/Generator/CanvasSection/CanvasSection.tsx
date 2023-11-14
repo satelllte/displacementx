@@ -130,12 +130,9 @@ export function CanvasSection() {
   };
 
   const toggleNormalPreview = () => {
-    const renderTimeStartMs: number = performance.now();
-
-    setIsRendering(true);
-
     const isNormalPreviewNew = !isNormalPreview;
-    setIsNormalPreview(isNormalPreviewNew);
+    const renderTimeStartMs: number = performance.now();
+    setIsRendering(true);
 
     const updateCanvas = () => {
       const ctx2d = getCtx2d(canvasRef);
@@ -163,6 +160,7 @@ export function CanvasSection() {
     // Put a small timeout to allow the UI to update before canvas takes the main thread over
     setTimeout(() => {
       updateCanvas();
+      setIsNormalPreview(isNormalPreviewNew);
       setIsRendering(false);
       setRenderTimeMs(performance.now() - renderTimeStartMs);
     }, 20);
