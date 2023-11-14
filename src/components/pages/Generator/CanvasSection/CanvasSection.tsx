@@ -8,6 +8,8 @@ import {saveImage} from './utils/saveImage';
 import {draw} from './utils/draw';
 import {Switch} from '@/components/ui/Switch';
 import {clearCanvas} from './utils/clearCanvas';
+import {drawNormal} from './utils/drawNormal';
+import {getCanvasDimensions} from './utils/getCanvasDimensions';
 
 export function CanvasSection() {
   const [is8k, setIs8k] = useState<boolean>(false);
@@ -16,17 +18,18 @@ export function CanvasSection() {
 
   const [isPristine, setIsPristine] = useState<boolean>(true);
   const [isRendering, setIsRendering] = useState<boolean>(false);
+  const [isNormalPreview, setIsNormalPreview] = useState<boolean>(false);
   const [renderTimeMs, setRenderTimeMs] = useState<number | undefined>();
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const canvasNormalRef = useRef<HTMLCanvasElement>(null);
+  const canvasOriginalPreviewDataUrl = useRef<string | undefined>(undefined);
 
   const render = () => {
     setIsPristine(false);
     setIsRendering(true);
+    setIsNormalPreview(false);
 
     const ctx2d = getCtx2d(canvasRef);
-    const ctx2dNormal = getCtx2d(canvasNormalRef);
 
     const {
       iterations,
@@ -61,7 +64,6 @@ export function CanvasSection() {
 
     draw({
       ctx2d,
-      ctx2dNormal,
       props: {
         iterations,
         backgroundBrightness,
@@ -116,37 +118,61 @@ export function CanvasSection() {
     saveImage({canvas, fileName: 'displacementx-gen'});
   };
 
-  const downloadNormal = () => {
-    const canvas = canvasNormalRef.current;
-    if (!canvas) return;
-
-    saveImage({canvas, fileName: 'displacementx-gen-normal'});
-  };
-
   const onIs8kChange = (is8k: boolean) => {
     const ctx2d = getCtx2d(canvasRef);
-    const ctx2dNormal = getCtx2d(canvasNormalRef);
 
     clearCanvas(ctx2d);
-    clearCanvas(ctx2dNormal);
 
     setIsPristine(true);
+    setIsNormalPreview(false);
     setRenderTimeMs(undefined);
     setIs8k(is8k);
+  };
+
+  const toggleNormalPreview = () => {
+    const isNormalPreviewNew = !isNormalPreview;
+    const renderTimeStartMs: number = performance.now();
+    setIsRendering(true);
+
+    const updateCanvas = () => {
+      const ctx2d = getCtx2d(canvasRef);
+
+      if (isNormalPreviewNew) {
+        // Draw normal preview
+        canvasOriginalPreviewDataUrl.current = ctx2d.canvas.toDataURL();
+        drawNormal({ctx2d, ctx2dNormal: ctx2d});
+      } else {
+        // Restore original preview
+        const dataUrl = canvasOriginalPreviewDataUrl.current;
+        if (dataUrl) {
+          const {w, h} = getCanvasDimensions(ctx2d);
+          const img = new Image();
+          img.src = dataUrl;
+          img.onload = () => {
+            ctx2d.clearRect(0, 0, w, h);
+            ctx2d.drawImage(img, 0, 0, w, h);
+            canvasOriginalPreviewDataUrl.current = undefined;
+          };
+        }
+      }
+    };
+
+    // Put a small timeout to allow the UI to update before canvas takes the main thread over
+    setTimeout(() => {
+      updateCanvas();
+      setIsNormalPreview(isNormalPreviewNew);
+      setIsRendering(false);
+      setRenderTimeMs(performance.now() - renderTimeStartMs);
+    }, 20);
   };
 
   return (
     <section>
       <SectionTitle>Output</SectionTitle>
-      <div className='flex gap-1'>
+      <Switch isOn={is8k} setIsOn={onIs8kChange} labels={['4K', '8K']} />
+      <div className='flex gap-1 pt-3'>
         <Canvas
           canvasRef={canvasRef}
-          width={width}
-          height={height}
-          isRendering={isRendering}
-        />
-        <Canvas
-          canvasRef={canvasNormalRef}
           width={width}
           height={height}
           isRendering={isRendering}
@@ -162,18 +188,20 @@ export function CanvasSection() {
           </span>
         </output>
       </div>
-      <div className='pt-1'>
-        <Switch isOn={is8k} setIsOn={onIs8kChange} labels={['4K', '8K']} />
-      </div>
-      <div className='flex flex-wrap gap-1 pt-3'>
+      <div className='flex flex-wrap gap-1 pt-2'>
         <Button disabled={isRendering} onClick={render}>
           Render
         </Button>
         <Button disabled={isPristine || isRendering} onClick={download}>
           Download
         </Button>
-        <Button disabled={isPristine || isRendering} onClick={downloadNormal}>
-          Download (normal)
+      </div>
+      <div className='flex flex-wrap gap-1 pt-2'>
+        <Button
+          disabled={isPristine || isRendering}
+          onClick={toggleNormalPreview}
+        >
+          Preview {isNormalPreview ? 'original' : 'normal'}
         </Button>
       </div>
     </section>
