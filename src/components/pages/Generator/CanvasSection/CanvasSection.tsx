@@ -13,6 +13,8 @@ import {drawNormal} from './utils/drawNormal';
 import {drawColor} from './utils/drawColor';
 import {drawInvert} from './utils/drawInvert';
 
+type PreviewType = 'original' | 'normal' | 'color';
+
 export function CanvasSection() {
   const [is8k, setIs8k] = useState<boolean>(false);
   const width = is8k ? 8192 : 4096;
@@ -20,8 +22,7 @@ export function CanvasSection() {
 
   const [isPristine, setIsPristine] = useState<boolean>(true);
   const [isRendering, setIsRendering] = useState<boolean>(false);
-  const [isNormalPreview, setIsNormalPreview] = useState<boolean>(false);
-  const [isColorPreview, setIsColorPreview] = useState<boolean>(false);
+  const [previewType, setPreviewType] = useState<PreviewType>('original');
   const [renderTimeMs, setRenderTimeMs] = useState<number | undefined>();
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -30,8 +31,7 @@ export function CanvasSection() {
   const render = () => {
     setIsPristine(false);
     setIsRendering(true);
-    setIsNormalPreview(false);
-    setIsColorPreview(false);
+    setPreviewType('original');
 
     const ctx2d = getCtx2d(canvasRef);
 
@@ -142,8 +142,7 @@ export function CanvasSection() {
     clearCanvas(ctx2d);
 
     setIsPristine(true);
-    setIsNormalPreview(false);
-    setIsColorPreview(false);
+    setPreviewType('original');
     setRenderTimeMs(undefined);
     setIs8k(is8k);
   };
@@ -151,8 +150,7 @@ export function CanvasSection() {
   const invert = () => {
     const renderTimeStartMs: number = performance.now();
     setIsRendering(true);
-    setIsNormalPreview(false);
-    setIsColorPreview(false);
+    setPreviewType('original');
 
     const updateCanvas = () => {
       const ctx2d = getCtx2d(canvasRef);
@@ -167,20 +165,30 @@ export function CanvasSection() {
     }, 20);
   };
 
-  const toggleNormalPreview = () => {
-    const isNormalPreviewNew = !isNormalPreview;
+  const togglePreviewFor = (type: PreviewType) => () => {
+    const shouldDrawNonOriginal = previewType === 'original';
+
     const renderTimeStartMs: number = performance.now();
     setIsRendering(true);
 
     const updateCanvas = () => {
       const ctx2d = getCtx2d(canvasRef);
 
-      if (isNormalPreviewNew) {
-        // Draw normal preview
+      if (shouldDrawNonOriginal) {
+        // Save original preview
         canvasOriginalPreviewDataUrl.current = ctx2d.canvas.toDataURL();
-        drawNormal(ctx2d);
+        // Draw preview based on type
+        switch (type) {
+          case 'normal':
+            drawNormal(ctx2d);
+            break;
+          case 'color':
+            drawColor(ctx2d);
+            break;
+          default:
+            break;
+        }
       } else {
-        // TODO: make this part of code reusable
         // Restore original preview
         const dataUrl = canvasOriginalPreviewDataUrl.current;
         if (dataUrl) {
@@ -199,45 +207,7 @@ export function CanvasSection() {
     // Put a small timeout to allow the UI to update before canvas takes the main thread over
     setTimeout(() => {
       updateCanvas();
-      setIsNormalPreview(isNormalPreviewNew);
-      setIsRendering(false);
-      setRenderTimeMs(performance.now() - renderTimeStartMs);
-    }, 20);
-  };
-
-  const toggleColorPreview = () => {
-    const isColorPreviewNew = !isColorPreview;
-    const renderTimeStartMs: number = performance.now();
-    setIsRendering(true);
-
-    const updateCanvas = () => {
-      const ctx2d = getCtx2d(canvasRef);
-
-      if (isColorPreviewNew) {
-        // Draw color preview
-        canvasOriginalPreviewDataUrl.current = ctx2d.canvas.toDataURL();
-        drawColor(ctx2d);
-      } else {
-        // TODO: make this part of code reusable
-        // Restore original preview
-        const dataUrl = canvasOriginalPreviewDataUrl.current;
-        if (dataUrl) {
-          const {w, h} = getCanvasDimensions(ctx2d);
-          const img = new Image();
-          img.src = dataUrl;
-          img.onload = () => {
-            ctx2d.clearRect(0, 0, w, h);
-            ctx2d.drawImage(img, 0, 0, w, h);
-            canvasOriginalPreviewDataUrl.current = undefined;
-          };
-        }
-      }
-    };
-
-    // Put a small timeout to allow the UI to update before canvas takes the main thread over
-    setTimeout(() => {
-      updateCanvas();
-      setIsColorPreview(isColorPreviewNew);
+      setPreviewType(shouldDrawNonOriginal ? type : 'original');
       setIsRendering(false);
       setRenderTimeMs(performance.now() - renderTimeStartMs);
     }, 20);
@@ -275,24 +245,30 @@ export function CanvasSection() {
       </div>
       <div className='flex flex-wrap gap-1 pt-2'>
         <Button
-          disabled={
-            isPristine || isRendering || isNormalPreview || isColorPreview
-          }
+          disabled={isPristine || isRendering || previewType !== 'original'}
           onClick={invert}
         >
           Invert
         </Button>
         <Button
-          disabled={isPristine || isRendering || isColorPreview}
-          onClick={toggleNormalPreview}
+          disabled={
+            isPristine ||
+            isRendering ||
+            (previewType !== 'normal' && previewType !== 'original')
+          }
+          onClick={togglePreviewFor('normal')}
         >
-          Preview {isNormalPreview ? 'original' : 'normal'}
+          Preview {previewType === 'normal' ? 'original' : 'normal'}
         </Button>
         <Button
-          disabled={isPristine || isRendering || isNormalPreview}
-          onClick={toggleColorPreview}
+          disabled={
+            isPristine ||
+            isRendering ||
+            (previewType !== 'color' && previewType !== 'original')
+          }
+          onClick={togglePreviewFor('color')}
         >
-          Preview {isColorPreview ? 'original' : 'color'}
+          Preview {previewType === 'color' ? 'original' : 'color'}
         </Button>
       </div>
     </section>
