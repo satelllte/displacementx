@@ -10,6 +10,7 @@ import {Switch} from '@/components/ui/Switch';
 import {getCanvasDimensions} from './utils/getCanvasDimensions';
 import {clearCanvas} from './utils/clearCanvas';
 import {drawNormal} from './utils/drawNormal';
+import {drawColor} from './utils/drawColor';
 import {drawInvert} from './utils/drawInvert';
 
 export function CanvasSection() {
@@ -20,6 +21,7 @@ export function CanvasSection() {
   const [isPristine, setIsPristine] = useState<boolean>(true);
   const [isRendering, setIsRendering] = useState<boolean>(false);
   const [isNormalPreview, setIsNormalPreview] = useState<boolean>(false);
+  const [isColorPreview, setIsColorPreview] = useState<boolean>(false);
   const [renderTimeMs, setRenderTimeMs] = useState<number | undefined>();
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -29,6 +31,7 @@ export function CanvasSection() {
     setIsPristine(false);
     setIsRendering(true);
     setIsNormalPreview(false);
+    setIsColorPreview(false);
 
     const ctx2d = getCtx2d(canvasRef);
 
@@ -140,6 +143,7 @@ export function CanvasSection() {
 
     setIsPristine(true);
     setIsNormalPreview(false);
+    setIsColorPreview(false);
     setRenderTimeMs(undefined);
     setIs8k(is8k);
   };
@@ -148,6 +152,7 @@ export function CanvasSection() {
     const renderTimeStartMs: number = performance.now();
     setIsRendering(true);
     setIsNormalPreview(false);
+    setIsColorPreview(false);
 
     const updateCanvas = () => {
       const ctx2d = getCtx2d(canvasRef);
@@ -175,6 +180,7 @@ export function CanvasSection() {
         canvasOriginalPreviewDataUrl.current = ctx2d.canvas.toDataURL();
         drawNormal(ctx2d);
       } else {
+        // TODO: make this part of code reusable
         // Restore original preview
         const dataUrl = canvasOriginalPreviewDataUrl.current;
         if (dataUrl) {
@@ -194,6 +200,44 @@ export function CanvasSection() {
     setTimeout(() => {
       updateCanvas();
       setIsNormalPreview(isNormalPreviewNew);
+      setIsRendering(false);
+      setRenderTimeMs(performance.now() - renderTimeStartMs);
+    }, 20);
+  };
+
+  const toggleColorPreview = () => {
+    const isColorPreviewNew = !isColorPreview;
+    const renderTimeStartMs: number = performance.now();
+    setIsRendering(true);
+
+    const updateCanvas = () => {
+      const ctx2d = getCtx2d(canvasRef);
+
+      if (isColorPreviewNew) {
+        // Draw color preview
+        canvasOriginalPreviewDataUrl.current = ctx2d.canvas.toDataURL();
+        drawColor(ctx2d);
+      } else {
+        // TODO: make this part of code reusable
+        // Restore original preview
+        const dataUrl = canvasOriginalPreviewDataUrl.current;
+        if (dataUrl) {
+          const {w, h} = getCanvasDimensions(ctx2d);
+          const img = new Image();
+          img.src = dataUrl;
+          img.onload = () => {
+            ctx2d.clearRect(0, 0, w, h);
+            ctx2d.drawImage(img, 0, 0, w, h);
+            canvasOriginalPreviewDataUrl.current = undefined;
+          };
+        }
+      }
+    };
+
+    // Put a small timeout to allow the UI to update before canvas takes the main thread over
+    setTimeout(() => {
+      updateCanvas();
+      setIsColorPreview(isColorPreviewNew);
       setIsRendering(false);
       setRenderTimeMs(performance.now() - renderTimeStartMs);
     }, 20);
@@ -231,16 +275,24 @@ export function CanvasSection() {
       </div>
       <div className='flex flex-wrap gap-1 pt-2'>
         <Button
-          disabled={isPristine || isRendering || isNormalPreview}
+          disabled={
+            isPristine || isRendering || isNormalPreview || isColorPreview
+          }
           onClick={invert}
         >
           Invert
         </Button>
         <Button
-          disabled={isPristine || isRendering}
+          disabled={isPristine || isRendering || isColorPreview}
           onClick={toggleNormalPreview}
         >
           Preview {isNormalPreview ? 'original' : 'normal'}
+        </Button>
+        <Button
+          disabled={isPristine || isRendering || isNormalPreview}
+          onClick={toggleColorPreview}
+        >
+          Preview {isColorPreview ? 'original' : 'color'}
         </Button>
       </div>
     </section>
