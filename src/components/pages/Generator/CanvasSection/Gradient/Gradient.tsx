@@ -12,6 +12,14 @@ import {getCtx2dFromRef} from '../utils/getCtx2dFromRef';
 import {getCanvasDimensions} from '../utils/getCanvasDimensions';
 import {ColorPicker} from './ColorPicker';
 
+const colorsMin = 2;
+const colorsMax = 20;
+const colorsDefault: ColorRGB[] = [
+  {r: 0, g: 255, b: 255},
+  {r: 149, g: 0, b: 255},
+  {r: 255, g: 229, b: 0},
+];
+
 export const Gradient = forwardRef<HTMLCanvasElement>((_, forwardedRef) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   useImperativeHandle(forwardedRef, () => {
@@ -22,18 +30,7 @@ export const Gradient = forwardRef<HTMLCanvasElement>((_, forwardedRef) => {
     return canvasRef.current;
   });
 
-  const [colors, setColors] = useState<ColorRGB[]>([
-    {
-      r: 0,
-      g: 32,
-      b: 32,
-    },
-    {
-      r: 64,
-      g: 192,
-      b: 255,
-    },
-  ]);
+  const [colors, setColors] = useState<ColorRGB[]>(colorsDefault);
 
   const addColor = () => {
     setColors([...colors, {r: 0, g: 0, b: 0}]);
@@ -87,7 +84,7 @@ export const Gradient = forwardRef<HTMLCanvasElement>((_, forwardedRef) => {
               >
                 <ColorPicker color={color} setColor={setColorForIndex(index)} />
                 <Button
-                  disabled={colors.length <= 2}
+                  disabled={colors.length <= colorsMin}
                   onClick={deleteColorForIndex(index)}
                 >
                   Delete
@@ -96,7 +93,9 @@ export const Gradient = forwardRef<HTMLCanvasElement>((_, forwardedRef) => {
             ))}
           </div>
           <div className='pt-2'>
-            <Button onClick={addColor}>Add stop</Button>
+            <Button disabled={colors.length >= colorsMax} onClick={addColor}>
+              Add stop
+            </Button>
           </div>
         </div>
       </div>
