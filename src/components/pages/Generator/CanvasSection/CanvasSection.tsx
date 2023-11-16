@@ -170,9 +170,9 @@ export function CanvasSection() {
   };
 
   const togglePreviewFor = (type: PreviewType) => () => {
-    const shouldDrawNonOriginal = previewType === 'original';
+    quickRender(() => {
+      const shouldDrawNonOriginal = previewType === 'original';
 
-    const updateCanvas = () => {
       const ctx2d = getCtx2dFromRef(canvasRef);
       const ctx2dGradient = getCtx2dFromRef(gradientCanvasRef);
 
@@ -204,10 +204,7 @@ export function CanvasSection() {
           };
         }
       }
-    };
 
-    quickRender(() => {
-      updateCanvas();
       setPreviewType(shouldDrawNonOriginal ? type : 'original');
     });
   };
