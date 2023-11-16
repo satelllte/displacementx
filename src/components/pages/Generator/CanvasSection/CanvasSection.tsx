@@ -270,7 +270,7 @@ export function CanvasSection() {
           Preview {previewType === 'color' ? 'original' : 'color'}
         </Button>
       </div>
-      <div className='mt-2 border-t border-t-white pt-2'>
+      <div className='mt-2 pt-2'>
         <Gradient ref={gradientCanvasRef} />
       </div>
     </section>
