@@ -58,7 +58,7 @@ export function Slider({label, min, max, step, ...dynamicProps}: SliderProps) {
         }}
       >
         <RadixSlider.Track className='relative block h-1 grow rounded-full bg-white'>
-          <RadixSlider.Range className='absolute h-full rounded-full bg-red-700' />
+          <RadixSlider.Range className='absolute h-full rounded-full bg-sky-700' />
         </RadixSlider.Track>
         <Thumb id={thumb0Id} labelledBy={labelId} />
         {dynamicProps.dual && <Thumb id={thumb1Id} labelledBy={labelId} />}
@@ -76,7 +76,7 @@ function Thumb({id, labelledBy}: ThumbProps) {
   return (
     <RadixSlider.Thumb
       id={id}
-      className='block h-3 w-3 bg-white hover:shadow-[0_0_0_2px] hover:shadow-red-700 focus:shadow-[0_0_0_2px] focus:shadow-red-700 focus:outline-none'
+      className='block h-3 w-3 bg-white hover:shadow-[0_0_0_2px] hover:shadow-sky-700 focus:shadow-[0_0_0_2px] focus:shadow-sky-700 focus:outline-none'
       aria-labelledby={labelledBy}
     />
   );
