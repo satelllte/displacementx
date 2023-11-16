@@ -150,13 +150,13 @@ export function CanvasSection() {
     setIs8k(is8k);
   };
 
-  const quickRender = (drawFn: () => void) => {
+  const quickRender = (callback: () => void) => {
     const renderTimeStartMs: number = performance.now();
     setIsRendering(true);
 
     // Put a small timeout to allow the UI to update before canvas takes the main thread over
     setTimeout(() => {
-      drawFn();
+      callback();
       setIsRendering(false);
       setRenderTimeMs(performance.now() - renderTimeStartMs);
     }, 20);
