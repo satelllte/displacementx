@@ -7,10 +7,15 @@ import {SectionTitle} from '../SectionTitle';
 import {saveImage} from './utils/saveImage';
 import {draw} from './utils/draw';
 import {Switch} from '@/components/ui/Switch';
+import {Gradient} from './Gradient';
+import {getCtx2dFromRef} from './utils/getCtx2dFromRef';
 import {getCanvasDimensions} from './utils/getCanvasDimensions';
 import {clearCanvas} from './utils/clearCanvas';
 import {drawNormal} from './utils/drawNormal';
+import {drawColor} from './utils/drawColor';
 import {drawInvert} from './utils/drawInvert';
+
+type PreviewType = 'original' | 'normal' | 'color';
 
 export function CanvasSection() {
   const [is8k, setIs8k] = useState<boolean>(false);
@@ -19,18 +24,19 @@ export function CanvasSection() {
 
   const [isPristine, setIsPristine] = useState<boolean>(true);
   const [isRendering, setIsRendering] = useState<boolean>(false);
-  const [isNormalPreview, setIsNormalPreview] = useState<boolean>(false);
+  const [previewType, setPreviewType] = useState<PreviewType>('original');
   const [renderTimeMs, setRenderTimeMs] = useState<number | undefined>();
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const canvasOriginalPreviewDataUrl = useRef<string | undefined>(undefined);
+  const gradientCanvasRef = useRef<HTMLCanvasElement>(null);
 
   const render = () => {
     setIsPristine(false);
     setIsRendering(true);
-    setIsNormalPreview(false);
+    setPreviewType('original');
 
-    const ctx2d = getCtx2d(canvasRef);
+    const ctx2d = getCtx2dFromRef(canvasRef);
 
     const {
       iterations,
@@ -134,46 +140,56 @@ export function CanvasSection() {
   };
 
   const onIs8kChange = (is8k: boolean) => {
-    const ctx2d = getCtx2d(canvasRef);
+    const ctx2d = getCtx2dFromRef(canvasRef);
 
     clearCanvas(ctx2d);
 
     setIsPristine(true);
-    setIsNormalPreview(false);
+    setPreviewType('original');
     setRenderTimeMs(undefined);
     setIs8k(is8k);
   };
 
-  const invert = () => {
+  const quickRender = (callback: () => void) => {
     const renderTimeStartMs: number = performance.now();
     setIsRendering(true);
-    setIsNormalPreview(false);
-
-    const updateCanvas = () => {
-      const ctx2d = getCtx2d(canvasRef);
-      drawInvert(ctx2d);
-    };
 
     // Put a small timeout to allow the UI to update before canvas takes the main thread over
     setTimeout(() => {
-      updateCanvas();
+      callback();
       setIsRendering(false);
       setRenderTimeMs(performance.now() - renderTimeStartMs);
     }, 20);
   };
 
-  const toggleNormalPreview = () => {
-    const isNormalPreviewNew = !isNormalPreview;
-    const renderTimeStartMs: number = performance.now();
-    setIsRendering(true);
+  const invert = () => {
+    quickRender(() => {
+      const ctx2d = getCtx2dFromRef(canvasRef);
+      drawInvert(ctx2d);
+    });
+  };
 
-    const updateCanvas = () => {
-      const ctx2d = getCtx2d(canvasRef);
+  const togglePreviewFor = (type: PreviewType) => () => {
+    quickRender(() => {
+      const shouldDrawNonOriginal = previewType === 'original';
 
-      if (isNormalPreviewNew) {
-        // Draw normal preview
+      const ctx2d = getCtx2dFromRef(canvasRef);
+      const ctx2dGradient = getCtx2dFromRef(gradientCanvasRef);
+
+      if (shouldDrawNonOriginal) {
+        // Save original preview
         canvasOriginalPreviewDataUrl.current = ctx2d.canvas.toDataURL();
-        drawNormal(ctx2d);
+        // Draw preview based on type
+        switch (type) {
+          case 'normal':
+            drawNormal(ctx2d);
+            break;
+          case 'color':
+            drawColor({ctx2d, ctx2dGradient});
+            break;
+          default:
+            break;
+        }
       } else {
         // Restore original preview
         const dataUrl = canvasOriginalPreviewDataUrl.current;
@@ -188,15 +204,9 @@ export function CanvasSection() {
           };
         }
       }
-    };
 
-    // Put a small timeout to allow the UI to update before canvas takes the main thread over
-    setTimeout(() => {
-      updateCanvas();
-      setIsNormalPreview(isNormalPreviewNew);
-      setIsRendering(false);
-      setRenderTimeMs(performance.now() - renderTimeStartMs);
-    }, 20);
+      setPreviewType(shouldDrawNonOriginal ? type : 'original');
+    });
   };
 
   return (
@@ -231,17 +241,34 @@ export function CanvasSection() {
       </div>
       <div className='flex flex-wrap gap-1 pt-2'>
         <Button
-          disabled={isPristine || isRendering || isNormalPreview}
+          disabled={isPristine || isRendering || previewType !== 'original'}
           onClick={invert}
         >
           Invert
         </Button>
         <Button
-          disabled={isPristine || isRendering}
-          onClick={toggleNormalPreview}
+          disabled={
+            isPristine ||
+            isRendering ||
+            (previewType !== 'normal' && previewType !== 'original')
+          }
+          onClick={togglePreviewFor('normal')}
         >
-          Preview {isNormalPreview ? 'original' : 'normal'}
+          Preview {previewType === 'normal' ? 'original' : 'normal'}
         </Button>
+        <Button
+          disabled={
+            isPristine ||
+            isRendering ||
+            (previewType !== 'color' && previewType !== 'original')
+          }
+          onClick={togglePreviewFor('color')}
+        >
+          Preview {previewType === 'color' ? 'original' : 'color'}
+        </Button>
+      </div>
+      <div className='mt-2 pt-2'>
+        <Gradient ref={gradientCanvasRef} />
       </div>
     </section>
   );
@@ -281,15 +308,3 @@ function Canvas({canvasRef, width, height, isRendering}: CanvasProps) {
     </div>
   );
 }
-
-const getCtx2d = (
-  canvasRef: React.RefObject<HTMLCanvasElement>,
-): CanvasRenderingContext2D => {
-  const canvas = canvasRef.current;
-  if (!canvas) throw new TypeError('Canvas not found in ref');
-
-  const ctx2d = canvas.getContext('2d');
-  if (!ctx2d) throw new TypeError('Error getting 2d context from canvas');
-
-  return ctx2d;
-};

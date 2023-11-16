@@ -1,6 +1,6 @@
 {
   "name": "displacementx",
-  "version": "0.0.1-alpha.4",
+  "version": "0.0.1-alpha.5",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -18,7 +18,9 @@
     "geist": "1.0.0",
     "next": "14.0.1",
     "react": "18.2.0",
+    "react-colorful": "5.6.1",
     "react-dom": "18.2.0",
+    "usehooks-ts": "2.9.1",
     "zustand": "4.4.6"
   },
   "devDependencies": {
