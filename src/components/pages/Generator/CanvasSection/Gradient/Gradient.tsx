@@ -1,4 +1,10 @@
-import {useEffect, useRef, useState} from 'react';
+import {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from 'react';
 import {Button} from '@/components/ui/Button';
 import {rgb} from '@/utils/colors';
 import {type ColorRGB} from '@/types';
@@ -6,8 +12,15 @@ import {getCtx2dFromRef} from '../utils/getCtx2dFromRef';
 import {getCanvasDimensions} from '../utils/getCanvasDimensions';
 import {ColorPicker} from './ColorPicker';
 
-export function Gradient() {
+export const Gradient = forwardRef<HTMLCanvasElement>((_, forwardedRef) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  useImperativeHandle(forwardedRef, () => {
+    if (!canvasRef.current) {
+      throw new TypeError('Canvas ref is not set');
+    }
+
+    return canvasRef.current;
+  });
 
   const [colors, setColors] = useState<ColorRGB[]>([
     {
@@ -55,7 +68,7 @@ export function Gradient() {
 
   return (
     <div>
-      <h2>🚧 Gradient 🚧</h2>
+      <h2>Gradient</h2>
       <div className='flex flex-col gap-2 sm:flex-row'>
         <div className='pt-1'>
           <canvas
@@ -89,4 +102,4 @@ export function Gradient() {
       </div>
     </div>
   );
-}
+});

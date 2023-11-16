@@ -29,6 +29,7 @@ export function CanvasSection() {
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const canvasOriginalPreviewDataUrl = useRef<string | undefined>(undefined);
+  const gradientCanvasRef = useRef<HTMLCanvasElement>(null);
 
   const render = () => {
     setIsPristine(false);
@@ -149,32 +150,31 @@ export function CanvasSection() {
     setIs8k(is8k);
   };
 
-  const invert = () => {
+  const quickRender = (drawFn: () => void) => {
     const renderTimeStartMs: number = performance.now();
     setIsRendering(true);
-    setPreviewType('original');
-
-    const updateCanvas = () => {
-      const ctx2d = getCtx2dFromRef(canvasRef);
-      drawInvert(ctx2d);
-    };
 
     // Put a small timeout to allow the UI to update before canvas takes the main thread over
     setTimeout(() => {
-      updateCanvas();
+      drawFn();
       setIsRendering(false);
       setRenderTimeMs(performance.now() - renderTimeStartMs);
     }, 20);
   };
 
+  const invert = () => {
+    quickRender(() => {
+      const ctx2d = getCtx2dFromRef(canvasRef);
+      drawInvert(ctx2d);
+    });
+  };
+
   const togglePreviewFor = (type: PreviewType) => () => {
     const shouldDrawNonOriginal = previewType === 'original';
 
-    const renderTimeStartMs: number = performance.now();
-    setIsRendering(true);
-
     const updateCanvas = () => {
       const ctx2d = getCtx2dFromRef(canvasRef);
+      const ctx2dGradient = getCtx2dFromRef(gradientCanvasRef);
 
       if (shouldDrawNonOriginal) {
         // Save original preview
@@ -185,7 +185,7 @@ export function CanvasSection() {
             drawNormal(ctx2d);
             break;
           case 'color':
-            drawColor(ctx2d);
+            drawColor({ctx2d, ctx2dGradient});
             break;
           default:
             break;
@@ -206,13 +206,10 @@ export function CanvasSection() {
       }
     };
 
-    // Put a small timeout to allow the UI to update before canvas takes the main thread over
-    setTimeout(() => {
+    quickRender(() => {
       updateCanvas();
       setPreviewType(shouldDrawNonOriginal ? type : 'original');
-      setIsRendering(false);
-      setRenderTimeMs(performance.now() - renderTimeStartMs);
-    }, 20);
+    });
   };
 
   return (
@@ -274,7 +271,7 @@ export function CanvasSection() {
         </Button>
       </div>
       <div className='mt-2 border-t border-t-white pt-2'>
-        <Gradient />
+        <Gradient ref={gradientCanvasRef} />
       </div>
     </section>
   );
