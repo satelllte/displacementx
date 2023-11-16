@@ -7,6 +7,8 @@ import {SectionTitle} from '../SectionTitle';
 import {saveImage} from './utils/saveImage';
 import {draw} from './utils/draw';
 import {Switch} from '@/components/ui/Switch';
+import {Gradient} from './Gradient';
+import {getCtx2dFromRef} from './utils/getCtx2dFromRef';
 import {getCanvasDimensions} from './utils/getCanvasDimensions';
 import {clearCanvas} from './utils/clearCanvas';
 import {drawNormal} from './utils/drawNormal';
@@ -33,7 +35,7 @@ export function CanvasSection() {
     setIsRendering(true);
     setPreviewType('original');
 
-    const ctx2d = getCtx2d(canvasRef);
+    const ctx2d = getCtx2dFromRef(canvasRef);
 
     const {
       iterations,
@@ -137,7 +139,7 @@ export function CanvasSection() {
   };
 
   const onIs8kChange = (is8k: boolean) => {
-    const ctx2d = getCtx2d(canvasRef);
+    const ctx2d = getCtx2dFromRef(canvasRef);
 
     clearCanvas(ctx2d);
 
@@ -153,7 +155,7 @@ export function CanvasSection() {
     setPreviewType('original');
 
     const updateCanvas = () => {
-      const ctx2d = getCtx2d(canvasRef);
+      const ctx2d = getCtx2dFromRef(canvasRef);
       drawInvert(ctx2d);
     };
 
@@ -172,7 +174,7 @@ export function CanvasSection() {
     setIsRendering(true);
 
     const updateCanvas = () => {
-      const ctx2d = getCtx2d(canvasRef);
+      const ctx2d = getCtx2dFromRef(canvasRef);
 
       if (shouldDrawNonOriginal) {
         // Save original preview
@@ -271,6 +273,9 @@ export function CanvasSection() {
           Preview {previewType === 'color' ? 'original' : 'color'}
         </Button>
       </div>
+      <div className='mt-2 border-t border-t-white pt-2'>
+        <Gradient />
+      </div>
     </section>
   );
 }
@@ -309,15 +314,3 @@ function Canvas({canvasRef, width, height, isRendering}: CanvasProps) {
     </div>
   );
 }
-
-const getCtx2d = (
-  canvasRef: React.RefObject<HTMLCanvasElement>,
-): CanvasRenderingContext2D => {
-  const canvas = canvasRef.current;
-  if (!canvas) throw new TypeError('Canvas not found in ref');
-
-  const ctx2d = canvas.getContext('2d');
-  if (!ctx2d) throw new TypeError('Error getting 2d context from canvas');
-
-  return ctx2d;
-};
