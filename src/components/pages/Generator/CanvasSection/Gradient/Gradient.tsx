@@ -22,7 +22,7 @@ export function Gradient() {
     },
   ]);
 
-  const add = () => {
+  const addColor = () => {
     setColors([...colors, {r: 0, g: 0, b: 0}]);
   };
 
@@ -83,7 +83,7 @@ export function Gradient() {
             ))}
           </div>
           <div className='pt-2'>
-            <Button onClick={add}>Add stop</Button>
+            <Button onClick={addColor}>Add stop</Button>
           </div>
         </div>
       </div>
