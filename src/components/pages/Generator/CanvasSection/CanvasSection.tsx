@@ -70,9 +70,18 @@ export function CanvasSection() {
     } = useStore.getState();
 
     const sprites: HTMLImageElement[] = [];
+
+    // Set: classic
     for (let i = 1; i <= 17; i++) {
       const sprite = new Image();
-      sprite.src = `/sprites/${`${i}`.padStart(3, '0')}.svg`;
+      sprite.src = `/sprites/classic/${i}.svg`;
+      sprites.push(sprite);
+    }
+
+    // Set: bigdata
+    for (let i = 1; i <= 5; i++) {
+      const sprite = new Image();
+      sprite.src = `/sprites/bigdata/${i}.svg`;
       sprites.push(sprite);
     }
 
