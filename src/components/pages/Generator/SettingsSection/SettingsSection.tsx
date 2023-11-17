@@ -32,6 +32,7 @@ import {
   type SettingDualConstant,
 } from '../constants';
 import {Group} from './Group';
+import {useState} from 'react';
 
 export function SettingsSection() {
   const iterations = useStore((state) => state.iterations);
@@ -103,6 +104,8 @@ export function SettingsSection() {
   const setLinesBrightness = useStore((state) => state.setLinesBrightness);
   const setLinesAlpha = useStore((state) => state.setLinesAlpha);
   const setLinesWidth = useStore((state) => state.setLinesWidth);
+
+  const [spritesEnabled, setSpritesEnabled] = useState(false);
 
   const randomize = useStore((state) => state.randomize);
 
@@ -287,6 +290,16 @@ export function SettingsSection() {
             setValues={setLinesWidth}
             constant={linesWidthConst}
           />
+        </Group>
+        <Group
+          withSwitch
+          title='🚧 Sprites 🚧'
+          enabled={spritesEnabled}
+          setEnabled={setSpritesEnabled}
+        >
+          <span>🚧</span>
+          <span>🚧</span>
+          <span>🚧</span>
         </Group>
       </div>
     </section>
