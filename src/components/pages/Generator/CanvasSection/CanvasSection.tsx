@@ -85,6 +85,20 @@ export function CanvasSection() {
       sprites.push(sprite);
     }
 
+    // Set: aggromaxx
+    for (let i = 1; i <= 12; i++) {
+      const sprite = new Image();
+      sprite.src = `/sprites/aggromaxx/${i}.svg`;
+      sprites.push(sprite);
+    }
+
+    // Set: crappack
+    for (let i = 1; i <= 27; i++) {
+      const sprite = new Image();
+      sprite.src = `/sprites/crappack/${i}.svg`;
+      sprites.push(sprite);
+    }
+
     void draw({
       ctx2d,
       props: {
