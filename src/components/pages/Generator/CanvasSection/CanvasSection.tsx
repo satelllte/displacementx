@@ -69,33 +69,34 @@ export function CanvasSection() {
       linesWidth,
     } = useStore.getState();
 
+    const spritesBaseUrl = '/sprites';
     const sprites: HTMLImageElement[] = [];
 
     // Set: classic
     for (let i = 1; i <= 17; i++) {
       const sprite = new Image();
-      sprite.src = `/sprites/classic/${i}.svg`;
+      sprite.src = `${spritesBaseUrl}/classic/${i}.svg`;
       sprites.push(sprite);
     }
 
     // Set: bigdata
     for (let i = 1; i <= 5; i++) {
       const sprite = new Image();
-      sprite.src = `/sprites/bigdata/${i}.svg`;
+      sprite.src = `${spritesBaseUrl}/bigdata/${i}.svg`;
       sprites.push(sprite);
     }
 
     // Set: aggromaxx
     for (let i = 1; i <= 12; i++) {
       const sprite = new Image();
-      sprite.src = `/sprites/aggromaxx/${i}.svg`;
+      sprite.src = `${spritesBaseUrl}/aggromaxx/${i}.svg`;
       sprites.push(sprite);
     }
 
     // Set: crappack
     for (let i = 1; i <= 27; i++) {
       const sprite = new Image();
-      sprite.src = `/sprites/crappack/${i}.svg`;
+      sprite.src = `${spritesBaseUrl}/crappack/${i}.svg`;
       sprites.push(sprite);
     }
 
