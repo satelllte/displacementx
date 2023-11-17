@@ -7,7 +7,6 @@ import {clearCanvas} from './clearCanvas';
 
 export const draw = ({
   ctx2d,
-  ctx2dNormal,
   onEnd,
   props: {
     iterations,
@@ -41,7 +40,6 @@ export const draw = ({
   },
 }: {
   ctx2d: CanvasRenderingContext2D;
-  ctx2dNormal: CanvasRenderingContext2D;
   onEnd: (renderTimeMs: number) => void;
   props: {
     iterations: number;
@@ -77,7 +75,6 @@ export const draw = ({
   const renderStartTimeMs = performance.now();
 
   clearCanvas(ctx2d);
-  clearCanvas(ctx2dNormal);
 
   drawBackground({ctx2d, backgroundBrightness});
 
@@ -154,13 +151,14 @@ export const draw = ({
     onEnd() {
       Promise.all(drawSpritePromises)
         .then(() => {
-          drawNormal({ctx2d, ctx2dNormal});
           const renderTimeMs = performance.now() - renderStartTimeMs;
           onEnd(renderTimeMs);
         })
         .catch((error) => {
           console.error(error);
         });
+      const renderTimeMs = performance.now() - renderStartTimeMs;
+      onEnd(renderTimeMs);
     },
   });
 };

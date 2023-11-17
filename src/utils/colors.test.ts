@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vitest';
-import {rgb, rgba, xxx, xxxa} from './colors';
+import {rgb, rgba, rgbToHex, xxx, xxxa} from './colors';
 
 describe('colors', () => {
   describe('rgb', () => {
@@ -15,6 +15,16 @@ describe('colors', () => {
       expect(rgba({r: 12, g: 0, b: 11, a: 50})).toBe('rgb(12,0,11,0.5)');
       expect(rgba({r: 12, g: 0, b: 11, a: 75})).toBe('rgb(12,0,11,0.75)');
       expect(rgba({r: 12, g: 0, b: 11, a: 100})).toBe('rgb(12,0,11,1)');
+    });
+  });
+
+  describe('rgbToHex', () => {
+    it('works', () => {
+      expect(rgbToHex({r: 0, g: 0, b: 0})).toBe('#000000');
+      expect(rgbToHex({r: 12, g: 0, b: 0})).toBe('#0c0000');
+      expect(rgbToHex({r: 16, g: 132, b: 0})).toBe('#108400');
+      expect(rgbToHex({r: 0, g: 192, b: 255})).toBe('#00c0ff');
+      expect(rgbToHex({r: 255, g: 254, b: 10})).toBe('#fffe0a');
     });
   });
 
