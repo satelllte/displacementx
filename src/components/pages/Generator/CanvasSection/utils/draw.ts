@@ -137,7 +137,6 @@ export const draw = ({
           });
           break;
         case 5:
-          // TODO: add "spriteEnabled" condition
           drawSpritePromises.push(
             drawSprite({
               ctx2d,
