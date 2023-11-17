@@ -5,7 +5,7 @@ import {randomBoolean, randomInteger} from '@/utils/random';
 import {getCanvasDimensions} from './getCanvasDimensions';
 import {clearCanvas} from './clearCanvas';
 
-export const draw = ({
+export const draw = async ({
   ctx2d,
   onEnd,
   props: {
@@ -37,6 +37,7 @@ export const draw = ({
     linesBrightness,
     linesAlpha,
     linesWidth,
+    sprites: _sprites,
   },
 }: {
   ctx2d: CanvasRenderingContext2D;
@@ -70,15 +71,16 @@ export const draw = ({
     linesBrightness: NumberDual;
     linesAlpha: NumberDual;
     linesWidth: NumberDual;
+    sprites: HTMLImageElement[];
   };
-}): void => {
+}): Promise<void> => {
   const renderStartTimeMs = performance.now();
 
   clearCanvas(ctx2d);
 
   drawBackground({ctx2d, backgroundBrightness});
 
-  const drawSpritePromises: Array<Promise<void>> = [];
+  const sprites = await loadSprites(_sprites);
 
   animateWithSubIterations({
     iterations,
@@ -137,25 +139,16 @@ export const draw = ({
           });
           break;
         case 5:
-          drawSpritePromises.push(
-            drawSprite({
-              ctx2d,
-            }),
-          );
+          drawSprite({
+            ctx2d,
+            sprites,
+          });
           break;
         default:
           break;
       }
     },
     onEnd() {
-      Promise.all(drawSpritePromises)
-        .then(() => {
-          const renderTimeMs = performance.now() - renderStartTimeMs;
-          onEnd(renderTimeMs);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
       const renderTimeMs = performance.now() - renderStartTimeMs;
       onEnd(renderTimeMs);
     },
@@ -350,21 +343,43 @@ const drawLines = ({
   }
 };
 
-const drawSprite = async ({
+const drawSprite = ({
   ctx2d,
+  sprites,
 }: {
   ctx2d: CanvasRenderingContext2D;
-}): Promise<void> =>
-  new Promise((resolve) => {
-    const {w, h} = getCanvasDimensions(ctx2d);
-    const sprite = new Image();
-    const spriteId = randomInteger(1, 17);
-    sprite.src = `/sprites/0${spriteId >= 10 ? spriteId : `0${spriteId}`}.svg`;
-    sprite.onload = () => {
-      const size = randomInteger(Math.round(w / 32), Math.round(w / 2));
-      const x = randomInteger(Math.round(-w / 16), Math.round(w));
-      const y = randomInteger(Math.round(-h / 16), Math.round(h));
-      ctx2d.drawImage(sprite, x, y, size, size);
-      resolve();
-    };
+  sprites: HTMLImageElement[];
+}): void => {
+  const {w, h} = getCanvasDimensions(ctx2d);
+  const sprite = sprites[randomInteger(0, sprites.length - 1)];
+  const size = randomInteger(Math.round(w / 32), Math.round(w / 2));
+  const x = randomInteger(Math.round(-w / 16), Math.round(w));
+  const y = randomInteger(Math.round(-h / 16), Math.round(h));
+  ctx2d.drawImage(sprite, x, y, size, size);
+};
+
+const loadSprites = async (
+  sprites: HTMLImageElement[],
+): Promise<HTMLImageElement[]> => {
+  const promises: Array<Promise<HTMLImageElement | undefined>> = [];
+  sprites.forEach((sprite) => {
+    promises.push(
+      new Promise((resolve) => {
+        if (sprite.complete) {
+          resolve(sprite);
+          return;
+        }
+
+        sprite.onload = () => {
+          resolve(sprite);
+        };
+
+        sprite.onerror = () => {
+          resolve(undefined);
+        };
+      }),
+    );
   });
+  const results = (await Promise.all(promises)).filter(Boolean);
+  return results as HTMLImageElement[];
+};

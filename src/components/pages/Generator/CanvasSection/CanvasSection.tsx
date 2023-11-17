@@ -69,7 +69,14 @@ export function CanvasSection() {
       linesWidth,
     } = useStore.getState();
 
-    draw({
+    const sprites: HTMLImageElement[] = [];
+    for (let i = 1; i <= 17; i++) {
+      const sprite = new Image();
+      sprite.src = `/sprites/${`${i}`.padStart(3, '0')}.svg`;
+      sprites.push(sprite);
+    }
+
+    void draw({
       ctx2d,
       props: {
         iterations,
@@ -100,6 +107,7 @@ export function CanvasSection() {
         linesBrightness,
         linesAlpha,
         linesWidth,
+        sprites,
       },
       onEnd(renderTimeMs) {
         // Set minumum "visible" render time to prevent very fast component updates (i.e., flickering)
