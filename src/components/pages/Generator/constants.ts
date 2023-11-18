@@ -22,11 +22,18 @@ export type SettingBooleanConstant = {
   default: boolean;
 };
 
+export type SettingSpritesPacksConstant = {
+  default: SpritesPack[];
+};
+
+export type SpritesPack = 'classic' | 'bigdata' | 'aggromaxx' | 'crappack';
+
 // -------------------
 // HELPER CONSTANTS
 // -------------------
 
 const _booleanTrue: SettingBooleanConstant = {default: true};
+const _booleanFalse: SettingBooleanConstant = {default: false};
 const _brightnessRange: SettingDualConstant = {
   min: 0,
   max: 255,
@@ -116,3 +123,7 @@ export const linesWidth: SettingDualConstant = {
   default: [5, 10],
   step: 1,
 };
+
+export const spritesEnabled: SettingBooleanConstant = _booleanFalse;
+export const spritesPacks: SettingSpritesPacksConstant = {default: ['classic']};
+export const spritesRotationEnabled: SettingBooleanConstant = _booleanTrue;

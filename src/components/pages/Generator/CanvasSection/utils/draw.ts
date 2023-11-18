@@ -1,11 +1,12 @@
 import {type NumberDual} from '@/types';
 import {animateWithSubIterations} from '@/utils/animationFrame';
+import {degreesToRadians} from '@/utils/math';
 import {xxx, xxxa} from '@/utils/colors';
 import {randomBoolean, randomInteger} from '@/utils/random';
 import {getCanvasDimensions} from './getCanvasDimensions';
 import {clearCanvas} from './clearCanvas';
 
-export const draw = ({
+export const draw = async ({
   ctx2d,
   onEnd,
   props: {
@@ -37,6 +38,9 @@ export const draw = ({
     linesBrightness,
     linesAlpha,
     linesWidth,
+    spritesEnabled,
+    sprites: _sprites,
+    spritesRotationEnabled,
   },
 }: {
   ctx2d: CanvasRenderingContext2D;
@@ -70,19 +74,24 @@ export const draw = ({
     linesBrightness: NumberDual;
     linesAlpha: NumberDual;
     linesWidth: NumberDual;
+    spritesEnabled: boolean;
+    sprites: HTMLImageElement[];
+    spritesRotationEnabled: boolean;
   };
-}): void => {
+}): Promise<void> => {
   const renderStartTimeMs = performance.now();
 
   clearCanvas(ctx2d);
 
   drawBackground({ctx2d, backgroundBrightness});
 
+  const sprites = spritesEnabled ? await loadSprites(_sprites) : [];
+
   animateWithSubIterations({
     iterations,
     iterationsPerFrame: 50,
     callback() {
-      switch (randomInteger(0, 4)) {
+      switch (randomInteger(0, 5)) {
         case 0:
           if (!rectEnabled) break;
           drawRect({
@@ -132,6 +141,14 @@ export const draw = ({
             linesBrightness,
             linesAlpha,
             linesWidth,
+          });
+          break;
+        case 5:
+          if (!spritesEnabled) break;
+          drawSprite({
+            ctx2d,
+            sprites,
+            spritesRotationEnabled,
           });
           break;
         default:
@@ -331,4 +348,84 @@ const drawLines = ({
     const thickness = Math.round(randomInteger(...linesWidth) * (w / 2500));
     ctx2d.fillRect(x, 0, thickness, h);
   }
+};
+
+const drawSprite = ({
+  ctx2d,
+  sprites,
+  spritesRotationEnabled,
+}: {
+  ctx2d: CanvasRenderingContext2D;
+  sprites: HTMLImageElement[];
+  spritesRotationEnabled: boolean;
+}): void => {
+  if (sprites.length <= 0) return;
+
+  const sprite = sprites[randomInteger(0, sprites.length - 1)];
+  if (!sprite.complete) return;
+
+  const {w, h} = getCanvasDimensions(ctx2d);
+  const size = randomInteger(Math.round(w / 32), Math.round(w / 2));
+  const x = randomInteger(Math.round(-w / 16), Math.round(w));
+  const y = randomInteger(Math.round(-h / 16), Math.round(h));
+  const angleDegrees = randomInteger(0, 3) * 90;
+  if (spritesRotationEnabled) rotate({ctx2d, angleDegrees});
+  ctx2d.drawImage(sprite, x, y, size, size);
+  if (spritesRotationEnabled) rotateEnd({ctx2d, angleDegrees});
+};
+
+const loadSprites = async (
+  sprites: HTMLImageElement[],
+): Promise<HTMLImageElement[]> => {
+  const promises: Array<Promise<HTMLImageElement | undefined>> = [];
+  sprites.forEach((sprite) => {
+    promises.push(
+      new Promise((resolve) => {
+        if (sprite.complete) {
+          resolve(sprite);
+          return;
+        }
+
+        sprite.onload = () => {
+          resolve(sprite);
+        };
+
+        sprite.onerror = () => {
+          resolve(undefined);
+        };
+      }),
+    );
+  });
+  const results = (await Promise.all(promises)).filter(Boolean);
+  return results as HTMLImageElement[];
+};
+
+const rotate = ({
+  ctx2d,
+  angleDegrees,
+}: {
+  ctx2d: CanvasRenderingContext2D;
+  angleDegrees: number;
+}): void => {
+  const {w, h} = getCanvasDimensions(ctx2d);
+  const wc = Math.round(w / 2);
+  const hc = Math.round(h / 2);
+  const angleRadians = degreesToRadians(angleDegrees);
+  ctx2d.translate(wc, hc);
+  ctx2d.rotate(angleRadians);
+};
+
+const rotateEnd = ({
+  ctx2d,
+  angleDegrees,
+}: {
+  ctx2d: CanvasRenderingContext2D;
+  angleDegrees: number;
+}): void => {
+  const {w, h} = getCanvasDimensions(ctx2d);
+  const wc = Math.round(w / 2);
+  const hc = Math.round(h / 2);
+  const angleRadians = degreesToRadians(angleDegrees);
+  ctx2d.rotate(-angleRadians);
+  ctx2d.translate(-wc, -hc);
 };

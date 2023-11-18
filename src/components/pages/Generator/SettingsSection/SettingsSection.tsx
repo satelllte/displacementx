@@ -1,6 +1,7 @@
 'use client';
 import {Slider} from '@/components/ui/Slider';
 import {Button} from '@/components/ui/Button';
+import {Checkbox} from '@/components/ui/Checkbox';
 import {useStore} from '../store';
 import {SectionTitle} from '../SectionTitle';
 import {type NumberDual} from '@/types';
@@ -30,6 +31,7 @@ import {
   linesWidth as linesWidthConst,
   type SettingConstant,
   type SettingDualConstant,
+  type SpritesPack,
 } from '../constants';
 import {Group} from './Group';
 
@@ -68,6 +70,12 @@ export function SettingsSection() {
   const linesAlpha = useStore((state) => state.linesAlpha);
   const linesWidth = useStore((state) => state.linesWidth);
 
+  const spritesEnabled = useStore((state) => state.spritesEnabled);
+  const spritesPacks = useStore((state) => state.spritesPacks);
+  const spritesRotationEnabled = useStore(
+    (state) => state.spritesRotationEnabled,
+  );
+
   const setIterations = useStore((state) => state.setIterations);
   const setBackgroundBrightness = useStore(
     (state) => state.setBackgroundBrightness,
@@ -103,6 +111,19 @@ export function SettingsSection() {
   const setLinesBrightness = useStore((state) => state.setLinesBrightness);
   const setLinesAlpha = useStore((state) => state.setLinesAlpha);
   const setLinesWidth = useStore((state) => state.setLinesWidth);
+
+  const setSpritesEnabled = useStore((state) => state.setSpritesEnabled);
+  const setSpritesPacks = useStore((state) => state.setSpritesPacks);
+  const setSpritesPackEnabled = (pack: SpritesPack) => (value: boolean) => {
+    setSpritesPacks([
+      ...spritesPacks.filter((p) => p !== pack),
+      ...(value ? [pack] : []),
+    ]);
+  };
+
+  const setSpritesRotationEnabled = useStore(
+    (state) => state.setSpritesRotationEnabled,
+  );
 
   const randomize = useStore((state) => state.randomize);
 
@@ -288,6 +309,48 @@ export function SettingsSection() {
             constant={linesWidthConst}
           />
         </Group>
+        <Group
+          withSwitch
+          title='Sprites'
+          enabled={spritesEnabled}
+          setEnabled={setSpritesEnabled}
+        >
+          <div>
+            <div className='pb-1 text-sm'>Packs:</div>
+            <div className='border-l border-l-white/80 pl-2'>
+              <Checkbox
+                label='Classic'
+                isChecked={spritesPackEnabled(spritesPacks, 'classic')}
+                setIsChecked={setSpritesPackEnabled('classic')}
+              />
+              <Checkbox
+                label='Big data'
+                isChecked={spritesPackEnabled(spritesPacks, 'bigdata')}
+                setIsChecked={setSpritesPackEnabled('bigdata')}
+              />
+              <Checkbox
+                label='Aggromaxx'
+                isChecked={spritesPackEnabled(spritesPacks, 'aggromaxx')}
+                setIsChecked={setSpritesPackEnabled('aggromaxx')}
+              />
+              <Checkbox
+                label='Crap pack'
+                isChecked={spritesPackEnabled(spritesPacks, 'crappack')}
+                setIsChecked={setSpritesPackEnabled('crappack')}
+              />
+            </div>
+          </div>
+          <div>
+            <div className='pb-1 text-sm'>Other options:</div>
+            <div className='border-l border-l-white/80 pl-2'>
+              <Checkbox
+                label='Rotate'
+                isChecked={spritesRotationEnabled}
+                setIsChecked={setSpritesRotationEnabled}
+              />
+            </div>
+          </div>
+        </Group>
       </div>
     </section>
   );
@@ -339,3 +402,6 @@ function SliderDualWrapper({
     />
   );
 }
+
+const spritesPackEnabled = (packs: SpritesPack[], pack: SpritesPack): boolean =>
+  packs.includes(pack);

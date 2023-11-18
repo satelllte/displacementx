@@ -67,9 +67,14 @@ export function CanvasSection() {
       linesBrightness,
       linesAlpha,
       linesWidth,
+      spritesEnabled,
+      spritesRotationEnabled,
+      getSprites,
     } = useStore.getState();
 
-    draw({
+    const sprites = getSprites();
+
+    void draw({
       ctx2d,
       props: {
         iterations,
@@ -100,6 +105,9 @@ export function CanvasSection() {
         linesBrightness,
         linesAlpha,
         linesWidth,
+        spritesEnabled,
+        spritesRotationEnabled,
+        sprites,
       },
       onEnd(renderTimeMs) {
         // Set minumum "visible" render time to prevent very fast component updates (i.e., flickering)
