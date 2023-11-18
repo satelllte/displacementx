@@ -70,6 +70,7 @@ export function CanvasSection() {
       spritesEnabled,
       spritesRotationEnabled,
       getSprites,
+      compositionModes,
     } = useStore.getState();
 
     const sprites = getSprites();
@@ -108,6 +109,7 @@ export function CanvasSection() {
         spritesEnabled,
         spritesRotationEnabled,
         sprites,
+        compositionModes,
       },
       onEnd(renderTimeMs) {
         // Set minumum "visible" render time to prevent very fast component updates (i.e., flickering)

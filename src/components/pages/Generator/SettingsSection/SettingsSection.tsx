@@ -32,6 +32,7 @@ import {
   type SettingConstant,
   type SettingDualConstant,
   type SpritesPack,
+  type CompositionMode,
 } from '../constants';
 import {Group} from './Group';
 
@@ -76,6 +77,8 @@ export function SettingsSection() {
     (state) => state.spritesRotationEnabled,
   );
 
+  const compositionModes = useStore((state) => state.compositionModes);
+
   const setIterations = useStore((state) => state.setIterations);
   const setBackgroundBrightness = useStore(
     (state) => state.setBackgroundBrightness,
@@ -118,6 +121,14 @@ export function SettingsSection() {
     setSpritesPacks([
       ...spritesPacks.filter((p) => p !== pack),
       ...(value ? [pack] : []),
+    ]);
+  };
+
+  const setCompositionModes = useStore((state) => state.setCompositionModes);
+  const setCompositionMode = (mode: CompositionMode) => (value: boolean) => {
+    setCompositionModes([
+      ...compositionModes.filter((m) => m !== mode),
+      ...(value ? [mode] : []),
     ]);
   };
 
@@ -351,6 +362,40 @@ export function SettingsSection() {
             </div>
           </div>
         </Group>
+        <Group title='Other'>
+          <div>
+            <div className='pb-1 text-sm'>Composition modes:</div>
+            <div className='border-l border-l-white/80 pl-2'>
+              {(
+                [
+                  'color-burn',
+                  'color-dodge',
+                  'darken',
+                  'difference',
+                  'exclusion',
+                  'hard-light',
+                  'lighten',
+                  'lighter',
+                  'luminosity',
+                  'multiply',
+                  'overlay',
+                  'screen',
+                  'soft-light',
+                  'source-atop',
+                  'source-over',
+                  'xor',
+                ] as const
+              ).map((mode) => (
+                <Checkbox
+                  key={mode}
+                  label={mode}
+                  isChecked={compositionModeEnabled(compositionModes, mode)}
+                  setIsChecked={setCompositionMode(mode)}
+                />
+              ))}
+            </div>
+          </div>
+        </Group>
       </div>
     </section>
   );
@@ -405,3 +450,8 @@ function SliderDualWrapper({
 
 const spritesPackEnabled = (packs: SpritesPack[], pack: SpritesPack): boolean =>
   packs.includes(pack);
+
+const compositionModeEnabled = (
+  modes: CompositionMode[],
+  mode: CompositionMode,
+): boolean => modes.includes(mode);

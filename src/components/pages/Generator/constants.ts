@@ -28,6 +28,28 @@ export type SettingSpritesPacksConstant = {
 
 export type SpritesPack = 'classic' | 'bigdata' | 'aggromaxx' | 'crappack';
 
+export type SettingCompositionModesConstant = {
+  default: CompositionMode[];
+};
+
+export type CompositionMode =
+  | 'color-burn'
+  | 'color-dodge'
+  | 'darken'
+  | 'difference'
+  | 'exclusion'
+  | 'hard-light'
+  | 'lighten'
+  | 'lighter'
+  | 'luminosity'
+  | 'multiply'
+  | 'overlay'
+  | 'screen'
+  | 'soft-light'
+  | 'source-atop'
+  | 'source-over'
+  | 'xor';
+
 // -------------------
 // HELPER CONSTANTS
 // -------------------
@@ -127,3 +149,7 @@ export const linesWidth: SettingDualConstant = {
 export const spritesEnabled: SettingBooleanConstant = _booleanFalse;
 export const spritesPacks: SettingSpritesPacksConstant = {default: ['classic']};
 export const spritesRotationEnabled: SettingBooleanConstant = _booleanTrue;
+
+export const compositionModes: SettingCompositionModesConstant = {
+  default: ['source-over'],
+};
