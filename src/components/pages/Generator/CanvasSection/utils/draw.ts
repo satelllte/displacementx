@@ -2,7 +2,7 @@ import {type NumberDual} from '@/types';
 import {animateWithSubIterations} from '@/utils/animationFrame';
 import {degreesToRadians} from '@/utils/math';
 import {xxx, xxxa} from '@/utils/colors';
-import {randomBoolean, randomInteger} from '@/utils/random';
+import {randomBoolean, randomInteger, randomItem} from '@/utils/random';
 import {getCanvasDimensions} from './getCanvasDimensions';
 import {clearCanvas} from './clearCanvas';
 import {type CompositionMode} from '../../constants';
@@ -96,9 +96,9 @@ export const draw = async ({
     iterations,
     iterationsPerFrame: 50,
     callback() {
-      if (compositionModes.length > 0) {
-        ctx2d.globalCompositeOperation =
-          compositionModes[randomInteger(0, compositionModes.length - 1)];
+      const compositionMode = randomItem(compositionModes);
+      if (compositionMode) {
+        ctx2d.globalCompositeOperation = compositionMode;
       }
 
       switch (randomInteger(0, 5)) {
@@ -370,9 +370,8 @@ const drawSprite = ({
   sprites: HTMLImageElement[];
   spritesRotationEnabled: boolean;
 }): void => {
-  if (sprites.length <= 0) return;
-
-  const sprite = sprites[randomInteger(0, sprites.length - 1)];
+  const sprite = randomItem(sprites);
+  if (!sprite) return;
   if (!sprite.complete) return;
 
   const {w, h} = getCanvasDimensions(ctx2d);
