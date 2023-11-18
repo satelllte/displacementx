@@ -67,38 +67,11 @@ export function CanvasSection() {
       linesBrightness,
       linesAlpha,
       linesWidth,
+      spritesEnabled,
+      getSprites,
     } = useStore.getState();
 
-    const spritesBaseUrl = '/sprites';
-    const sprites: HTMLImageElement[] = [];
-
-    // Set: classic
-    for (let i = 1; i <= 17; i++) {
-      const sprite = new Image();
-      sprite.src = `${spritesBaseUrl}/classic/${i}.svg`;
-      sprites.push(sprite);
-    }
-
-    // Set: bigdata
-    for (let i = 1; i <= 5; i++) {
-      const sprite = new Image();
-      sprite.src = `${spritesBaseUrl}/bigdata/${i}.svg`;
-      sprites.push(sprite);
-    }
-
-    // Set: aggromaxx
-    for (let i = 1; i <= 12; i++) {
-      const sprite = new Image();
-      sprite.src = `${spritesBaseUrl}/aggromaxx/${i}.svg`;
-      sprites.push(sprite);
-    }
-
-    // Set: crappack
-    for (let i = 1; i <= 27; i++) {
-      const sprite = new Image();
-      sprite.src = `${spritesBaseUrl}/crappack/${i}.svg`;
-      sprites.push(sprite);
-    }
+    const sprites = getSprites();
 
     void draw({
       ctx2d,
@@ -131,6 +104,7 @@ export function CanvasSection() {
         linesBrightness,
         linesAlpha,
         linesWidth,
+        spritesEnabled,
         sprites,
       },
       onEnd(renderTimeMs) {

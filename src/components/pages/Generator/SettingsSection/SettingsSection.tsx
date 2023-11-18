@@ -1,6 +1,7 @@
 'use client';
 import {Slider} from '@/components/ui/Slider';
 import {Button} from '@/components/ui/Button';
+import {Checkbox} from '@/components/ui/Checkbox';
 import {useStore} from '../store';
 import {SectionTitle} from '../SectionTitle';
 import {type NumberDual} from '@/types';
@@ -30,9 +31,9 @@ import {
   linesWidth as linesWidthConst,
   type SettingConstant,
   type SettingDualConstant,
+  type SpritesPack,
 } from '../constants';
 import {Group} from './Group';
-import {useState} from 'react';
 
 export function SettingsSection() {
   const iterations = useStore((state) => state.iterations);
@@ -68,6 +69,9 @@ export function SettingsSection() {
   const linesBrightness = useStore((state) => state.linesBrightness);
   const linesAlpha = useStore((state) => state.linesAlpha);
   const linesWidth = useStore((state) => state.linesWidth);
+
+  const spritesEnabled = useStore((state) => state.spritesEnabled);
+  const spritesPacks = useStore((state) => state.spritesPacks);
 
   const setIterations = useStore((state) => state.setIterations);
   const setBackgroundBrightness = useStore(
@@ -105,7 +109,14 @@ export function SettingsSection() {
   const setLinesAlpha = useStore((state) => state.setLinesAlpha);
   const setLinesWidth = useStore((state) => state.setLinesWidth);
 
-  const [spritesEnabled, setSpritesEnabled] = useState(false);
+  const setSpritesEnabled = useStore((state) => state.setSpritesEnabled);
+  const setSpritesPacks = useStore((state) => state.setSpritesPacks);
+  const setSpritesPackEnabled = (pack: SpritesPack) => (value: boolean) => {
+    setSpritesPacks([
+      ...spritesPacks.filter((p) => p !== pack),
+      ...(value ? [pack] : []),
+    ]);
+  };
 
   const randomize = useStore((state) => state.randomize);
 
@@ -293,13 +304,35 @@ export function SettingsSection() {
         </Group>
         <Group
           withSwitch
-          title='🚧 Sprites 🚧'
+          title='Sprites'
           enabled={spritesEnabled}
           setEnabled={setSpritesEnabled}
         >
-          <span>🚧</span>
-          <span>🚧</span>
-          <span>🚧</span>
+          <div>
+            <div className='pb-1 text-sm'>Packs:</div>
+            <div className='border-l border-l-white/80 pl-2'>
+              <Checkbox
+                label='Classic'
+                isChecked={spritesPackEnabled(spritesPacks, 'classic')}
+                setIsChecked={setSpritesPackEnabled('classic')}
+              />
+              <Checkbox
+                label='Big data'
+                isChecked={spritesPackEnabled(spritesPacks, 'bigdata')}
+                setIsChecked={setSpritesPackEnabled('bigdata')}
+              />
+              <Checkbox
+                label='Aggromaxx'
+                isChecked={spritesPackEnabled(spritesPacks, 'aggromaxx')}
+                setIsChecked={setSpritesPackEnabled('aggromaxx')}
+              />
+              <Checkbox
+                label='Crap pack'
+                isChecked={spritesPackEnabled(spritesPacks, 'crappack')}
+                setIsChecked={setSpritesPackEnabled('crappack')}
+              />
+            </div>
+          </div>
         </Group>
       </div>
     </section>
@@ -352,3 +385,6 @@ function SliderDualWrapper({
     />
   );
 }
+
+const spritesPackEnabled = (packs: SpritesPack[], pack: SpritesPack): boolean =>
+  packs.includes(pack);

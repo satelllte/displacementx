@@ -37,6 +37,7 @@ export const draw = async ({
     linesBrightness,
     linesAlpha,
     linesWidth,
+    spritesEnabled,
     sprites: _sprites,
   },
 }: {
@@ -71,6 +72,7 @@ export const draw = async ({
     linesBrightness: NumberDual;
     linesAlpha: NumberDual;
     linesWidth: NumberDual;
+    spritesEnabled: boolean;
     sprites: HTMLImageElement[];
   };
 }): Promise<void> => {
@@ -80,7 +82,7 @@ export const draw = async ({
 
   drawBackground({ctx2d, backgroundBrightness});
 
-  const sprites = await loadSprites(_sprites);
+  const sprites = spritesEnabled ? await loadSprites(_sprites) : [];
 
   animateWithSubIterations({
     iterations,
@@ -139,6 +141,7 @@ export const draw = async ({
           });
           break;
         case 5:
+          if (!spritesEnabled) break;
           drawSprite({
             ctx2d,
             sprites,
@@ -350,8 +353,12 @@ const drawSprite = ({
   ctx2d: CanvasRenderingContext2D;
   sprites: HTMLImageElement[];
 }): void => {
-  const {w, h} = getCanvasDimensions(ctx2d);
+  if (sprites.length <= 0) return;
+
   const sprite = sprites[randomInteger(0, sprites.length - 1)];
+  if (!sprite.complete) return;
+
+  const {w, h} = getCanvasDimensions(ctx2d);
   const size = randomInteger(Math.round(w / 32), Math.round(w / 2));
   const x = randomInteger(Math.round(-w / 16), Math.round(w));
   const y = randomInteger(Math.round(-h / 16), Math.round(h));
