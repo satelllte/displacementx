@@ -1,5 +1,6 @@
 import {type NumberDual} from '@/types';
 import {animateWithSubIterations} from '@/utils/animationFrame';
+import {degreesToRadians} from '@/utils/math';
 import {xxx, xxxa} from '@/utils/colors';
 import {randomBoolean, randomInteger} from '@/utils/random';
 import {getCanvasDimensions} from './getCanvasDimensions';
@@ -39,6 +40,7 @@ export const draw = async ({
     linesWidth,
     spritesEnabled,
     sprites: _sprites,
+    spritesRotationEnabled,
   },
 }: {
   ctx2d: CanvasRenderingContext2D;
@@ -74,6 +76,7 @@ export const draw = async ({
     linesWidth: NumberDual;
     spritesEnabled: boolean;
     sprites: HTMLImageElement[];
+    spritesRotationEnabled: boolean;
   };
 }): Promise<void> => {
   const renderStartTimeMs = performance.now();
@@ -145,6 +148,7 @@ export const draw = async ({
           drawSprite({
             ctx2d,
             sprites,
+            spritesRotationEnabled,
           });
           break;
         default:
@@ -349,9 +353,11 @@ const drawLines = ({
 const drawSprite = ({
   ctx2d,
   sprites,
+  spritesRotationEnabled,
 }: {
   ctx2d: CanvasRenderingContext2D;
   sprites: HTMLImageElement[];
+  spritesRotationEnabled: boolean;
 }): void => {
   if (sprites.length <= 0) return;
 
@@ -362,7 +368,10 @@ const drawSprite = ({
   const size = randomInteger(Math.round(w / 32), Math.round(w / 2));
   const x = randomInteger(Math.round(-w / 16), Math.round(w));
   const y = randomInteger(Math.round(-h / 16), Math.round(h));
+  const angleDegrees = randomInteger(0, 3) * 90;
+  if (spritesRotationEnabled) rotate({ctx2d, angleDegrees});
   ctx2d.drawImage(sprite, x, y, size, size);
+  if (spritesRotationEnabled) rotateEnd({ctx2d, angleDegrees});
 };
 
 const loadSprites = async (
@@ -389,4 +398,34 @@ const loadSprites = async (
   });
   const results = (await Promise.all(promises)).filter(Boolean);
   return results as HTMLImageElement[];
+};
+
+const rotate = ({
+  ctx2d,
+  angleDegrees,
+}: {
+  ctx2d: CanvasRenderingContext2D;
+  angleDegrees: number;
+}): void => {
+  const {w, h} = getCanvasDimensions(ctx2d);
+  const wc = Math.round(w / 2);
+  const hc = Math.round(h / 2);
+  const angleRadians = degreesToRadians(angleDegrees);
+  ctx2d.translate(wc, hc);
+  ctx2d.rotate(angleRadians);
+};
+
+const rotateEnd = ({
+  ctx2d,
+  angleDegrees,
+}: {
+  ctx2d: CanvasRenderingContext2D;
+  angleDegrees: number;
+}): void => {
+  const {w, h} = getCanvasDimensions(ctx2d);
+  const wc = Math.round(w / 2);
+  const hc = Math.round(h / 2);
+  const angleRadians = degreesToRadians(angleDegrees);
+  ctx2d.rotate(-angleRadians);
+  ctx2d.translate(-wc, -hc);
 };

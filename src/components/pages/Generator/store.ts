@@ -30,6 +30,7 @@ import {
   linesWidth,
   spritesEnabled,
   spritesPacks,
+  spritesRotationEnabled,
   type SettingConstant,
   type SettingDualConstant,
   type SpritesPack,
@@ -68,6 +69,7 @@ type Values = {
   linesWidth: NumberDual;
   spritesEnabled: boolean;
   spritesPacks: SpritesPack[];
+  spritesRotationEnabled: boolean;
 };
 
 type Setters = {
@@ -103,6 +105,9 @@ type Setters = {
   setLinesWidth: (linesWidth: Values['linesWidth']) => void;
   setSpritesEnabled: (spritesEnabled: Values['spritesEnabled']) => void;
   setSpritesPacks: (spritesPacks: Values['spritesPacks']) => void;
+  setSpritesRotationEnabled: (
+    spritesRotationEnabled: Values['spritesEnabled'],
+  ) => void;
 };
 
 type ComputedValues = {
@@ -147,6 +152,7 @@ export const useStore = create<Values & Setters & ComputedValues & Actions>(
     linesWidth: linesWidth.default,
     spritesEnabled: spritesEnabled.default,
     spritesPacks: spritesPacks.default,
+    spritesRotationEnabled: spritesRotationEnabled.default,
     // Setters
     // ---
     setIterations(iterations: Values['iterations']) {
@@ -241,6 +247,11 @@ export const useStore = create<Values & Setters & ComputedValues & Actions>(
     setSpritesPacks(spritesPacks: Values['spritesPacks']) {
       set(() => ({spritesPacks}));
     },
+    setSpritesRotationEnabled(
+      spritesRotationEnabled: Values['spritesRotationEnabled'],
+    ) {
+      set(() => ({spritesRotationEnabled}));
+    },
     // ComputedValues
     // ---
     getSprites() {
@@ -302,6 +313,7 @@ export const useStore = create<Values & Setters & ComputedValues & Actions>(
         linesWidth: randDualSetting(linesWidth),
         spritesEnabled: randomBoolean(),
         spritesPacks: randSpritesPacks(),
+        spritesRotationEnabled: randomBoolean(),
       }));
     },
   }),

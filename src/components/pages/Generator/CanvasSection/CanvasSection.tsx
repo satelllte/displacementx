@@ -68,6 +68,7 @@ export function CanvasSection() {
       linesAlpha,
       linesWidth,
       spritesEnabled,
+      spritesRotationEnabled,
       getSprites,
     } = useStore.getState();
 
@@ -105,6 +106,7 @@ export function CanvasSection() {
         linesAlpha,
         linesWidth,
         spritesEnabled,
+        spritesRotationEnabled,
         sprites,
       },
       onEnd(renderTimeMs) {

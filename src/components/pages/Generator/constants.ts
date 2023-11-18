@@ -126,3 +126,4 @@ export const linesWidth: SettingDualConstant = {
 
 export const spritesEnabled: SettingBooleanConstant = _booleanFalse;
 export const spritesPacks: SettingSpritesPacksConstant = {default: ['classic']};
+export const spritesRotationEnabled: SettingBooleanConstant = _booleanTrue;

@@ -72,6 +72,9 @@ export function SettingsSection() {
 
   const spritesEnabled = useStore((state) => state.spritesEnabled);
   const spritesPacks = useStore((state) => state.spritesPacks);
+  const spritesRotationEnabled = useStore(
+    (state) => state.spritesRotationEnabled,
+  );
 
   const setIterations = useStore((state) => state.setIterations);
   const setBackgroundBrightness = useStore(
@@ -117,6 +120,10 @@ export function SettingsSection() {
       ...(value ? [pack] : []),
     ]);
   };
+
+  const setSpritesRotationEnabled = useStore(
+    (state) => state.setSpritesRotationEnabled,
+  );
 
   const randomize = useStore((state) => state.randomize);
 
@@ -330,6 +337,16 @@ export function SettingsSection() {
                 label='Crap pack'
                 isChecked={spritesPackEnabled(spritesPacks, 'crappack')}
                 setIsChecked={setSpritesPackEnabled('crappack')}
+              />
+            </div>
+          </div>
+          <div>
+            <div className='pb-1 text-sm'>Other options:</div>
+            <div className='border-l border-l-white/80 pl-2'>
+              <Checkbox
+                label='Rotate'
+                isChecked={spritesRotationEnabled}
+                setIsChecked={setSpritesRotationEnabled}
               />
             </div>
           </div>
