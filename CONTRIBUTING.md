@@ -6,5 +6,5 @@ You can help in many ways, whether it's reporting bugs, suggesting enhancements,
 
 Links:
 
-- [Log an issue](./issues/new/choose)
+- [Log an issue](https://github.com/satelllte/displacementx/issues/new/choose)
 - [Development guide](./DEVELOPMENT.md)
