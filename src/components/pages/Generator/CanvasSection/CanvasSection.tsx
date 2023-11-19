@@ -1,18 +1,19 @@
 'use client';
-import clsx from 'clsx';
 import {useRef, useState} from 'react';
-import {Button} from '@/components/ui/Button';
 import {useStore} from '../store';
+import {Button} from '@/components/ui/Button';
+import {RadioGroup} from '@/components/ui/RadioGroup';
 import {SectionTitle} from '../SectionTitle';
-import {saveImage} from './utils/saveImage';
-import {draw} from './utils/draw';
+import {Canvas} from './Canvas';
 import {Gradient} from './Gradient';
-import {getCtx2dFromRef} from './utils/getCtx2dFromRef';
-import {getCanvasDimensions} from './utils/getCanvasDimensions';
+import {SubSection} from './SubSection';
+import {draw} from './utils/draw';
 import {drawNormal} from './utils/drawNormal';
 import {drawColor} from './utils/drawColor';
 import {drawInvert} from './utils/drawInvert';
-import {RadioGroup} from '@/components/ui/RadioGroup';
+import {saveImage} from './utils/saveImage';
+import {getCtx2dFromRef} from './utils/getCtx2dFromRef';
+import {getCanvasDimensions} from './utils/getCanvasDimensions';
 
 type Resolution = '1024' | '2048' | '4096' | '8192';
 type PreviewType = 'original' | 'normal' | 'color';
@@ -219,7 +220,7 @@ export function CanvasSection() {
       <SectionTitle>Output</SectionTitle>
       <div className='flex gap-1'>
         <Canvas
-          canvasRef={canvasRef}
+          ref={canvasRef}
           width={width}
           height={height}
           isRendering={isRendering}
@@ -282,57 +283,5 @@ export function CanvasSection() {
         <Gradient ref={gradientCanvasRef} />
       </SubSection>
     </section>
-  );
-}
-
-type CanvasProps = {
-  readonly canvasRef: React.RefObject<HTMLCanvasElement>;
-  readonly width: number;
-  readonly height: number;
-  readonly isRendering: boolean;
-};
-
-function Canvas({canvasRef, width, height, isRendering}: CanvasProps) {
-  return (
-    <div
-      className={clsx(
-        'relative flex aspect-square w-full max-w-xl items-center justify-center border border-dashed',
-        isRendering ? 'border-pink' : 'border-white',
-      )}
-    >
-      <canvas
-        ref={canvasRef}
-        className='absolute inset-0 max-h-full max-w-full'
-        width={width}
-        height={height}
-      >
-        HTML canvas is not supported in this browser
-      </canvas>
-      <div
-        className={clsx(
-          'absolute flex h-full w-full items-center justify-center bg-black/50 text-lg uppercase text-pink',
-          !isRendering && 'hidden',
-        )}
-      >
-        Rendering
-      </div>
-    </div>
-  );
-}
-
-function SubSection({
-  disabled,
-  title,
-  children,
-}: {
-  readonly disabled?: boolean;
-  readonly title: string;
-  readonly children: React.ReactNode;
-}) {
-  return (
-    <div className={clsx('pt-4', disabled && 'pointer-events-none opacity-50')}>
-      <h2 className='pb-1'>{title}</h2>
-      {children}
-    </div>
   );
 }
