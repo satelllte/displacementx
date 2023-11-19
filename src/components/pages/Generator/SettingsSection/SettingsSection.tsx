@@ -1,10 +1,8 @@
 'use client';
-import {Slider} from '@/components/ui/Slider';
 import {Button} from '@/components/ui/Button';
 import {Checkbox} from '@/components/ui/Checkbox';
 import {useStore} from '../store';
 import {SectionTitle} from '../SectionTitle';
-import {type NumberDual} from '@/types';
 import {
   iterations as iterationsConst,
   backgroundBrightness as backgroundBrightnessConst,
@@ -29,14 +27,13 @@ import {
   linesBrightness as linesBrightnessConst,
   linesAlpha as linesAlphaConst,
   linesWidth as linesWidthConst,
-  type SettingConstant,
-  type SettingDualConstant,
   type SpritesPack,
   type CompositionMode,
 } from '../constants';
 import {Group} from './Group';
 import {CheckboxesGroup} from './CheckboxesGroup';
 import {Checkboxes} from './Checkboxes';
+import {SliderForConstant} from './SliderForConstant';
 
 export function SettingsSection() {
   const iterations = useStore((state) => state.iterations);
@@ -135,13 +132,13 @@ export function SettingsSection() {
       </div>
       <div className='flex flex-col gap-4'>
         <Group title='Basics'>
-          <SliderWrapper
+          <SliderForConstant
             label='Iterations'
             value={iterations}
             setValue={setIterations}
             constant={iterationsConst}
           />
-          <SliderWrapper
+          <SliderForConstant
             label='Background brightness'
             value={backgroundBrightness}
             setValue={setBackgroundBrightness}
@@ -154,19 +151,21 @@ export function SettingsSection() {
           enabled={rectEnabled}
           setEnabled={setRectEnabled}
         >
-          <SliderDualWrapper
+          <SliderForConstant
+            dual
             label='Brightness'
             values={rectBrightness}
             setValues={setRectBrightness}
             constant={rectBrightnessConst}
           />
-          <SliderDualWrapper
+          <SliderForConstant
+            dual
             label='Alpha'
             values={rectAlpha}
             setValues={setRectAlpha}
             constant={rectAlphaConst}
           />
-          <SliderWrapper
+          <SliderForConstant
             label='Scale'
             value={rectScale}
             setValue={setRectScale}
@@ -179,31 +178,34 @@ export function SettingsSection() {
           enabled={gridEnabled}
           setEnabled={setGridEnabled}
         >
-          <SliderDualWrapper
+          <SliderForConstant
+            dual
             label='Brightness'
             values={gridBrightness}
             setValues={setGridBrightness}
             constant={gridBrightnessConst}
           />
-          <SliderDualWrapper
+          <SliderForConstant
+            dual
             label='Alpha'
             values={gridAlpha}
             setValues={setGridAlpha}
             constant={gridAlphaConst}
           />
-          <SliderWrapper
+          <SliderForConstant
             label='Scale'
             value={gridScale}
             setValue={setGridScale}
             constant={gridScaleConst}
           />
-          <SliderDualWrapper
+          <SliderForConstant
+            dual
             label='Amount'
             values={gridAmount}
             setValues={setGridAmount}
             constant={gridAmountConst}
           />
-          <SliderWrapper
+          <SliderForConstant
             label='Gap'
             value={gridGap}
             setValue={setGridGap}
@@ -216,31 +218,34 @@ export function SettingsSection() {
           enabled={colsEnabled}
           setEnabled={setColsEnabled}
         >
-          <SliderDualWrapper
+          <SliderForConstant
+            dual
             label='Brightness'
             values={colsBrightness}
             setValues={setColsBrightness}
             constant={colsBrightnessConst}
           />
-          <SliderDualWrapper
+          <SliderForConstant
+            dual
             label='Alpha'
             values={colsAlpha}
             setValues={setColsAlpha}
             constant={colsAlphaConst}
           />
-          <SliderWrapper
+          <SliderForConstant
             label='Scale'
             value={colsScale}
             setValue={setColsScale}
             constant={colsScaleConst}
           />
-          <SliderDualWrapper
+          <SliderForConstant
+            dual
             label='Amount'
             values={colsAmount}
             setValues={setColsAmount}
             constant={colsAmountConst}
           />
-          <SliderWrapper
+          <SliderForConstant
             label='Gap'
             value={colsGap}
             setValue={setColsGap}
@@ -253,31 +258,34 @@ export function SettingsSection() {
           enabled={rowsEnabled}
           setEnabled={setRowsEnabled}
         >
-          <SliderDualWrapper
+          <SliderForConstant
+            dual
             label='Brightness'
             values={rowsBrightness}
             setValues={setRowsBrightness}
             constant={rowsBrightnessConst}
           />
-          <SliderDualWrapper
+          <SliderForConstant
+            dual
             label='Alpha'
             values={rowsAlpha}
             setValues={setRowsAlpha}
             constant={rowsAlphaConst}
           />
-          <SliderWrapper
+          <SliderForConstant
             label='Scale'
             value={rowsScale}
             setValue={setRowsScale}
             constant={rowsScaleConst}
           />
-          <SliderDualWrapper
+          <SliderForConstant
+            dual
             label='Amount'
             values={rowsAmount}
             setValues={setRowsAmount}
             constant={rowsAmountConst}
           />
-          <SliderWrapper
+          <SliderForConstant
             label='Gap'
             value={rowsGap}
             setValue={setRowsGap}
@@ -290,19 +298,22 @@ export function SettingsSection() {
           enabled={linesEnabled}
           setEnabled={setLinesEnabled}
         >
-          <SliderDualWrapper
+          <SliderForConstant
+            dual
             label='Brightness'
             values={linesBrightness}
             setValues={setLinesBrightness}
             constant={linesBrightnessConst}
           />
-          <SliderDualWrapper
+          <SliderForConstant
+            dual
             label='Alpha'
             values={linesAlpha}
             setValues={setLinesAlpha}
             constant={linesAlphaConst}
           />
-          <SliderDualWrapper
+          <SliderForConstant
+            dual
             label='Width'
             values={linesWidth}
             setValues={setLinesWidth}
@@ -363,52 +374,5 @@ export function SettingsSection() {
         </Group>
       </div>
     </section>
-  );
-}
-
-function SliderWrapper({
-  label,
-  value,
-  setValue,
-  constant,
-}: {
-  readonly label: string;
-  readonly value: number;
-  readonly setValue: (value: number) => void;
-  readonly constant: SettingConstant;
-}) {
-  return (
-    <Slider
-      label={label}
-      min={constant.min}
-      max={constant.max}
-      step={constant.step}
-      value={value}
-      setValue={setValue}
-    />
-  );
-}
-
-function SliderDualWrapper({
-  label,
-  values,
-  setValues,
-  constant,
-}: {
-  readonly label: string;
-  readonly values: NumberDual;
-  readonly setValues: (values: NumberDual) => void;
-  readonly constant: SettingDualConstant;
-}) {
-  return (
-    <Slider
-      dual
-      label={label}
-      min={constant.min}
-      max={constant.max}
-      step={constant.step}
-      values={values}
-      setValues={setValues}
-    />
   );
 }
