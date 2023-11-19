@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import {GitHubLogoIcon} from '@radix-ui/react-icons';
 import {softwareVersion} from '@/constants/softwareVersion';
 import {CanvasSection} from './CanvasSection';
 import {SettingsSection} from './SettingsSection';
@@ -7,22 +6,9 @@ import {SettingsSection} from './SettingsSection';
 export function Generator() {
   return (
     <div className='mx-auto max-w-screen-2xl'>
-      <header className='flex flex-row items-start justify-between p-4'>
-        <div>
-          <h1 className='select-none text-2xl sm:text-3xl'>Displacement X</h1>
-          <span className='text-xs text-white/50'>{`v${softwareVersion}`}</span>
-        </div>
-        <Link
-          className='outline-none focus-visible:ring-2 focus-visible:ring-sky'
-          href='https://github.com/satelllte/displacementx'
-          target='_blank'
-        >
-          <GitHubLogoIcon
-            aria-label='GitHub repository'
-            width={20}
-            height={20}
-          />
-        </Link>
+      <header className='p-4'>
+        <h1 className='select-none text-2xl sm:text-3xl'>Displacement X</h1>
+        <span className='text-xs text-white/50'>{`v${softwareVersion}`}</span>
       </header>
       <main className='flex flex-col gap-8 px-4 pb-4 sm:flex-row sm:gap-6'>
         <div className='relative flex-1'>
@@ -32,6 +18,46 @@ export function Generator() {
           <SettingsSection />
         </div>
       </main>
+      <footer className='p-4 pt-12 text-sm'>
+        <FooterRow>
+          <span>
+            Created by{' '}
+            <FooterLink href='https://github.com/satelllte'>
+              @satelllte
+            </FooterLink>
+          </span>
+        </FooterRow>
+        <FooterRow>
+          <FooterLink href='https://github.com/satelllte/displacementx'>
+            GitHub
+          </FooterLink>
+          <FooterLink href='https://github.com/satelllte/displacementx/releases'>
+            Version History
+          </FooterLink>
+        </FooterRow>
+      </footer>
     </div>
+  );
+}
+
+function FooterRow({children}: {readonly children: React.ReactNode}) {
+  return <div className='flex items-center gap-2'>{children}</div>;
+}
+
+function FooterLink({
+  href,
+  children,
+}: {
+  readonly href: string;
+  readonly children: string;
+}) {
+  return (
+    <Link
+      className='underline focus:outline-none focus-visible:ring-2 focus-visible:ring-sky'
+      target='_blank'
+      href={href}
+    >
+      {children}
+    </Link>
   );
 }
