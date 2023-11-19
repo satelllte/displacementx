@@ -34,6 +34,7 @@ import {Group} from './Group';
 import {CheckboxesGroup} from './CheckboxesGroup';
 import {Checkboxes} from './Checkboxes';
 import {SliderForConstant} from './SliderForConstant';
+import {SlidersGroup} from './SlidersGroup';
 
 export function SettingsSection() {
   const iterations = useStore((state) => state.iterations);
@@ -132,18 +133,20 @@ export function SettingsSection() {
       </div>
       <div className='flex flex-col gap-4'>
         <Group title='Basics'>
-          <SliderForConstant
-            label='Iterations'
-            value={iterations}
-            setValue={setIterations}
-            constant={iterationsConst}
-          />
-          <SliderForConstant
-            label='Background brightness'
-            value={backgroundBrightness}
-            setValue={setBackgroundBrightness}
-            constant={backgroundBrightnessConst}
-          />
+          <SlidersGroup>
+            <SliderForConstant
+              label='Iterations'
+              value={iterations}
+              setValue={setIterations}
+              constant={iterationsConst}
+            />
+            <SliderForConstant
+              label='Background brightness'
+              value={backgroundBrightness}
+              setValue={setBackgroundBrightness}
+              constant={backgroundBrightnessConst}
+            />
+          </SlidersGroup>
         </Group>
         <Group
           withSwitch
@@ -151,26 +154,28 @@ export function SettingsSection() {
           enabled={rectEnabled}
           setEnabled={setRectEnabled}
         >
-          <SliderForConstant
-            dual
-            label='Brightness'
-            values={rectBrightness}
-            setValues={setRectBrightness}
-            constant={rectBrightnessConst}
-          />
-          <SliderForConstant
-            dual
-            label='Alpha'
-            values={rectAlpha}
-            setValues={setRectAlpha}
-            constant={rectAlphaConst}
-          />
-          <SliderForConstant
-            label='Scale'
-            value={rectScale}
-            setValue={setRectScale}
-            constant={rectScaleConst}
-          />
+          <SlidersGroup>
+            <SliderForConstant
+              dual
+              label='Brightness'
+              values={rectBrightness}
+              setValues={setRectBrightness}
+              constant={rectBrightnessConst}
+            />
+            <SliderForConstant
+              dual
+              label='Alpha'
+              values={rectAlpha}
+              setValues={setRectAlpha}
+              constant={rectAlphaConst}
+            />
+            <SliderForConstant
+              label='Scale'
+              value={rectScale}
+              setValue={setRectScale}
+              constant={rectScaleConst}
+            />
+          </SlidersGroup>
         </Group>
         <Group
           withSwitch
@@ -178,39 +183,41 @@ export function SettingsSection() {
           enabled={gridEnabled}
           setEnabled={setGridEnabled}
         >
-          <SliderForConstant
-            dual
-            label='Brightness'
-            values={gridBrightness}
-            setValues={setGridBrightness}
-            constant={gridBrightnessConst}
-          />
-          <SliderForConstant
-            dual
-            label='Alpha'
-            values={gridAlpha}
-            setValues={setGridAlpha}
-            constant={gridAlphaConst}
-          />
-          <SliderForConstant
-            label='Scale'
-            value={gridScale}
-            setValue={setGridScale}
-            constant={gridScaleConst}
-          />
-          <SliderForConstant
-            dual
-            label='Amount'
-            values={gridAmount}
-            setValues={setGridAmount}
-            constant={gridAmountConst}
-          />
-          <SliderForConstant
-            label='Gap'
-            value={gridGap}
-            setValue={setGridGap}
-            constant={gridGapConst}
-          />
+          <SlidersGroup>
+            <SliderForConstant
+              dual
+              label='Brightness'
+              values={gridBrightness}
+              setValues={setGridBrightness}
+              constant={gridBrightnessConst}
+            />
+            <SliderForConstant
+              dual
+              label='Alpha'
+              values={gridAlpha}
+              setValues={setGridAlpha}
+              constant={gridAlphaConst}
+            />
+            <SliderForConstant
+              label='Scale'
+              value={gridScale}
+              setValue={setGridScale}
+              constant={gridScaleConst}
+            />
+            <SliderForConstant
+              dual
+              label='Amount'
+              values={gridAmount}
+              setValues={setGridAmount}
+              constant={gridAmountConst}
+            />
+            <SliderForConstant
+              label='Gap'
+              value={gridGap}
+              setValue={setGridGap}
+              constant={gridGapConst}
+            />
+          </SlidersGroup>
         </Group>
         <Group
           withSwitch
@@ -218,39 +225,41 @@ export function SettingsSection() {
           enabled={colsEnabled}
           setEnabled={setColsEnabled}
         >
-          <SliderForConstant
-            dual
-            label='Brightness'
-            values={colsBrightness}
-            setValues={setColsBrightness}
-            constant={colsBrightnessConst}
-          />
-          <SliderForConstant
-            dual
-            label='Alpha'
-            values={colsAlpha}
-            setValues={setColsAlpha}
-            constant={colsAlphaConst}
-          />
-          <SliderForConstant
-            label='Scale'
-            value={colsScale}
-            setValue={setColsScale}
-            constant={colsScaleConst}
-          />
-          <SliderForConstant
-            dual
-            label='Amount'
-            values={colsAmount}
-            setValues={setColsAmount}
-            constant={colsAmountConst}
-          />
-          <SliderForConstant
-            label='Gap'
-            value={colsGap}
-            setValue={setColsGap}
-            constant={colsGapConst}
-          />
+          <SlidersGroup>
+            <SliderForConstant
+              dual
+              label='Brightness'
+              values={colsBrightness}
+              setValues={setColsBrightness}
+              constant={colsBrightnessConst}
+            />
+            <SliderForConstant
+              dual
+              label='Alpha'
+              values={colsAlpha}
+              setValues={setColsAlpha}
+              constant={colsAlphaConst}
+            />
+            <SliderForConstant
+              label='Scale'
+              value={colsScale}
+              setValue={setColsScale}
+              constant={colsScaleConst}
+            />
+            <SliderForConstant
+              dual
+              label='Amount'
+              values={colsAmount}
+              setValues={setColsAmount}
+              constant={colsAmountConst}
+            />
+            <SliderForConstant
+              label='Gap'
+              value={colsGap}
+              setValue={setColsGap}
+              constant={colsGapConst}
+            />
+          </SlidersGroup>
         </Group>
         <Group
           withSwitch
@@ -258,39 +267,41 @@ export function SettingsSection() {
           enabled={rowsEnabled}
           setEnabled={setRowsEnabled}
         >
-          <SliderForConstant
-            dual
-            label='Brightness'
-            values={rowsBrightness}
-            setValues={setRowsBrightness}
-            constant={rowsBrightnessConst}
-          />
-          <SliderForConstant
-            dual
-            label='Alpha'
-            values={rowsAlpha}
-            setValues={setRowsAlpha}
-            constant={rowsAlphaConst}
-          />
-          <SliderForConstant
-            label='Scale'
-            value={rowsScale}
-            setValue={setRowsScale}
-            constant={rowsScaleConst}
-          />
-          <SliderForConstant
-            dual
-            label='Amount'
-            values={rowsAmount}
-            setValues={setRowsAmount}
-            constant={rowsAmountConst}
-          />
-          <SliderForConstant
-            label='Gap'
-            value={rowsGap}
-            setValue={setRowsGap}
-            constant={rowsGapConst}
-          />
+          <SlidersGroup>
+            <SliderForConstant
+              dual
+              label='Brightness'
+              values={rowsBrightness}
+              setValues={setRowsBrightness}
+              constant={rowsBrightnessConst}
+            />
+            <SliderForConstant
+              dual
+              label='Alpha'
+              values={rowsAlpha}
+              setValues={setRowsAlpha}
+              constant={rowsAlphaConst}
+            />
+            <SliderForConstant
+              label='Scale'
+              value={rowsScale}
+              setValue={setRowsScale}
+              constant={rowsScaleConst}
+            />
+            <SliderForConstant
+              dual
+              label='Amount'
+              values={rowsAmount}
+              setValues={setRowsAmount}
+              constant={rowsAmountConst}
+            />
+            <SliderForConstant
+              label='Gap'
+              value={rowsGap}
+              setValue={setRowsGap}
+              constant={rowsGapConst}
+            />
+          </SlidersGroup>
         </Group>
         <Group
           withSwitch
@@ -298,27 +309,29 @@ export function SettingsSection() {
           enabled={linesEnabled}
           setEnabled={setLinesEnabled}
         >
-          <SliderForConstant
-            dual
-            label='Brightness'
-            values={linesBrightness}
-            setValues={setLinesBrightness}
-            constant={linesBrightnessConst}
-          />
-          <SliderForConstant
-            dual
-            label='Alpha'
-            values={linesAlpha}
-            setValues={setLinesAlpha}
-            constant={linesAlphaConst}
-          />
-          <SliderForConstant
-            dual
-            label='Width'
-            values={linesWidth}
-            setValues={setLinesWidth}
-            constant={linesWidthConst}
-          />
+          <SlidersGroup>
+            <SliderForConstant
+              dual
+              label='Brightness'
+              values={linesBrightness}
+              setValues={setLinesBrightness}
+              constant={linesBrightnessConst}
+            />
+            <SliderForConstant
+              dual
+              label='Alpha'
+              values={linesAlpha}
+              setValues={setLinesAlpha}
+              constant={linesAlphaConst}
+            />
+            <SliderForConstant
+              dual
+              label='Width'
+              values={linesWidth}
+              setValues={setLinesWidth}
+              constant={linesWidthConst}
+            />
+          </SlidersGroup>
         </Group>
         <Group
           withSwitch
@@ -326,7 +339,7 @@ export function SettingsSection() {
           enabled={spritesEnabled}
           setEnabled={setSpritesEnabled}
         >
-          <CheckboxesGroup title='Packs'>
+          <CheckboxesGroup title='Packs' extra='Powered by JSplacement'>
             <Checkboxes<SpritesPack>
               items={[
                 {label: 'Classic', value: 'classic'},

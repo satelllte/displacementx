@@ -36,7 +36,7 @@ export function Group(props: GroupProps) {
       </div>
       <div
         className={clsx(
-          'grid grid-cols-1 gap-2 border-l border-white pl-2 lg:grid-cols-3',
+          'flex flex-col gap-2 border-l border-white pl-2',
           props.withSwitch &&
             !props.enabled &&
             'pointer-events-none opacity-50',

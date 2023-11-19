@@ -1,13 +1,19 @@
 type CheckboxesGroupProps = {
   readonly title: string;
+  readonly extra?: string;
   readonly children: React.ReactNode;
 };
 
-export function CheckboxesGroup({title, children}: CheckboxesGroupProps) {
+export function CheckboxesGroup({
+  title,
+  extra,
+  children,
+}: CheckboxesGroupProps) {
   return (
     <div>
       <div className='pb-1 text-sm'>{`${title}:`}</div>
-      <div className='border-l border-l-white/80 pl-2'>{children}</div>
+      {extra && <div className='pb-1 text-xs text-pink'>{`(${extra})`}</div>}
+      <div className='flex flex-wrap gap-2'>{children}</div>
     </div>
   );
 }
