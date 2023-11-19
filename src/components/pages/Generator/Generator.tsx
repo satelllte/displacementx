@@ -15,7 +15,7 @@ export function Generator() {
           <span className='text-xs text-white/50'>{`v${version}`}</span>
         </div>
         <Link
-          className='focus-visible:outline focus-visible:outline-2 focus-visible:outline-red-700'
+          className='focus-visible:ring-sky outline-none focus-visible:ring-2'
           href='https://github.com/satelllte/displacementx'
           target='_blank'
         >

@@ -38,9 +38,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en' className={GeistSans.variable}>
-      <body className='bg-black text-white selection:bg-sky-800'>
-        {children}
-      </body>
+      <body className='selection:bg-sky bg-black text-white'>{children}</body>
     </html>
   );
 }

@@ -232,7 +232,7 @@ export function CanvasSection() {
         />
       </div>
       <div>
-        <output className='text-sm text-gray-400'>
+        <output className='text-sm opacity-80'>
           Last render:{' '}
           <span>
             {!isRendering && renderTimeMs
@@ -296,7 +296,7 @@ function Canvas({canvasRef, width, height, isRendering}: CanvasProps) {
     <div
       className={clsx(
         'relative flex aspect-square w-full max-w-xl items-center justify-center border border-dashed',
-        isRendering ? 'border-red-700' : 'border-white',
+        isRendering ? 'border-pink' : 'border-white',
       )}
     >
       <canvas
@@ -309,7 +309,7 @@ function Canvas({canvasRef, width, height, isRendering}: CanvasProps) {
       </canvas>
       <div
         className={clsx(
-          'absolute flex h-full w-full items-center justify-center bg-black/50 text-lg uppercase text-red-700',
+          'text-pink absolute flex h-full w-full items-center justify-center bg-black/50 text-lg uppercase',
           !isRendering && 'hidden',
         )}
       >
