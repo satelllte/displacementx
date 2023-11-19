@@ -31,9 +31,11 @@ import {
   spritesEnabled,
   spritesPacks,
   spritesRotationEnabled,
+  compositionModes,
   type SettingConstant,
   type SettingDualConstant,
   type SpritesPack,
+  type CompositionMode,
 } from './constants';
 import {randomBoolean, randomInteger} from '@/utils/random';
 import {type NumberDual} from '@/types';
@@ -70,6 +72,7 @@ type Values = {
   spritesEnabled: boolean;
   spritesPacks: SpritesPack[];
   spritesRotationEnabled: boolean;
+  compositionModes: CompositionMode[];
 };
 
 type Setters = {
@@ -108,6 +111,7 @@ type Setters = {
   setSpritesRotationEnabled: (
     spritesRotationEnabled: Values['spritesEnabled'],
   ) => void;
+  setCompositionModes: (compositionModes: Values['compositionModes']) => void;
 };
 
 type ComputedValues = {
@@ -153,6 +157,7 @@ export const useStore = create<Values & Setters & ComputedValues & Actions>(
     spritesEnabled: spritesEnabled.default,
     spritesPacks: spritesPacks.default,
     spritesRotationEnabled: spritesRotationEnabled.default,
+    compositionModes: compositionModes.default,
     // Setters
     // ---
     setIterations(iterations: Values['iterations']) {
@@ -252,6 +257,9 @@ export const useStore = create<Values & Setters & ComputedValues & Actions>(
     ) {
       set(() => ({spritesRotationEnabled}));
     },
+    setCompositionModes(compositionModes: Values['compositionModes']) {
+      set(() => ({compositionModes}));
+    },
     // ComputedValues
     // ---
     getSprites() {
@@ -314,6 +322,7 @@ export const useStore = create<Values & Setters & ComputedValues & Actions>(
         spritesEnabled: randomBoolean(),
         spritesPacks: randSpritesPacks(),
         spritesRotationEnabled: randomBoolean(),
+        compositionModes: randCompositionModes(),
       }));
     },
   }),
@@ -334,4 +343,25 @@ const randSpritesPacks = (): SpritesPack[] => {
   if (randomBoolean()) packs.push('aggromaxx');
   if (randomBoolean()) packs.push('crappack');
   return packs;
+};
+
+const randCompositionModes = (): CompositionMode[] => {
+  const modes: CompositionMode[] = [];
+  if (randomBoolean()) modes.push('color-burn');
+  if (randomBoolean()) modes.push('color-dodge');
+  if (randomBoolean()) modes.push('darken');
+  if (randomBoolean()) modes.push('difference');
+  if (randomBoolean()) modes.push('exclusion');
+  if (randomBoolean()) modes.push('hard-light');
+  if (randomBoolean()) modes.push('lighten');
+  if (randomBoolean()) modes.push('lighter');
+  if (randomBoolean()) modes.push('luminosity');
+  if (randomBoolean()) modes.push('multiply');
+  if (randomBoolean()) modes.push('overlay');
+  if (randomBoolean()) modes.push('screen');
+  if (randomBoolean()) modes.push('soft-light');
+  if (randomBoolean()) modes.push('source-atop');
+  if (randomBoolean()) modes.push('source-over');
+  if (randomBoolean()) modes.push('xor');
+  return modes;
 };

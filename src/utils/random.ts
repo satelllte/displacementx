@@ -11,3 +11,9 @@ export const randomInteger = (min: number, max: number): number => {
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
+
+/**
+ * Results with random item from array. If array is empty, returns `undefined`.
+ */
+export const randomItem = <T>(items: T[]): T | undefined =>
+  items.length > 0 ? items[randomInteger(0, items.length - 1)] : undefined;

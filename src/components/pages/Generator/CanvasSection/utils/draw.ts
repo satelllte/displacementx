@@ -2,9 +2,10 @@ import {type NumberDual} from '@/types';
 import {animateWithSubIterations} from '@/utils/animationFrame';
 import {degreesToRadians} from '@/utils/math';
 import {xxx, xxxa} from '@/utils/colors';
-import {randomBoolean, randomInteger} from '@/utils/random';
+import {randomBoolean, randomInteger, randomItem} from '@/utils/random';
 import {getCanvasDimensions} from './getCanvasDimensions';
 import {clearCanvas} from './clearCanvas';
+import {type CompositionMode} from '../../constants';
 
 export const draw = async ({
   ctx2d,
@@ -41,6 +42,7 @@ export const draw = async ({
     spritesEnabled,
     sprites: _sprites,
     spritesRotationEnabled,
+    compositionModes,
   },
 }: {
   ctx2d: CanvasRenderingContext2D;
@@ -77,6 +79,7 @@ export const draw = async ({
     spritesEnabled: boolean;
     sprites: HTMLImageElement[];
     spritesRotationEnabled: boolean;
+    compositionModes: CompositionMode[];
   };
 }): Promise<void> => {
   const renderStartTimeMs = performance.now();
@@ -85,12 +88,19 @@ export const draw = async ({
 
   drawBackground({ctx2d, backgroundBrightness});
 
+  const originalCompositeOperation = ctx2d.globalCompositeOperation;
+
   const sprites = spritesEnabled ? await loadSprites(_sprites) : [];
 
   animateWithSubIterations({
     iterations,
     iterationsPerFrame: 50,
     callback() {
+      const compositionMode = randomItem(compositionModes);
+      if (compositionMode) {
+        ctx2d.globalCompositeOperation = compositionMode;
+      }
+
       switch (randomInteger(0, 5)) {
         case 0:
           if (!rectEnabled) break;
@@ -156,6 +166,7 @@ export const draw = async ({
       }
     },
     onEnd() {
+      ctx2d.globalCompositeOperation = originalCompositeOperation;
       const renderTimeMs = performance.now() - renderStartTimeMs;
       onEnd(renderTimeMs);
     },
@@ -359,9 +370,8 @@ const drawSprite = ({
   sprites: HTMLImageElement[];
   spritesRotationEnabled: boolean;
 }): void => {
-  if (sprites.length <= 0) return;
-
-  const sprite = sprites[randomInteger(0, sprites.length - 1)];
+  const sprite = randomItem(sprites);
+  if (!sprite) return;
   if (!sprite.complete) return;
 
   const {w, h} = getCanvasDimensions(ctx2d);
