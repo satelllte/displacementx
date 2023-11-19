@@ -6,21 +6,21 @@ import {useStore} from '../store';
 import {SectionTitle} from '../SectionTitle';
 import {saveImage} from './utils/saveImage';
 import {draw} from './utils/draw';
-import {Switch} from '@/components/ui/Switch';
 import {Gradient} from './Gradient';
 import {getCtx2dFromRef} from './utils/getCtx2dFromRef';
 import {getCanvasDimensions} from './utils/getCanvasDimensions';
-import {clearCanvas} from './utils/clearCanvas';
 import {drawNormal} from './utils/drawNormal';
 import {drawColor} from './utils/drawColor';
 import {drawInvert} from './utils/drawInvert';
+import {RadioGroup} from '@/components/ui/RadioGroup';
 
+type Resolution = '1024' | '2048' | '4096' | '8192';
 type PreviewType = 'original' | 'normal' | 'color';
 
 export function CanvasSection() {
-  const [is8k, setIs8k] = useState<boolean>(false);
-  const width = is8k ? 8192 : 4096;
-  const height = is8k ? 8192 : 4096;
+  const [resolution, setResolution] = useState<Resolution>('2048');
+  const width = Number(resolution);
+  const height = Number(resolution);
 
   const [isPristine, setIsPristine] = useState<boolean>(true);
   const [isRendering, setIsRendering] = useState<boolean>(false);
@@ -149,17 +149,6 @@ export function CanvasSection() {
     });
   };
 
-  const onIs8kChange = (is8k: boolean) => {
-    const ctx2d = getCtx2dFromRef(canvasRef);
-
-    clearCanvas(ctx2d);
-
-    setIsPristine(true);
-    setPreviewType('original');
-    setRenderTimeMs(undefined);
-    setIs8k(is8k);
-  };
-
   const quickRender = (callback: () => void) => {
     const renderTimeStartMs: number = performance.now();
     setIsRendering(true);
@@ -219,11 +208,16 @@ export function CanvasSection() {
     });
   };
 
+  const invertDisabled = isPristine || previewType !== 'original';
+  const normalDisabled =
+    isPristine || (previewType !== 'normal' && previewType !== 'original');
+  const colorDisabled =
+    isPristine || (previewType !== 'color' && previewType !== 'original');
+
   return (
     <section>
       <SectionTitle>Output</SectionTitle>
-      <Switch isOn={is8k} setIsOn={onIs8kChange} labels={['4K', '8K']} />
-      <div className='flex gap-1 pt-3'>
+      <div className='flex gap-1'>
         <Canvas
           canvasRef={canvasRef}
           width={width}
@@ -249,37 +243,44 @@ export function CanvasSection() {
           Download
         </Button>
       </div>
-      <div className='flex flex-wrap gap-1 pt-2'>
-        <Button
-          disabled={isPristine || isRendering || previewType !== 'original'}
-          onClick={invert}
-        >
+      <SubSection title='Resolution'>
+        <RadioGroup<Resolution>
+          aria-label='Resolution'
+          items={[
+            {value: '1024', label: '1024x1024'},
+            {value: '2048', label: '2048x2048'},
+            {value: '4096', label: '4096x4096'},
+            {value: '8192', label: '8192x8192'},
+          ]}
+          value={resolution}
+          setValue={setResolution}
+        />
+        <span className='text-xs italic text-pink'>
+          Please note that changing the resolution resets canvas!
+        </span>
+      </SubSection>
+      <SubSection title='Inversion' disabled={invertDisabled}>
+        <Button disabled={isRendering || invertDisabled} onClick={invert}>
           Invert
         </Button>
+      </SubSection>
+      <SubSection title='Normal' disabled={normalDisabled}>
         <Button
-          disabled={
-            isPristine ||
-            isRendering ||
-            (previewType !== 'normal' && previewType !== 'original')
-          }
+          disabled={isRendering || normalDisabled}
           onClick={togglePreviewFor('normal')}
         >
           Preview {previewType === 'normal' ? 'original' : 'normal'}
         </Button>
+      </SubSection>
+      <SubSection title='Color' disabled={colorDisabled}>
         <Button
-          disabled={
-            isPristine ||
-            isRendering ||
-            (previewType !== 'color' && previewType !== 'original')
-          }
+          disabled={isRendering || colorDisabled}
           onClick={togglePreviewFor('color')}
         >
           Preview {previewType === 'color' ? 'original' : 'color'}
         </Button>
-      </div>
-      <div className='mt-2 pt-2'>
         <Gradient ref={gradientCanvasRef} />
-      </div>
+      </SubSection>
     </section>
   );
 }
@@ -315,6 +316,23 @@ function Canvas({canvasRef, width, height, isRendering}: CanvasProps) {
       >
         Rendering
       </div>
+    </div>
+  );
+}
+
+function SubSection({
+  disabled,
+  title,
+  children,
+}: {
+  readonly disabled?: boolean;
+  readonly title: string;
+  readonly children: React.ReactNode;
+}) {
+  return (
+    <div className={clsx('pt-4', disabled && 'pointer-events-none opacity-50')}>
+      <h2 className='pb-1'>{title}</h2>
+      {children}
     </div>
   );
 }

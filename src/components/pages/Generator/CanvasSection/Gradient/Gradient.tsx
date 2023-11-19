@@ -64,39 +64,36 @@ export const Gradient = forwardRef<HTMLCanvasElement>((_, forwardedRef) => {
   }, [colors]);
 
   return (
-    <div>
-      <h2>Gradient</h2>
-      <div className='flex flex-col gap-2 sm:flex-row'>
-        <div className='pt-1'>
-          <canvas
-            ref={canvasRef}
-            className='h-36 w-36 border border-dashed border-white'
-            width={256}
-            height={256}
-          />
-        </div>
-        <div>
-          <div className='flex flex-col gap-1 pt-1'>
-            {colors.map((color, index) => (
-              <div
-                key={index} // eslint-disable-line react/no-array-index-key
-                className='flex gap-2'
+    <div className='flex flex-col gap-2 sm:flex-row'>
+      <div className='pt-1'>
+        <canvas
+          ref={canvasRef}
+          className='h-36 w-36 border border-dashed border-white'
+          width={256}
+          height={256}
+        />
+      </div>
+      <div>
+        <div className='flex flex-col gap-1 pt-1'>
+          {colors.map((color, index) => (
+            <div
+              key={index} // eslint-disable-line react/no-array-index-key
+              className='flex gap-2'
+            >
+              <ColorPicker color={color} setColor={setColorForIndex(index)} />
+              <Button
+                disabled={colors.length <= colorsMin}
+                onClick={deleteColorForIndex(index)}
               >
-                <ColorPicker color={color} setColor={setColorForIndex(index)} />
-                <Button
-                  disabled={colors.length <= colorsMin}
-                  onClick={deleteColorForIndex(index)}
-                >
-                  Delete
-                </Button>
-              </div>
-            ))}
-          </div>
-          <div className='pt-2'>
-            <Button disabled={colors.length >= colorsMax} onClick={addColor}>
-              Add stop
-            </Button>
-          </div>
+                Delete
+              </Button>
+            </div>
+          ))}
+        </div>
+        <div className='pt-2'>
+          <Button disabled={colors.length >= colorsMax} onClick={addColor}>
+            Add stop
+          </Button>
         </div>
       </div>
     </div>
