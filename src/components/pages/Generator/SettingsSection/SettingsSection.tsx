@@ -35,7 +35,7 @@ import {
   type CompositionMode,
 } from '../constants';
 import {Group} from './Group';
-import {CheckboxesList} from './CheckboxesList';
+import {CheckboxesGroup} from './CheckboxesGroup';
 
 export function SettingsSection() {
   const iterations = useStore((state) => state.iterations);
@@ -327,7 +327,7 @@ export function SettingsSection() {
           enabled={spritesEnabled}
           setEnabled={setSpritesEnabled}
         >
-          <CheckboxesList title='Packs'>
+          <CheckboxesGroup title='Packs'>
             <Checkbox
               label='Classic'
               isChecked={spritesPackEnabled(spritesPacks, 'classic')}
@@ -348,17 +348,17 @@ export function SettingsSection() {
               isChecked={spritesPackEnabled(spritesPacks, 'crappack')}
               setIsChecked={setSpritesPackEnabled('crappack')}
             />
-          </CheckboxesList>
-          <CheckboxesList title='Other options'>
+          </CheckboxesGroup>
+          <CheckboxesGroup title='Other options'>
             <Checkbox
               label='Rotate'
               isChecked={spritesRotationEnabled}
               setIsChecked={setSpritesRotationEnabled}
             />
-          </CheckboxesList>
+          </CheckboxesGroup>
         </Group>
         <Group title='Other'>
-          <CheckboxesList title='Composition modes'>
+          <CheckboxesGroup title='Composition modes'>
             {(
               [
                 'color-burn',
@@ -386,7 +386,7 @@ export function SettingsSection() {
                 setIsChecked={setCompositionMode(mode)}
               />
             ))}
-          </CheckboxesList>
+          </CheckboxesGroup>
         </Group>
       </div>
     </section>

@@ -1,9 +1,9 @@
-type CheckboxesListProps = {
+type CheckboxesGroupProps = {
   readonly title: string;
   readonly children: React.ReactNode;
 };
 
-export function CheckboxesList({title, children}: CheckboxesListProps) {
+export function CheckboxesGroup({title, children}: CheckboxesGroupProps) {
   return (
     <div>
       <div className='pb-1 text-sm'>{`${title}:`}</div>
