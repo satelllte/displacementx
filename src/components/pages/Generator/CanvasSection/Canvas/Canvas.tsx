@@ -21,7 +21,9 @@ export const Canvas = forwardRef<HTMLCanvasElement, CanvasProps>(
         width={width}
         height={height}
       >
-        HTML canvas is not supported in this browser
+        <span className='absolute inset-0 flex items-center justify-center p-2 text-center text-sm'>
+          HTML canvas is not supported in this browser
+        </span>
       </canvas>
       <div
         className={clsx(
