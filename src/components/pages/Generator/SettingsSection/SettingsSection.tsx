@@ -35,6 +35,7 @@ import {
   type CompositionMode,
 } from '../constants';
 import {Group} from './Group';
+import {CheckboxesList} from './CheckboxesList';
 
 export function SettingsSection() {
   const iterations = useStore((state) => state.iterations);
@@ -326,75 +327,66 @@ export function SettingsSection() {
           enabled={spritesEnabled}
           setEnabled={setSpritesEnabled}
         >
-          <div>
-            <div className='pb-1 text-sm'>Packs:</div>
-            <div className='border-l border-l-white/80 pl-2'>
-              <Checkbox
-                label='Classic'
-                isChecked={spritesPackEnabled(spritesPacks, 'classic')}
-                setIsChecked={setSpritesPackEnabled('classic')}
-              />
-              <Checkbox
-                label='Big data'
-                isChecked={spritesPackEnabled(spritesPacks, 'bigdata')}
-                setIsChecked={setSpritesPackEnabled('bigdata')}
-              />
-              <Checkbox
-                label='Aggromaxx'
-                isChecked={spritesPackEnabled(spritesPacks, 'aggromaxx')}
-                setIsChecked={setSpritesPackEnabled('aggromaxx')}
-              />
-              <Checkbox
-                label='Crap pack'
-                isChecked={spritesPackEnabled(spritesPacks, 'crappack')}
-                setIsChecked={setSpritesPackEnabled('crappack')}
-              />
-            </div>
-          </div>
-          <div>
-            <div className='pb-1 text-sm'>Other options:</div>
-            <div className='border-l border-l-white/80 pl-2'>
-              <Checkbox
-                label='Rotate'
-                isChecked={spritesRotationEnabled}
-                setIsChecked={setSpritesRotationEnabled}
-              />
-            </div>
-          </div>
+          <CheckboxesList title='Packs'>
+            <Checkbox
+              label='Classic'
+              isChecked={spritesPackEnabled(spritesPacks, 'classic')}
+              setIsChecked={setSpritesPackEnabled('classic')}
+            />
+            <Checkbox
+              label='Big data'
+              isChecked={spritesPackEnabled(spritesPacks, 'bigdata')}
+              setIsChecked={setSpritesPackEnabled('bigdata')}
+            />
+            <Checkbox
+              label='Aggromaxx'
+              isChecked={spritesPackEnabled(spritesPacks, 'aggromaxx')}
+              setIsChecked={setSpritesPackEnabled('aggromaxx')}
+            />
+            <Checkbox
+              label='Crap pack'
+              isChecked={spritesPackEnabled(spritesPacks, 'crappack')}
+              setIsChecked={setSpritesPackEnabled('crappack')}
+            />
+          </CheckboxesList>
+          <CheckboxesList title='Other options'>
+            <Checkbox
+              label='Rotate'
+              isChecked={spritesRotationEnabled}
+              setIsChecked={setSpritesRotationEnabled}
+            />
+          </CheckboxesList>
         </Group>
         <Group title='Other'>
-          <div>
-            <div className='pb-1 text-sm'>Composition modes:</div>
-            <div className='border-l border-l-white/80 pl-2'>
-              {(
-                [
-                  'color-burn',
-                  'color-dodge',
-                  'darken',
-                  'difference',
-                  'exclusion',
-                  'hard-light',
-                  'lighten',
-                  'lighter',
-                  'luminosity',
-                  'multiply',
-                  'overlay',
-                  'screen',
-                  'soft-light',
-                  'source-atop',
-                  'source-over',
-                  'xor',
-                ] as const
-              ).map((mode) => (
-                <Checkbox
-                  key={mode}
-                  label={mode}
-                  isChecked={compositionModeEnabled(compositionModes, mode)}
-                  setIsChecked={setCompositionMode(mode)}
-                />
-              ))}
-            </div>
-          </div>
+          <CheckboxesList title='Composition modes'>
+            {(
+              [
+                'color-burn',
+                'color-dodge',
+                'darken',
+                'difference',
+                'exclusion',
+                'hard-light',
+                'lighten',
+                'lighter',
+                'luminosity',
+                'multiply',
+                'overlay',
+                'screen',
+                'soft-light',
+                'source-atop',
+                'source-over',
+                'xor',
+              ] as const
+            ).map((mode) => (
+              <Checkbox
+                key={mode}
+                label={mode}
+                isChecked={compositionModeEnabled(compositionModes, mode)}
+                setIsChecked={setCompositionMode(mode)}
+              />
+            ))}
+          </CheckboxesList>
         </Group>
       </div>
     </section>
