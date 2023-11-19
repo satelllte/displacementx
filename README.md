@@ -22,10 +22,14 @@ Some links:
 - Web port of `JSplacement`: [JSPlacementWeb](https://github.com/satelllte/JSPlacementWeb) _(missing some features)_.
 - Consider supporting `Windmill` - the author of `JSPlacement`: [Website](https://windmillart.net/), [PayPal/WMillArt](https://www.paypal.com/paypalme/WMillArt), [Ko-fi/windmill](https://ko-fi.com/windmill).
 
-### Any future plans?
+### Any future plans for `Displacement X`?
 
 No particular plans. I've opened the source code of this project to everyone, so let's see how it goes.
 
-## Development
+### I want to share my work done with the help of `Displacement X`. Where can I do that?
 
-Development guide is available at [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md).
+Feel free to open an issue in this repository to share your work. I'd love to see what you've created.
+
+## Contributing
+
+Check out [CONTRIBUTING.md](./CONTRIBUTING.md) guide.
