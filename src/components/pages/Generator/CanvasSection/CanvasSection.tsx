@@ -309,7 +309,7 @@ function Canvas({canvasRef, width, height, isRendering}: CanvasProps) {
       </canvas>
       <div
         className={clsx(
-          'text-pink absolute flex h-full w-full items-center justify-center bg-black/50 text-lg uppercase',
+          'absolute flex h-full w-full items-center justify-center bg-black/50 text-lg uppercase text-pink',
           !isRendering && 'hidden',
         )}
       >
