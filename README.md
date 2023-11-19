@@ -10,7 +10,7 @@ Live at ▶ **[displacementx.vercel.app](https://displacementx.vercel.app/)**
 
 ### What is it used for?
 
-The application can be used for generating grayscale height maps for their further application in various 3D rendering software such as Blender, Cinema4D, OctaneRender, etc.
+The software can be used for generating grayscale height maps for their further application in various 3D rendering software such as Blender, Cinema4D, OctaneRender, etc.
 
 ### Does it aim to replace the original `JSplacement` software?
 
