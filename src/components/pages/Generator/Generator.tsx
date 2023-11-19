@@ -26,7 +26,7 @@ export function Generator() {
           />
         </Link>
       </header>
-      <main className='flex flex-col gap-8 px-4 pb-4 sm:flex-row sm:gap-4'>
+      <main className='flex flex-col gap-8 px-4 pb-4 sm:flex-row sm:gap-6'>
         <div className='relative flex-1'>
           <CanvasSection />
         </div>
