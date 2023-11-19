@@ -36,6 +36,7 @@ import {
 } from '../constants';
 import {Group} from './Group';
 import {CheckboxesGroup} from './CheckboxesGroup';
+import {Checkboxes} from './Checkboxes';
 
 export function SettingsSection() {
   const iterations = useStore((state) => state.iterations);
@@ -118,21 +119,8 @@ export function SettingsSection() {
 
   const setSpritesEnabled = useStore((state) => state.setSpritesEnabled);
   const setSpritesPacks = useStore((state) => state.setSpritesPacks);
-  const setSpritesPackEnabled = (pack: SpritesPack) => (value: boolean) => {
-    setSpritesPacks([
-      ...spritesPacks.filter((p) => p !== pack),
-      ...(value ? [pack] : []),
-    ]);
-  };
 
   const setCompositionModes = useStore((state) => state.setCompositionModes);
-  const setCompositionMode = (mode: CompositionMode) => (value: boolean) => {
-    setCompositionModes([
-      ...compositionModes.filter((m) => m !== mode),
-      ...(value ? [mode] : []),
-    ]);
-  };
-
   const setSpritesRotationEnabled = useStore(
     (state) => state.setSpritesRotationEnabled,
   );
@@ -328,25 +316,15 @@ export function SettingsSection() {
           setEnabled={setSpritesEnabled}
         >
           <CheckboxesGroup title='Packs'>
-            <Checkbox
-              label='Classic'
-              isChecked={spritesPackEnabled(spritesPacks, 'classic')}
-              setIsChecked={setSpritesPackEnabled('classic')}
-            />
-            <Checkbox
-              label='Big data'
-              isChecked={spritesPackEnabled(spritesPacks, 'bigdata')}
-              setIsChecked={setSpritesPackEnabled('bigdata')}
-            />
-            <Checkbox
-              label='Aggromaxx'
-              isChecked={spritesPackEnabled(spritesPacks, 'aggromaxx')}
-              setIsChecked={setSpritesPackEnabled('aggromaxx')}
-            />
-            <Checkbox
-              label='Crap pack'
-              isChecked={spritesPackEnabled(spritesPacks, 'crappack')}
-              setIsChecked={setSpritesPackEnabled('crappack')}
+            <Checkboxes<SpritesPack>
+              items={[
+                {label: 'Classic', value: 'classic'},
+                {label: 'Big data', value: 'bigdata'},
+                {label: 'Aggromaxx', value: 'aggromaxx'},
+                {label: 'Crap pack', value: 'crappack'},
+              ]}
+              values={spritesPacks}
+              setValues={setSpritesPacks}
             />
           </CheckboxesGroup>
           <CheckboxesGroup title='Other options'>
@@ -359,33 +337,28 @@ export function SettingsSection() {
         </Group>
         <Group title='Other'>
           <CheckboxesGroup title='Composition modes'>
-            {(
-              [
-                'color-burn',
-                'color-dodge',
-                'darken',
-                'difference',
-                'exclusion',
-                'hard-light',
-                'lighten',
-                'lighter',
-                'luminosity',
-                'multiply',
-                'overlay',
-                'screen',
-                'soft-light',
-                'source-atop',
-                'source-over',
-                'xor',
-              ] as const
-            ).map((mode) => (
-              <Checkbox
-                key={mode}
-                label={mode}
-                isChecked={compositionModeEnabled(compositionModes, mode)}
-                setIsChecked={setCompositionMode(mode)}
-              />
-            ))}
+            <Checkboxes<CompositionMode>
+              items={[
+                {label: 'color-burn', value: 'color-burn'},
+                {label: 'color-dodge', value: 'color-dodge'},
+                {label: 'darken', value: 'darken'},
+                {label: 'difference', value: 'difference'},
+                {label: 'exclusion', value: 'exclusion'},
+                {label: 'hard-light', value: 'hard-light'},
+                {label: 'lighten', value: 'lighten'},
+                {label: 'lighter', value: 'lighter'},
+                {label: 'luminosity', value: 'luminosity'},
+                {label: 'multiply', value: 'multiply'},
+                {label: 'overlay', value: 'overlay'},
+                {label: 'screen', value: 'screen'},
+                {label: 'soft-light', value: 'soft-light'},
+                {label: 'source-atop', value: 'source-atop'},
+                {label: 'source-over', value: 'source-over'},
+                {label: 'xor', value: 'xor'},
+              ]}
+              values={compositionModes}
+              setValues={setCompositionModes}
+            />
           </CheckboxesGroup>
         </Group>
       </div>
@@ -439,11 +412,3 @@ function SliderDualWrapper({
     />
   );
 }
-
-const spritesPackEnabled = (packs: SpritesPack[], pack: SpritesPack): boolean =>
-  packs.includes(pack);
-
-const compositionModeEnabled = (
-  modes: CompositionMode[],
-  mode: CompositionMode,
-): boolean => modes.includes(mode);
