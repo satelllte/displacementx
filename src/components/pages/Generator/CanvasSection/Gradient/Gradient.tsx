@@ -7,6 +7,7 @@ import {
 } from 'react';
 import {Button} from '@/components/ui/Button';
 import {rgb} from '@/utils/colors';
+import {randomColorRGB} from '@/utils/random';
 import {type ColorRGB} from '@/types';
 import {getCtx2dFromRef} from '../utils/getCtx2dFromRef';
 import {getCanvasDimensions} from '../utils/getCanvasDimensions';
@@ -63,6 +64,10 @@ export const Gradient = forwardRef<HTMLCanvasElement>((_, forwardedRef) => {
     ctx2d.fillRect(0, 0, w, h);
   }, [colors]);
 
+  const randomize = () => {
+    setColors(colors.map(randomColorRGB));
+  };
+
   return (
     <div className='flex flex-col gap-2 sm:flex-row'>
       <div className='pt-1'>
@@ -90,10 +95,11 @@ export const Gradient = forwardRef<HTMLCanvasElement>((_, forwardedRef) => {
             </div>
           ))}
         </div>
-        <div className='pt-2'>
+        <div className='flex gap-1 pt-2'>
           <Button disabled={colors.length >= colorsMax} onClick={addColor}>
             Add stop
           </Button>
+          <Button onClick={randomize}>Randomize</Button>
         </div>
       </div>
     </div>
