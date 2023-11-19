@@ -28,7 +28,7 @@ No particular plans. I've opened the source code of this project to everyone, so
 
 ### I want to share my work done with the help of `Displacement X`. Where can I do that?
 
-Feel free to open an issue in this repository to share your work. I'd love to see what you've created.
+Feel free to open an issue in this repository to share your work. I'd love to see what you've created and showcase it right here!
 
 ## Contributing
 
