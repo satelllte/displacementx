@@ -34,7 +34,7 @@ export function ColorPicker({color, setColor}: ColorPickerProps) {
           </div>
         )}
       </div>
-      <span className='w-16 text-sm text-white/75'>{colorHex}</span>
+      <span className='w-16 text-sm text-white'>{colorHex}</span>
     </div>
   );
 }
