@@ -4,8 +4,8 @@ Procedural displacement sci-fi maps generator. Web-based alternative to [JSplace
 
 Live at ▶ **[displacementx.vercel.app](https://displacementx.vercel.app/)**
 
-<img src="./docs/github_preview.png" alt="Displacement X renders preview"/>
+<img src="./public/og.png" alt="Displacement X - social image preview"/>
 
 ## Development
 
-Developers guide is available in [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md).
+Development guide is available at [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md).

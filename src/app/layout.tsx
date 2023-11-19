@@ -8,8 +8,8 @@ const images = [
   {
     url: '/og.png',
     alt: description,
-    width: 1200,
-    height: 630,
+    width: 1280,
+    height: 640,
   },
 ];
 
