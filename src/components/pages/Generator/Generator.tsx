@@ -1,10 +1,8 @@
 import Link from 'next/link';
 import {GitHubLogoIcon} from '@radix-ui/react-icons';
+import {softwareVersion} from '@/constants/softwareVersion';
 import {CanvasSection} from './CanvasSection';
 import {SettingsSection} from './SettingsSection';
-
-import packageJson from '../../../../package.json';
-const {version} = packageJson;
 
 export function Generator() {
   return (
@@ -12,7 +10,7 @@ export function Generator() {
       <header className='flex flex-row items-start justify-between p-4'>
         <div>
           <h1 className='select-none text-2xl sm:text-3xl'>Displacement X</h1>
-          <span className='text-xs text-white/50'>{`v${version}`}</span>
+          <span className='text-xs text-white/50'>{`v${softwareVersion}`}</span>
         </div>
         <Link
           className='outline-none focus-visible:ring-2 focus-visible:ring-sky'
