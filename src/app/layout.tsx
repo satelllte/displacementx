@@ -14,7 +14,7 @@ const images = [
 ];
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://displacementx.vercel.app/'),
+  metadataBase: new URL('https://displacementx.vercel.app'),
   title,
   description,
   openGraph: {
@@ -38,9 +38,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en' className={GeistSans.variable}>
-      <body className='bg-black text-white selection:bg-sky-800'>
-        {children}
-      </body>
+      <body className='bg-black text-white selection:bg-sky'>{children}</body>
     </html>
   );
 }

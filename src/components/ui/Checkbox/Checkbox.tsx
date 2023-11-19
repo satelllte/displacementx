@@ -15,7 +15,7 @@ export function Checkbox({label, isChecked, setIsChecked}: CheckboxProps) {
       <RadixCheckbox.Root
         required
         checked={isChecked}
-        className='flex h-4 w-4 cursor-default appearance-none items-center justify-center bg-white outline-none hover:bg-white/80 focus:outline focus:ring-1 focus:ring-sky-700/90 focus:ring-offset-1 focus:ring-offset-sky-700/90'
+        className='flex h-4 w-4 cursor-default appearance-none items-center justify-center bg-white outline-none hover:bg-white/80 focus-visible:outline focus-visible:ring-1 focus-visible:ring-sky focus-visible:ring-offset-2 focus-visible:ring-offset-sky'
         id={id}
         onCheckedChange={(checked) => {
           setIsChecked(checked === 'indeterminate' ? false : checked);

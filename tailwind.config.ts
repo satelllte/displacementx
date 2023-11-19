@@ -1,4 +1,5 @@
 import type {Config} from 'tailwindcss';
+import colors from 'tailwindcss/colors';
 
 const config = {
   content: [
@@ -11,6 +12,12 @@ const config = {
       fontFamily: {
         sans: ['var(--font-geist-sans)'],
       },
+    },
+    colors: {
+      white: colors.white,
+      black: colors.black,
+      pink: colors.pink[700],
+      sky: colors.sky[700],
     },
   },
   plugins: [],

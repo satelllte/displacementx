@@ -18,9 +18,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       type='button'
       disabled={disabled}
       className={clsx(
-        disabled && 'opacity-75',
+        disabled && 'opacity-80',
         fullWidth && 'w-full',
-        'inline-flex cursor-default select-none items-center justify-center border border-white px-2 py-1 text-sm text-white hover:bg-zinc-800 focus:outline-none focus:ring-blue-500 focus:ring-offset-0 focus-visible:ring-2 active:bg-zinc-700',
+        'inline-flex cursor-default select-none items-center justify-center border border-white px-2 py-1 text-sm text-white outline-none hover:bg-white/20 focus-visible:shadow-none focus-visible:ring-2 focus-visible:ring-sky focus-visible:ring-offset-1 focus-visible:ring-offset-sky active:bg-white/30',
       )}
       {...rest}
     />
