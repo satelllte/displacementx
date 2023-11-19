@@ -14,7 +14,7 @@ const images = [
 ];
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://displacementx.vercel.app/'),
+  metadataBase: new URL('https://displacementx.vercel.app'),
   title,
   description,
   openGraph: {
