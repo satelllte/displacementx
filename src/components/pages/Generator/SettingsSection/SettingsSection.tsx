@@ -124,12 +124,21 @@ export function SettingsSection() {
   );
 
   const randomize = useStore((state) => state.randomize);
+  const randomizeRect = useStore((state) => state.randomizeRect);
+  const randomizeGrid = useStore((state) => state.randomizeGrid);
+  const randomizeCols = useStore((state) => state.randomizeCols);
+  const randomizeRows = useStore((state) => state.randomizeRows);
+  const randomizeLines = useStore((state) => state.randomizeLines);
+  const randomizeSprites = useStore((state) => state.randomizeSprites);
+  const randomizeCompositionModes = useStore(
+    (state) => state.randomizeCompositionModes,
+  );
 
   return (
     <section>
       <div className='flex items-center justify-between'>
         <SectionTitle>Settings</SectionTitle>
-        <Button onClick={randomize}>Randomize</Button>
+        <Button onClick={randomize}>Randomize all</Button>
       </div>
       <div className='flex flex-col gap-4'>
         <Group title='Basics'>
@@ -154,6 +163,7 @@ export function SettingsSection() {
           enabled={rectEnabled}
           setEnabled={setRectEnabled}
         >
+          <RandomizeButton onClick={randomizeRect} />
           <SlidersGroup>
             <SliderForConstant
               dual
@@ -183,6 +193,7 @@ export function SettingsSection() {
           enabled={gridEnabled}
           setEnabled={setGridEnabled}
         >
+          <RandomizeButton onClick={randomizeGrid} />
           <SlidersGroup>
             <SliderForConstant
               dual
@@ -225,6 +236,7 @@ export function SettingsSection() {
           enabled={colsEnabled}
           setEnabled={setColsEnabled}
         >
+          <RandomizeButton onClick={randomizeCols} />
           <SlidersGroup>
             <SliderForConstant
               dual
@@ -267,6 +279,7 @@ export function SettingsSection() {
           enabled={rowsEnabled}
           setEnabled={setRowsEnabled}
         >
+          <RandomizeButton onClick={randomizeRows} />
           <SlidersGroup>
             <SliderForConstant
               dual
@@ -309,6 +322,7 @@ export function SettingsSection() {
           enabled={linesEnabled}
           setEnabled={setLinesEnabled}
         >
+          <RandomizeButton onClick={randomizeLines} />
           <SlidersGroup>
             <SliderForConstant
               dual
@@ -339,6 +353,7 @@ export function SettingsSection() {
           enabled={spritesEnabled}
           setEnabled={setSpritesEnabled}
         >
+          <RandomizeButton onClick={randomizeSprites} />
           <CheckboxesGroup title='Packs' extra='Powered by JSplacement'>
             <Checkboxes<SpritesPack>
               items={[
@@ -360,6 +375,7 @@ export function SettingsSection() {
           </CheckboxesGroup>
         </Group>
         <Group title='Other'>
+          <RandomizeButton onClick={randomizeCompositionModes} />
           <CheckboxesGroup title='Composition modes'>
             <Checkboxes<CompositionMode>
               items={[
@@ -387,5 +403,15 @@ export function SettingsSection() {
         </Group>
       </div>
     </section>
+  );
+}
+
+function RandomizeButton({onClick}: {readonly onClick: () => void}) {
+  return (
+    <div>
+      <Button size='sm' onClick={onClick}>
+        Randomize
+      </Button>
+    </div>
   );
 }
