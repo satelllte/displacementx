@@ -1,7 +1,16 @@
+import {type ColorRGB} from '@/types';
+
 /**
  * Results with random boolean value
  */
 export const randomBoolean = (): boolean => Math.random() >= 0.5;
+
+// eslint-disable-next-line @typescript-eslint/naming-convention
+export const randomColorRGB = (): ColorRGB => ({
+  r: randomInteger(0, 255),
+  g: randomInteger(0, 255),
+  b: randomInteger(0, 255),
+});
 
 /**
  * Results with random integer value in [min..max] range (inclusive)
