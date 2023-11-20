@@ -120,6 +120,13 @@ type ComputedValues = {
 
 type Actions = {
   randomize: () => void;
+  randomizeRect: () => void;
+  randomizeGrid: () => void;
+  randomizeCols: () => void;
+  randomizeRows: () => void;
+  randomizeLines: () => void;
+  randomizeSprites: () => void;
+  randomizeCompositionModes: () => void;
 };
 
 export const useStore = create<Values & Setters & ComputedValues & Actions>(
@@ -322,6 +329,58 @@ export const useStore = create<Values & Setters & ComputedValues & Actions>(
         spritesEnabled: randomBoolean(),
         spritesPacks: randSpritesPacks(),
         spritesRotationEnabled: randomBoolean(),
+        compositionModes: randCompositionModes(),
+      }));
+    },
+    randomizeRect() {
+      set(() => ({
+        rectBrightness: randDualSetting(rectBrightness),
+        rectAlpha: randDualSetting(rectAlpha),
+        rectScale: randSetting(rectScale),
+      }));
+    },
+    randomizeGrid() {
+      set(() => ({
+        gridBrightness: randDualSetting(gridBrightness),
+        gridAlpha: randDualSetting(gridAlpha),
+        gridScale: randSetting(gridScale),
+        gridAmount: randDualSetting(gridAmount),
+        gridGap: randSetting(gridGap),
+      }));
+    },
+    randomizeCols() {
+      set(() => ({
+        colsBrightness: randDualSetting(colsBrightness),
+        colsAlpha: randDualSetting(colsAlpha),
+        colsScale: randSetting(colsScale),
+        colsAmount: randDualSetting(colsAmount),
+        colsGap: randSetting(colsGap),
+      }));
+    },
+    randomizeRows() {
+      set(() => ({
+        rowsBrightness: randDualSetting(rowsBrightness),
+        rowsAlpha: randDualSetting(rowsAlpha),
+        rowsScale: randSetting(rowsScale),
+        rowsAmount: randDualSetting(rowsAmount),
+        rowsGap: randSetting(rowsGap),
+      }));
+    },
+    randomizeLines() {
+      set(() => ({
+        linesBrightness: randDualSetting(linesBrightness),
+        linesAlpha: randDualSetting(linesAlpha),
+        linesWidth: randDualSetting(linesWidth),
+      }));
+    },
+    randomizeSprites() {
+      set(() => ({
+        spritesPacks: randSpritesPacks(),
+        spritesRotationEnabled: randomBoolean(),
+      }));
+    },
+    randomizeCompositionModes() {
+      set(() => ({
         compositionModes: randCompositionModes(),
       }));
     },
