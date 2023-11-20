@@ -8,6 +8,10 @@ Live at ▶ **[displacementx.vercel.app](https://displacementx.vercel.app/)**
 
 ## FAQ
 
+### What is it used for?
+
+The software can be used for generating grayscale height maps for their further application in various 3D rendering software such as Blender, Cinema4D, OctaneRender, etc.
+
 ### Does it aim to replace the original `JSplacement` software?
 
 No. The application doesn't aim to replace `JSplacement`, but rather to provide a web-based alternative for those who don't want to find its downloads online and install it. Features-wise, it implements some from `JSplacement`, but also has some that didn't exist in it before (e.g., "Composition modes" or "Custom gradient generator").
@@ -28,7 +32,7 @@ No particular plans. I've opened the source code of this project to everyone, so
 
 ### I want to share my work done with the help of `Displacement X`. Where can I do that?
 
-Feel free to open an issue in this repository to share your work. I'd love to see what you've created.
+Feel free to open an issue in this repository to share your work. I'd love to see what you've created and showcase it right here!
 
 ## Contributing
 
