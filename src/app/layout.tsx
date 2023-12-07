@@ -1,5 +1,4 @@
 import type {Metadata} from 'next';
-import {GeistSans} from 'geist/font';
 import './style.css';
 
 const title = 'Displacement X';
@@ -37,7 +36,11 @@ export default function RootLayout({
   readonly children: React.ReactNode;
 }) {
   return (
-    <html lang='en' className={GeistSans.variable}>
+    <html lang='en'>
+      <head>
+        <link rel='preconnect' href='https://rsms.me/' />
+        <link rel='stylesheet' href='https://rsms.me/inter/inter.css' />
+      </head>
       <body className='bg-black text-white selection:bg-sky'>{children}</body>
     </html>
   );
