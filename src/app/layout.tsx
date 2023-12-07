@@ -2,8 +2,8 @@ import type {Metadata} from 'next';
 import {GeistSans} from 'geist/font';
 import './style.css';
 
-const title = 'Displacement X';
-const description = 'Procedural displacement sci-fi maps generator';
+const title = 'OG Title';
+const description = 'OG Description';
 const images = [
   {
     url: '/og_1200_630.png',
