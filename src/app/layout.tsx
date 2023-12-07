@@ -6,7 +6,7 @@ const title = 'Displacement X';
 const description = 'Procedural displacement sci-fi maps generator';
 const images = [
   {
-    url: 'https://placehold.co/1200x630.png',
+    url: '/og_1200_630.png',
     alt: description,
     width: 1200,
     height: 630,
