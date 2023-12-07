@@ -1,6 +1,8 @@
 import type {Metadata} from 'next';
-import {GeistSans} from 'geist/font';
+import {Inter} from 'next/font/google';
 import './style.css';
+
+const font = Inter({subsets: ['latin']}); // eslint-disable-line new-cap
 
 const title = 'Displacement X';
 const description = 'Procedural displacement sci-fi maps generator';
@@ -37,7 +39,7 @@ export default function RootLayout({
   readonly children: React.ReactNode;
 }) {
   return (
-    <html lang='en' className={GeistSans.variable}>
+    <html lang='en' className={font.className}>
       <body className='bg-black text-white selection:bg-sky'>{children}</body>
     </html>
   );
