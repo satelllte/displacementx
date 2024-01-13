@@ -8,6 +8,8 @@
     "test:units": "vitest",
     "test:lint": "next lint --max-warnings=0 --format=compact",
     "test:format": "prettier . --check",
+    "bundle:analyze": "report",
+    "bundle:compare": "compare",
     "format": "prettier . --write"
   },
   "dependencies": {
@@ -37,11 +39,18 @@
     "eslint-config-xo-typescript": "1.0.1",
     "eslint-plugin-tailwindcss": "3.13.0",
     "happy-dom": "12.10.3",
+    "nextjs-bundle-analysis": "0.5.0",
     "postcss": "8.4.31",
     "prettier": "3.0.3",
     "prettier-plugin-tailwindcss": "0.5.6",
     "tailwindcss": "3.3.5",
     "typescript": "5.2.2",
     "vitest": "0.34.6"
+  },
+  "nextBundleAnalysis": {
+    "budget": null,
+    "budgetPercentIncreaseRed": 20,
+    "minimumChangeThreshold": 0,
+    "showDetails": true
   }
 }
