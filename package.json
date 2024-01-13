@@ -24,13 +24,13 @@
     "react": "18.2.0",
     "react-colorful": "5.6.1",
     "react-dom": "18.2.0",
-    "usehooks-ts": "2.9.1",
+    "usehooks-ts": "2.9.3",
     "zustand": "4.4.7"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "14.0.4",
-    "@types/node": "20.10.6",
-    "@types/react": "18.2.46",
+    "@types/node": "20.11.0",
+    "@types/react": "18.2.47",
     "@types/react-dom": "18.2.18",
     "autoprefixer": "10.4.16",
     "eslint": "8.56.0",
@@ -39,14 +39,14 @@
     "eslint-config-xo-react": "0.27.0",
     "eslint-config-xo-typescript": "1.0.1",
     "eslint-plugin-tailwindcss": "3.13.1",
-    "happy-dom": "12.10.3",
+    "happy-dom": "13.0.5",
     "nextjs-bundle-analysis": "0.5.0",
-    "postcss": "8.4.32",
-    "prettier": "3.1.1",
-    "prettier-plugin-tailwindcss": "0.5.10",
-    "tailwindcss": "3.4.0",
+    "postcss": "8.4.33",
+    "prettier": "3.2.1",
+    "prettier-plugin-tailwindcss": "0.5.11",
+    "tailwindcss": "3.4.1",
     "typescript": "5.3.3",
-    "vitest": "1.1.1"
+    "vitest": "1.2.0"
   },
   "nextBundleAnalysis": {
     "budget": null,
