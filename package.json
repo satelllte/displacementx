@@ -9,6 +9,7 @@
     "test:lint": "next lint --max-warnings=0 --format=compact",
     "test:format": "prettier . --check",
     "bundle:analyze": "report",
+    "bundle:compare": "compare",
     "format": "prettier . --write"
   },
   "dependencies": {
