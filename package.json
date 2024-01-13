@@ -8,6 +8,7 @@
     "test:units": "vitest",
     "test:lint": "next lint --max-warnings=0 --format=compact",
     "test:format": "prettier . --check",
+    "bundle:analyze": "report",
     "format": "prettier . --write"
   },
   "dependencies": {
@@ -37,6 +38,7 @@
     "eslint-config-xo-typescript": "1.0.1",
     "eslint-plugin-tailwindcss": "3.13.0",
     "happy-dom": "12.10.3",
+    "nextjs-bundle-analysis": "0.5.0",
     "postcss": "8.4.31",
     "prettier": "3.0.3",
     "prettier-plugin-tailwindcss": "0.5.6",
