@@ -10,7 +10,8 @@
     "test:format": "prettier . --check",
     "bundle:analyze": "report",
     "bundle:compare": "compare",
-    "format": "prettier . --write"
+    "format": "prettier . --write",
+    "upgrade": "bunx npm-check-updates -u && bun i"
   },
   "dependencies": {
     "@radix-ui/react-checkbox": "1.0.4",
