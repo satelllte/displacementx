@@ -20,7 +20,7 @@ permissions:
   pull-requests: write # for comments
 
 jobs:
-  analyze:
+  bundle_size:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
