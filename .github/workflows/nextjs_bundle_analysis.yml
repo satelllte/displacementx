@@ -66,7 +66,7 @@ jobs:
         run: bun run bundle:analyze
 
       - name: Upload bundle
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: bundle
           path: .next/analyze/__bundle_analysis.json
