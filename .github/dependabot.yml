@@ -9,7 +9,7 @@ updates:
     schedule:
       interval: 'monthly'
     commit-message:
-      prefix: '[skip ci][skip deploy] npm'
+      prefix: 'npm'
     # Group all of the updates into a single pull request
     groups:
       all:
@@ -21,4 +21,4 @@ updates:
     schedule:
       interval: 'monthly'
     commit-message:
-      prefix: '[skip ci][skip deploy] github-actions'
+      prefix: 'github-actions'
