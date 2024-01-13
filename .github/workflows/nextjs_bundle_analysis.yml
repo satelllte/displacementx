@@ -24,15 +24,17 @@ jobs:
   analyze:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Install Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v1
+
+      - name: Bun version
+        run: bun --version
 
       - name: Install dependencies
-        uses: bahmutov/npm-install@v1
+        run: bun install --frozen-lockfile
 
       # If pnpm is used, you need to switch the previous step with the following one. pnpm does not create a package-lock.json
       # so the step above will fail to pull dependencies
