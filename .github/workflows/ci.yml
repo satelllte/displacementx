@@ -1,4 +1,4 @@
-name: Test
+name: CI
 
 on:
   pull_request:
@@ -9,8 +9,11 @@ on:
       - main
 
 jobs:
-  test:
+  ci:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -26,3 +29,13 @@ jobs:
         run: bun run test:lint
       - name: Test (format)
         run: bun run test:format
+      - name: Build
+        run: bun run build
+      - name: Publish to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: YOUR_ACCOUNT_ID
+          projectName: displacementx
+          directory: out
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
