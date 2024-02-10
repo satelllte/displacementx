@@ -33,6 +33,8 @@ jobs:
         run: bun run test:format
       - name: Build
         run: bun run build
+      - name: "[Debug] Git diff"
+        run: git diff
       - name: Publish to Cloudflare Pages
         uses: cloudflare/pages-action@v1
         with:
