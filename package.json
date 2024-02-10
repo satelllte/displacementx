@@ -5,6 +5,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "test:types": "tsc",
     "test:units": "vitest",
     "test:lint": "next lint --max-warnings=0 --format=compact",
     "test:format": "prettier . --check",
