@@ -37,3 +37,13 @@ Feel free to open an issue in this repository to share your work. I'd love to se
 ## Contributing
 
 Check out [CONTRIBUTING.md](./CONTRIBUTING.md) guide.
+
+## Showcase
+
+Things created with the help of `Displacement X`
+
+<img height="400" src="./art/sicklizardvfx_1.png" alt="Art 1 by @sicklizardvfx" />
+<img height="400" src="./art/sicklizardvfx_2.png" alt="Art 2 by @sicklizardvfx" />
+<img height="400" src="./art/sicklizardvfx_3.png" alt="Art 3 by @sicklizardvfx" />
+
+by [@sicklizardvfx](https://www.instagram.com/sicklizardvfx/)
