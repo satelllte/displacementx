@@ -1,0 +1,11 @@
+# https://EditorConfig.org
+
+root = true
+
+[*]
+end_of_line = lf
+insert_final_newline = true
+
+[*.{yml,json,js,jsx,mjs,ts,tsx}]
+indent_style = space
+indent_size = 2
