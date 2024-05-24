@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "displacementx",
-    "version": "0.1.0"
+    "version": "../package.json"
   },
   "tauri": {
     "allowlist": {
@@ -16,7 +16,7 @@
     },
     "bundle": {
       "active": true,
-      "category": "DeveloperTool",
+      "category": "GraphicsAndDesign",
       "copyright": "",
       "deb": {
         "depends": []
@@ -30,7 +30,7 @@
         "icons/icon.ico"
       ],
       "identifier": "xdisplacement",
-      "longDescription": "",
+      "longDescription": "The software can be used for generating grayscale height maps for their further application in various 3D rendering software such as Blender, Cinema4D, OctaneRender, etc.",
       "macOS": {
         "entitlements": null,
         "exceptionDomain": "",
@@ -39,7 +39,7 @@
         "signingIdentity": null
       },
       "resources": [],
-      "shortDescription": "",
+      "shortDescription": "Procedural displacement sci-fi maps generator.",
       "targets": "all",
       "windows": {
         "certificateThumbprint": null,

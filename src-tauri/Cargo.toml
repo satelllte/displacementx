@@ -1,10 +1,10 @@
 [package]
 name = "app"
-version = "0.1.0"
-description = "A Tauri App"
-authors = ["you"]
-license = ""
-repository = ""
+version = "0.3.3"
+description = "Procedural displacement sci-fi maps generator."
+authors = ["satelllte"]
+license = "GPL-3.0"
+repository = "https://github.com/satelllte/displacementx"
 default-run = "app"
 edition = "2021"
 rust-version = "1.60"
