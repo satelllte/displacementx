@@ -5,6 +5,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "serve out",
+    "tauri": "tauri",
     "test:types": "tsc",
     "test:units": "vitest",
     "test:lint": "next lint --max-warnings=0 --format=compact",
