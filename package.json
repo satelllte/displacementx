@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "14.0.4",
-    "@tailwindcss/postcss": "^4.1.10",
+    "@tailwindcss/postcss": "4.1.10",
     "@types/node": "20.11.0",
     "@types/react": "18.2.47",
     "@types/react-dom": "18.2.18",
@@ -41,9 +41,9 @@
     "happy-dom": "13.0.5",
     "postcss": "8.4.33",
     "prettier": "3.2.1",
-    "prettier-plugin-tailwindcss": "^0.6.13",
+    "prettier-plugin-tailwindcss": "0.6.13",
     "serve": "14.2.1",
-    "tailwindcss": "^4.1.10",
+    "tailwindcss": "4.1.10",
     "typescript": "5.3.3",
     "vitest": "1.2.0"
   }
