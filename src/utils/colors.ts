@@ -1,4 +1,4 @@
-import {type ColorRGB, type ColorRGBA} from '@/types';
+import {type ColorRGB, type ColorRGBA} from '../types';
 
 export const rgb = ({r, g, b}: ColorRGB): string => `rgb(${r},${g},${b})`;
 
