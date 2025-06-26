@@ -1,4 +1,7 @@
+# Artifacts
 .astro/
-.DS_Store
 dist/
 node_modules/
+
+# System files
+.DS_Store
