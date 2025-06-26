@@ -9,8 +9,7 @@
     "test:units": "vitest",
     "test:lint": "next lint --max-warnings=0 --format=compact",
     "test:format": "prettier . --check",
-    "format": "prettier . --write",
-    "upgrade": "bunx npm-check-updates -u && bun i"
+    "format": "prettier . --write"
   },
   "dependencies": {
     "@radix-ui/react-checkbox": "1.0.4",
