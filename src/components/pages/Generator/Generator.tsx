@@ -53,6 +53,7 @@ function FooterLink({
   return (
     <a
       className='underline focus:outline-hidden focus-visible:ring-2 focus-visible:ring-sky'
+      rel='noopener noreferrer'
       target='_blank'
       href={href}
     >
