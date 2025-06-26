@@ -1,4 +1,4 @@
-import {type SpyInstance, describe, expect, it, vi, afterAll} from 'vitest';
+import {type MockInstance, describe, expect, it, vi, afterAll} from 'vitest';
 import {
   randomBoolean,
   randomColorRGB,
@@ -113,9 +113,9 @@ describe('randomColorRGB', () => {
             0.1,
           ],
           "result": {
-            "b": 0,
+            "b": 25,
             "g": 12,
-            "r": 25,
+            "r": 0,
           },
         },
         {
@@ -125,9 +125,9 @@ describe('randomColorRGB', () => {
             0.2,
           ],
           "result": {
-            "b": 25,
+            "b": 51,
             "g": 38,
-            "r": 51,
+            "r": 25,
           },
         },
         {
@@ -137,9 +137,9 @@ describe('randomColorRGB', () => {
             0.30000000000000004,
           ],
           "result": {
-            "b": 51,
+            "b": 76,
             "g": 64,
-            "r": 76,
+            "r": 51,
           },
         },
         {
@@ -149,9 +149,9 @@ describe('randomColorRGB', () => {
             0.4,
           ],
           "result": {
-            "b": 76,
+            "b": 102,
             "g": 89,
-            "r": 102,
+            "r": 76,
           },
         },
         {
@@ -161,9 +161,9 @@ describe('randomColorRGB', () => {
             0.5,
           ],
           "result": {
-            "b": 102,
+            "b": 128,
             "g": 115,
-            "r": 128,
+            "r": 102,
           },
         },
         {
@@ -173,9 +173,9 @@ describe('randomColorRGB', () => {
             0.6,
           ],
           "result": {
-            "b": 128,
+            "b": 153,
             "g": 140,
-            "r": 153,
+            "r": 128,
           },
         },
         {
@@ -185,9 +185,9 @@ describe('randomColorRGB', () => {
             0.7,
           ],
           "result": {
-            "b": 153,
+            "b": 179,
             "g": 166,
-            "r": 179,
+            "r": 153,
           },
         },
         {
@@ -197,9 +197,9 @@ describe('randomColorRGB', () => {
             0.7999999999999999,
           ],
           "result": {
-            "b": 179,
+            "b": 204,
             "g": 192,
-            "r": 204,
+            "r": 179,
           },
         },
         {
@@ -209,9 +209,9 @@ describe('randomColorRGB', () => {
             0.9,
           ],
           "result": {
-            "b": 204,
+            "b": 230,
             "g": 217,
-            "r": 230,
+            "r": 204,
           },
         },
         {
@@ -221,9 +221,9 @@ describe('randomColorRGB', () => {
             0.999,
           ],
           "result": {
-            "b": 230,
+            "b": 255,
             "g": 243,
-            "r": 255,
+            "r": 230,
           },
         },
       ]
@@ -431,7 +431,7 @@ describe('randomItem', () => {
 });
 
 const useMathRandomMock = () => {
-  let _spy: SpyInstance | undefined;
+  let _spy: MockInstance | undefined;
 
   const mock = (returnValue: number) => {
     unmock();
