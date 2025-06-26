@@ -2,7 +2,7 @@
 const nextConfig = {
   output: 'export',
   eslint: {
-    ignoreDuringBuilds: true, // Checking in "test:lint" script instead
+    ignoreDuringBuilds: true, // Linting isn't used in this project yet
   },
   typescript: {
     ignoreBuildErrors: true, // Checking in "test:types" script instead

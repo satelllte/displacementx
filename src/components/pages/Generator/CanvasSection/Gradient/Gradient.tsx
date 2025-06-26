@@ -81,10 +81,7 @@ export const Gradient = forwardRef<HTMLCanvasElement>((_, forwardedRef) => {
       <div>
         <div className='flex flex-col gap-1 pt-1'>
           {colors.map((color, index) => (
-            <div
-              key={index} // eslint-disable-line react/no-array-index-key
-              className='flex gap-2'
-            >
+            <div key={index} className='flex gap-2'>
               <ColorPicker color={color} setColor={setColorForIndex(index)} />
               <Button
                 disabled={colors.length <= colorsMin}

@@ -27,8 +27,6 @@ jobs:
         run: bun run test:types
       - name: Test (units)
         run: bun run test:units
-      - name: Test (lint)
-        run: bun run test:lint
       - name: Test (format)
         run: bun run test:format
       - name: Build
