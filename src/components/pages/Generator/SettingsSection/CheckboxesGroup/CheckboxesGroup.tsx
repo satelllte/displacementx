@@ -12,7 +12,7 @@ export function CheckboxesGroup({
   return (
     <div>
       <div className='pb-1 text-sm'>{`${title}:`}</div>
-      {extra && <div className='pb-1 text-xs text-pink'>{`(${extra})`}</div>}
+      {extra && <div className='text-pink pb-1 text-xs'>{`(${extra})`}</div>}
       <div className='flex flex-wrap gap-2'>{children}</div>
     </div>
   );

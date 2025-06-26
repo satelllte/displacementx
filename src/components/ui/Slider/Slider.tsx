@@ -28,7 +28,7 @@ export function Slider({label, min, max, step, ...dynamicProps}: SliderProps) {
   const thumb0Id = useId();
   const thumb1Id = useId();
   return (
-    <div className='w-full select-none text-sm'>
+    <div className='w-full text-sm select-none'>
       <div className='flex items-center justify-between'>
         <label id={labelId}>{label}</label>
         <div>
@@ -58,7 +58,7 @@ export function Slider({label, min, max, step, ...dynamicProps}: SliderProps) {
         }}
       >
         <RadixSlider.Track className='relative block h-1 grow rounded-full bg-white'>
-          <RadixSlider.Range className='absolute h-full rounded-full bg-pink' />
+          <RadixSlider.Range className='bg-pink absolute h-full rounded-full' />
         </RadixSlider.Track>
         <Thumb id={thumb0Id} labelledBy={labelId} />
         {dynamicProps.dual && <Thumb id={thumb1Id} labelledBy={labelId} />}
@@ -76,7 +76,7 @@ function Thumb({id, labelledBy}: ThumbProps) {
   return (
     <RadixSlider.Thumb
       id={id}
-      className='block h-3 w-3 bg-white hover:shadow-[0_0_0_2px] hover:shadow-pink focus:shadow-[0_0_0_2px] focus:shadow-pink focus:outline-hidden'
+      className='hover:shadow-pink focus:shadow-pink block h-3 w-3 bg-white hover:shadow-[0_0_0_2px] focus:shadow-[0_0_0_2px] focus:outline-hidden'
       aria-labelledby={labelledBy}
     />
   );
