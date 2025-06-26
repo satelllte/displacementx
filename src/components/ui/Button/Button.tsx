@@ -13,7 +13,7 @@ type ButtonProps = NativeButtonPropsToExtend & {
 };
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({disabled, fullWidth, size, ...rest}, ref) => (
+  ({disabled = false, fullWidth = false, size = 'md', ...rest}, ref) => (
     <button
       ref={ref}
       type='button'
@@ -30,9 +30,3 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 );
 
 Button.displayName = 'Button';
-
-Button.defaultProps = {
-  disabled: false,
-  fullWidth: false,
-  size: 'md',
-};

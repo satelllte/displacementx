@@ -1,5 +1,5 @@
 export const getCtx2dFromRef = (
-  canvasRef: React.RefObject<HTMLCanvasElement>,
+  canvasRef: React.RefObject<HTMLCanvasElement | null>,
 ): CanvasRenderingContext2D => {
   const canvas = canvasRef.current;
   if (!canvas) throw new TypeError('Canvas not found in ref');
