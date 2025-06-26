@@ -256,7 +256,7 @@ export function CanvasSection() {
           value={resolution}
           setValue={setResolution}
         />
-        <span className='text-xs italic text-pink'>
+        <span className='text-xs text-pink italic'>
           Please note that changing the resolution resets canvas!
         </span>
       </SubSection>

@@ -1,6 +1,12 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@theme {
+  --color-*: initial; /* disables Tailwind's default colors: https://tailwindcss.com/docs/colors#using-a-custom-palette */
+  --color-white: #fff;
+  --color-black: #000;
+  --color-pink: #be185d;
+  --color-sky: #0369a1;
+}
 
 /* Inter font | https://rsms.me/inter/download/ */
 :root {

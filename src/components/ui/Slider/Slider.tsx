@@ -28,7 +28,7 @@ export function Slider({label, min, max, step, ...dynamicProps}: SliderProps) {
   const thumb0Id = useId();
   const thumb1Id = useId();
   return (
-    <div className='w-full select-none text-sm'>
+    <div className='w-full text-sm select-none'>
       <div className='flex items-center justify-between'>
         <label id={labelId}>{label}</label>
         <div>
@@ -76,7 +76,7 @@ function Thumb({id, labelledBy}: ThumbProps) {
   return (
     <RadixSlider.Thumb
       id={id}
-      className='block h-3 w-3 bg-white hover:shadow-[0_0_0_2px] hover:shadow-pink focus:shadow-[0_0_0_2px] focus:shadow-pink focus:outline-none'
+      className='block h-3 w-3 bg-white hover:shadow-[0_0_0_2px] hover:shadow-pink focus:shadow-[0_0_0_2px] focus:shadow-pink focus:outline-hidden'
       aria-labelledby={labelledBy}
     />
   );

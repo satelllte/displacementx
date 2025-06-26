@@ -22,7 +22,7 @@ export function ColorPicker({color, setColor}: ColorPickerProps) {
   return (
     <div className='flex items-center gap-2'>
       <div
-        className='relative h-8 w-8 rounded-sm border border-white'
+        className='relative h-8 w-8 rounded-xs border border-white'
         style={{backgroundColor: colorHex}}
         onClick={() => {
           setPopoverOpen(true);
