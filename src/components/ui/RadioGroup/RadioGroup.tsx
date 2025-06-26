@@ -41,6 +41,7 @@ function Item({
   const id = useId();
   return (
     <div className='flex items-center'>
+      {/* TODO: Resolve the error - A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. */}
       <RadixRadioGroup.Item
         className='outline-hidden focus:shadow-sky h-4 w-4 cursor-default bg-white shadow-[0_2px_10px] shadow-black hover:bg-white/80 focus:shadow-[0_0_0_2px]'
         value={value}
