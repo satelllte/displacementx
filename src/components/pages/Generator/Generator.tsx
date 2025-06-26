@@ -5,7 +5,7 @@ import {SettingsSection} from './SettingsSection';
 
 export function Generator() {
   return (
-    <div className='mx-auto max-w-(--breakpoint-2xl)'>
+    <div className='mx-auto max-w-screen-2xl'>
       <header className='p-4'>
         <h1 className='text-2xl select-none sm:text-3xl'>Displacement X</h1>
         <span className='text-xs text-white/50'>{`v${softwareVersion}`}</span>
