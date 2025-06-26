@@ -34,6 +34,7 @@
     "astro": "5.10.1",
     "happy-dom": "18.0.1",
     "prettier": "3.2.1",
+    "prettier-plugin-astro": "0.14.1",
     "prettier-plugin-tailwindcss": "0.6.13",
     "tailwindcss": "4.1.10",
     "typescript": "5.8.3",
