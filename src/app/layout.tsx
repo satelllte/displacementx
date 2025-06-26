@@ -41,7 +41,7 @@ export default function RootLayout({
         <link rel='preconnect' href='https://rsms.me/' />
         <link rel='stylesheet' href='https://rsms.me/inter/inter.css' />
       </head>
-      <body className='selection:bg-sky bg-black text-white'>{children}</body>
+      <body className='bg-black text-white selection:bg-sky'>{children}</body>
     </html>
   );
 }
