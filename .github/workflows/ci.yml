@@ -37,10 +37,10 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: displacementx
-          directory: out
+          directory: dist
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
           name: build
-          path: ./out
+          path: ./dist

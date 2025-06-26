@@ -17,6 +17,9 @@ export function ColorPicker({color, setColor}: ColorPickerProps) {
   const closePopover = useCallback(() => {
     setPopoverOpen(false);
   }, []);
+
+  // This type error started to occur after an upgrade to React 19. Behaviour is intact.
+  // @ts-expect-error Type 'RefObject<HTMLDivElement | null>' is not assignable to type 'RefObject<HTMLElement>'
   useOnClickOutside(popoverRef, closePopover);
 
   return (

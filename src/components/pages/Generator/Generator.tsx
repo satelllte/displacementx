@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import {softwareVersion} from '@/constants/softwareVersion';
 import {CanvasSection} from './CanvasSection';
 import {SettingsSection} from './SettingsSection';
@@ -52,12 +51,13 @@ function FooterLink({
   readonly children: string;
 }) {
   return (
-    <Link
+    <a
       className='underline focus:outline-hidden focus-visible:ring-2 focus-visible:ring-sky'
+      rel='noopener noreferrer'
       target='_blank'
       href={href}
     >
       {children}
-    </Link>
+    </a>
   );
 }
