@@ -9,4 +9,4 @@ singleQuote: true
 jsxSingleQuote: true
 bracketSpacing: false
 tailwindFunctions: ['clsx']
-tailwindStylesheet: './src/app/style.css'
+tailwindStylesheet: './src/styles/global.css'
