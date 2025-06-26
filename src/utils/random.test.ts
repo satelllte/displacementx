@@ -1,4 +1,4 @@
-import {type SpyInstance, describe, expect, it, vi, afterAll} from 'vitest';
+import {type MockInstance, describe, expect, it, vi, afterAll} from 'vitest';
 import {
   randomBoolean,
   randomColorRGB,
@@ -431,7 +431,7 @@ describe('randomItem', () => {
 });
 
 const useMathRandomMock = () => {
-  let _spy: SpyInstance | undefined;
+  let _spy: MockInstance | undefined;
 
   const mock = (returnValue: number) => {
     unmock();
