@@ -4,7 +4,7 @@ import {describe, it, expect, vi, beforeAll, afterAll} from 'vitest';
 import {animate, animateWithSubIterations} from './animationFrame';
 
 describe('animationFrame', () => {
-  const anyNumber: number = expect.any(Number); // eslint-disable-line @typescript-eslint/no-unsafe-assignment
+  const anyNumber: number = expect.any(Number);
 
   beforeAll(() => {
     vi.useFakeTimers();
