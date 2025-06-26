@@ -5,7 +5,7 @@ import {
   randomInteger,
   randomItem,
 } from './random';
-import {type ColorRGB} from '@/types';
+import {type ColorRGB} from '../types';
 
 describe('randomBoolean', () => {
   const {mock, unmock} = useMathRandomMock();
