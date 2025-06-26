@@ -1,5 +1,5 @@
 import {useCallback, useRef, useState} from 'react';
-// import {useOnClickOutside} from 'usehooks-ts'; // TODO: figure out why the import doesn't work
+import {useOnClickOutside} from 'usehooks-ts';
 import {rgbToHex} from '@/utils/colors';
 import {type ColorRGB} from '@/types';
 import {RgbColorPicker} from 'react-colorful';
@@ -17,7 +17,10 @@ export function ColorPicker({color, setColor}: ColorPickerProps) {
   const closePopover = useCallback(() => {
     setPopoverOpen(false);
   }, []);
-  // useOnClickOutside(popoverRef, closePopover); // TODO: figure out why the import doesn't work
+
+  // This type error started to occur after an upgrade to React 19. Behaviour is intact.
+  // @ts-expect-error Type 'RefObject<HTMLDivElement | null>' is not assignable to type 'RefObject<HTMLElement>'
+  useOnClickOutside(popoverRef, closePopover);
 
   return (
     <div className='flex items-center gap-2'>
