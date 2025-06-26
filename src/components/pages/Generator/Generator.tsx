@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import {softwareVersion} from '@/constants/softwareVersion';
 import {CanvasSection} from './CanvasSection';
 import {SettingsSection} from './SettingsSection';
@@ -7,14 +6,14 @@ export function Generator() {
   return (
     <div className='mx-auto max-w-screen-2xl'>
       <header className='p-4'>
-        <h1 className='text-2xl select-none sm:text-3xl'>Displacement X</h1>
+        <h1 className='select-none text-2xl sm:text-3xl'>Displacement X</h1>
         <span className='text-xs text-white/50'>{`v${softwareVersion}`}</span>
       </header>
       <main className='flex flex-col gap-8 px-4 pb-4 sm:flex-row sm:gap-6'>
         <div className='relative flex-1'>
           <CanvasSection />
         </div>
-        <div className='relative flex-1 lg:flex-2'>
+        <div className='lg:flex-2 relative flex-1'>
           <SettingsSection />
         </div>
       </main>
@@ -52,12 +51,12 @@ function FooterLink({
   readonly children: string;
 }) {
   return (
-    <Link
-      className='underline focus:outline-hidden focus-visible:ring-2 focus-visible:ring-sky'
+    <a
+      className='focus:outline-hidden focus-visible:ring-sky underline focus-visible:ring-2'
       target='_blank'
       href={href}
     >
       {children}
-    </Link>
+    </a>
   );
 }

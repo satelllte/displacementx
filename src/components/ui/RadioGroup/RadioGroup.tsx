@@ -42,11 +42,11 @@ function Item({
   return (
     <div className='flex items-center'>
       <RadixRadioGroup.Item
-        className='h-4 w-4 cursor-default bg-white shadow-[0_2px_10px] shadow-black outline-hidden hover:bg-white/80 focus:shadow-[0_0_0_2px] focus:shadow-sky'
+        className='outline-hidden focus:shadow-sky h-4 w-4 cursor-default bg-white shadow-[0_2px_10px] shadow-black hover:bg-white/80 focus:shadow-[0_0_0_2px]'
         value={value}
         id={id}
       >
-        <RadixRadioGroup.Indicator className="relative flex h-full w-full items-center justify-center after:block after:h-3 after:w-3 after:bg-pink after:content-['']" />
+        <RadixRadioGroup.Indicator className="after:bg-pink relative flex h-full w-full items-center justify-center after:block after:h-3 after:w-3 after:content-['']" />
       </RadixRadioGroup.Item>
       <label className='pl-2 text-sm text-white' htmlFor={id}>
         {label}

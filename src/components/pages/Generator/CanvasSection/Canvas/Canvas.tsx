@@ -27,7 +27,7 @@ export const Canvas = forwardRef<HTMLCanvasElement, CanvasProps>(
       </canvas>
       <div
         className={clsx(
-          'absolute flex h-full w-full items-center justify-center bg-black/50 text-lg text-pink uppercase',
+          'text-pink absolute flex h-full w-full items-center justify-center bg-black/50 text-lg uppercase',
           !isRendering && 'hidden',
         )}
       >

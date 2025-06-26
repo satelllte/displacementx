@@ -1,5 +1,5 @@
 import {useCallback, useRef, useState} from 'react';
-import {useOnClickOutside} from 'usehooks-ts';
+// import {useOnClickOutside} from 'usehooks-ts'; // TODO: figure out why the import doesn't work
 import {rgbToHex} from '@/utils/colors';
 import {type ColorRGB} from '@/types';
 import {RgbColorPicker} from 'react-colorful';
@@ -17,12 +17,12 @@ export function ColorPicker({color, setColor}: ColorPickerProps) {
   const closePopover = useCallback(() => {
     setPopoverOpen(false);
   }, []);
-  useOnClickOutside(popoverRef, closePopover);
+  // useOnClickOutside(popoverRef, closePopover); // TODO: figure out why the import doesn't work
 
   return (
     <div className='flex items-center gap-2'>
       <div
-        className='relative h-8 w-8 rounded-xs border border-white'
+        className='rounded-xs relative h-8 w-8 border border-white'
         style={{backgroundColor: colorHex}}
         onClick={() => {
           setPopoverOpen(true);
