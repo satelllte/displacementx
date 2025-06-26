@@ -76,7 +76,7 @@ function Thumb({id, labelledBy}: ThumbProps) {
   return (
     <RadixSlider.Thumb
       id={id}
-      className='block h-3 w-3 bg-white hover:shadow-[0_0_0_2px] hover:shadow-pink focus:shadow-[0_0_0_2px] focus:shadow-pink focus:outline-none'
+      className='block h-3 w-3 bg-white hover:shadow-[0_0_0_2px] hover:shadow-pink focus:shadow-[0_0_0_2px] focus:shadow-pink focus:outline-hidden'
       aria-labelledby={labelledBy}
     />
   );

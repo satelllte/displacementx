@@ -42,7 +42,7 @@ function Item({
   return (
     <div className='flex items-center'>
       <RadixRadioGroup.Item
-        className='h-4 w-4 cursor-default bg-white shadow-[0_2px_10px] shadow-black outline-none hover:bg-white/80 focus:shadow-[0_0_0_2px] focus:shadow-sky'
+        className='h-4 w-4 cursor-default bg-white shadow-[0_2px_10px] shadow-black outline-hidden hover:bg-white/80 focus:shadow-[0_0_0_2px] focus:shadow-sky'
         value={value}
         id={id}
       >

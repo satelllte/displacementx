@@ -5,7 +5,7 @@ import {SettingsSection} from './SettingsSection';
 
 export function Generator() {
   return (
-    <div className='mx-auto max-w-screen-2xl'>
+    <div className='mx-auto max-w-(--breakpoint-2xl)'>
       <header className='p-4'>
         <h1 className='select-none text-2xl sm:text-3xl'>Displacement X</h1>
         <span className='text-xs text-white/50'>{`v${softwareVersion}`}</span>
@@ -14,7 +14,7 @@ export function Generator() {
         <div className='relative flex-1'>
           <CanvasSection />
         </div>
-        <div className='relative flex-1 lg:flex-[2]'>
+        <div className='relative flex-1 lg:flex-2'>
           <SettingsSection />
         </div>
       </main>
@@ -53,7 +53,7 @@ function FooterLink({
 }) {
   return (
     <Link
-      className='underline focus:outline-none focus-visible:ring-2 focus-visible:ring-sky'
+      className='underline focus:outline-hidden focus-visible:ring-2 focus-visible:ring-sky'
       target='_blank'
       href={href}
     >
