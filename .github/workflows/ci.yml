@@ -11,26 +11,27 @@ on:
 jobs:
   ci:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     permissions:
       contents: read
       deployments: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Set up Bun
-        uses: oven-sh/setup-bun@v1
-      - name: Bun version
-        run: bun --version
+      - name: Set up Node
+        uses: actions/setup-node@v4
+      - name: Node version
+        run: node --version
       - name: Install dependencies
-        run: bun install --frozen-lockfile
+        run: npm ci
       - name: Test (types)
-        run: bun run test:types
+        run: npm run test:types
       - name: Test (units)
-        run: bun run test:units
+        run: npm run test:units
       - name: Test (format)
-        run: bun run test:format
+        run: npm run test:format
       - name: Build
-        run: bun run build
+        run: npm run build
       - name: Publish to Cloudflare Pages
         uses: cloudflare/pages-action@v1
         with:
