@@ -29,7 +29,6 @@ import {
   linesWidth as linesWidthConst,
   type SpritesPack,
   type CompositionMode,
-  tilingEnabled,
 } from '../constants';
 import {Group} from './Group';
 import {CheckboxesGroup} from './CheckboxesGroup';
@@ -77,7 +76,6 @@ export function SettingsSection() {
   const spritesRotationEnabled = useStore(
     (state) => state.spritesRotationEnabled,
   );
-  const tilingEnabled = useStore((state) => state.tilingEnabled);
 
   const compositionModes = useStore((state) => state.compositionModes);
 
@@ -124,7 +122,6 @@ export function SettingsSection() {
   const setSpritesRotationEnabled = useStore(
     (state) => state.setSpritesRotationEnabled,
   );
-  const setTilingEnabled = useStore((state) => state.setTilingEnabled);
 
   const randomize = useStore((state) => state.randomize);
   const randomizeRect = useStore((state) => state.randomizeRect);
@@ -378,11 +375,6 @@ export function SettingsSection() {
           </CheckboxesGroup>
         </Group>
         <Group title='Other'>
-            <Checkbox
-              label='Tileable'
-              isChecked={tilingEnabled}
-              setIsChecked={setTilingEnabled}
-            />
           <RandomizeButton onClick={randomizeCompositionModes} />
           <CheckboxesGroup title='Composition modes'>
             <Checkboxes<CompositionMode>
