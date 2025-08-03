@@ -28,8 +28,8 @@ export function CanvasSection() {
   const [isRendering, setIsRendering] = useState<boolean>(false);
   const [previewType, setPreviewType] = useState<PreviewType>('original');
   const [renderTimeMs, setRenderTimeMs] = useState<number | undefined>();
-  const tilingEnabled = useStore((state) => state.tilingEnabled);
-  const setTilingEnabled = useStore((state) => state.setTilingEnabled);
+  const seamlessTextureEnabled = useStore((state) => state.seamlessTextureEnabled);
+  const setseamlessTextureEnabled = useStore((state) => state.setseamlessTextureEnabled);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const canvasOriginalPreviewDataUrl = useRef<string | undefined>(undefined);
@@ -75,7 +75,7 @@ export function CanvasSection() {
       spritesRotationEnabled,
       getSprites,
       compositionModes,
-      tilingEnabled,
+      seamlessTextureEnabled,
     } = useStore.getState();
 
     const sprites = getSprites();
@@ -115,7 +115,7 @@ export function CanvasSection() {
         spritesRotationEnabled,
         sprites,
         compositionModes,
-        tilingEnabled,
+        seamlessTextureEnabled,
       },
       onEnd(renderTimeMs) {
         // Set minumum "visible" render time to prevent very fast component updates (i.e., flickering)
@@ -265,11 +265,11 @@ export function CanvasSection() {
           Please note that changing the resolution resets canvas!
         </span>
       </SubSection>
-      <SubSection title='Tiling'>
+      <SubSection title='Seamless Texture'>
         <Checkbox
-          label='Tileable'
-          isChecked={tilingEnabled}
-          setIsChecked={setTilingEnabled}
+          label='Seamless'
+          isChecked={seamlessTextureEnabled}
+          setIsChecked={setseamlessTextureEnabled}
         />
       </SubSection>
       <SubSection title='Inversion' disabled={invertDisabled}>
