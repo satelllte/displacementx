@@ -14,7 +14,6 @@ import {drawInvert} from './utils/drawInvert';
 import {saveImage} from './utils/saveImage';
 import {getCtx2dFromRef} from './utils/getCtx2dFromRef';
 import {getCanvasDimensions} from './utils/getCanvasDimensions';
-import { Checkbox } from '@/components/ui/Checkbox/Checkbox';
 
 type Resolution = '1024' | '2048' | '4096' | '8192';
 type PreviewType = 'original' | 'normal' | 'color';
@@ -28,8 +27,6 @@ export function CanvasSection() {
   const [isRendering, setIsRendering] = useState<boolean>(false);
   const [previewType, setPreviewType] = useState<PreviewType>('original');
   const [renderTimeMs, setRenderTimeMs] = useState<number | undefined>();
-  const seamlessTextureEnabled = useStore((state) => state.seamlessTextureEnabled);
-  const setseamlessTextureEnabled = useStore((state) => state.setseamlessTextureEnabled);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const canvasOriginalPreviewDataUrl = useRef<string | undefined>(undefined);
@@ -264,13 +261,6 @@ export function CanvasSection() {
         <span className='text-xs text-pink italic'>
           Please note that changing the resolution resets canvas!
         </span>
-      </SubSection>
-      <SubSection title='Seamless Texture'>
-        <Checkbox
-          label='Seamless'
-          isChecked={seamlessTextureEnabled}
-          setIsChecked={setseamlessTextureEnabled}
-        />
       </SubSection>
       <SubSection title='Inversion' disabled={invertDisabled}>
         <Button disabled={isRendering || invertDisabled} onClick={invert}>
