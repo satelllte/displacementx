@@ -490,6 +490,7 @@ const rotate = ({
   const angleRadians = degreesToRadians(angleDegrees);
   ctx2d.translate(wc, hc);
   ctx2d.rotate(angleRadians);
+  ctx2d.translate(-wc, -hc);
 };
 
 const rotateEnd = ({
@@ -503,6 +504,7 @@ const rotateEnd = ({
   const wc = Math.round(w / 2);
   const hc = Math.round(h / 2);
   const angleRadians = degreesToRadians(angleDegrees);
+  ctx2d.translate(wc, hc);
   ctx2d.rotate(-angleRadians);
   ctx2d.translate(-wc, -hc);
 };
