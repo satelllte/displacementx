@@ -135,7 +135,7 @@ export const draw = async ({
             colsScale,
             colsAmount,
             colsGap,
-            seamlessTextureEnabled
+            seamlessTextureEnabled,
           });
           break;
         case 3:
@@ -147,7 +147,7 @@ export const draw = async ({
             rowsScale,
             rowsAmount,
             rowsGap,
-            seamlessTextureEnabled
+            seamlessTextureEnabled,
           });
           break;
         case 4:
@@ -165,7 +165,7 @@ export const draw = async ({
             ctx2d,
             sprites,
             spritesRotationEnabled,
-            seamlessTextureEnabled
+            seamlessTextureEnabled,
           });
           break;
         default:
@@ -199,11 +199,11 @@ const drawSeamless = ({
   seamlessTextureEnabled: boolean;
   drawFunc: (x: number, y: number, rectW: number, rectH: number) => void;
 }): void => {
-  if(seamlessTextureEnabled) {
-    while(x + rectW > canvasW) {
+  if (seamlessTextureEnabled) {
+    while (x + rectW > canvasW) {
       x -= canvasW;
     }
-    while(y + rectH > canvasH) {
+    while (y + rectH > canvasH) {
       y -= canvasH;
     }
     for (let ox = 0; x + ox <= canvasW; ox += canvasW) {
@@ -214,7 +214,7 @@ const drawSeamless = ({
   } else {
     drawFunc(x, y, rectW, rectH);
   }
-}
+};
 
 const drawBackground = ({
   ctx2d,
@@ -252,12 +252,26 @@ const drawRect = ({
   const rectH = Math.round(
     randomInteger(Math.round(w / 16), Math.round(w / 8)) * (rectScale / 100),
   );
-  const x = randomInteger(seamlessTextureEnabled ? 0 : Math.round(-rectW / 2), seamlessTextureEnabled ? Math.round(w) : Math.round(w - rectW / 2));
-  const y = randomInteger(seamlessTextureEnabled ? 0 : Math.round(-rectH / 2), seamlessTextureEnabled ? Math.round(h) : Math.round(h - rectH / 2));
-  drawSeamless({x, y, rectW, rectH, canvasW: w, canvasH: h, seamlessTextureEnabled,
+  const x = randomInteger(
+    seamlessTextureEnabled ? 0 : Math.round(-rectW / 2),
+    seamlessTextureEnabled ? Math.round(w) : Math.round(w - rectW / 2),
+  );
+  const y = randomInteger(
+    seamlessTextureEnabled ? 0 : Math.round(-rectH / 2),
+    seamlessTextureEnabled ? Math.round(h) : Math.round(h - rectH / 2),
+  );
+  drawSeamless({
+    x,
+    y,
+    rectW,
+    rectH,
+    canvasW: w,
+    canvasH: h,
+    seamlessTextureEnabled,
     drawFunc: (x, y, rectW, rectH) => {
       ctx2d.fillRect(x, y, rectW, rectH);
-  }});
+    },
+  });
 };
 
 const drawGrid = ({
@@ -283,8 +297,14 @@ const drawGrid = ({
     x: randomInteger(...gridBrightness),
     a: randomInteger(...gridAlpha),
   });
-  const x0 = randomInteger(seamlessTextureEnabled ? 0 : Math.round(-w / 16), Math.round(w));
-  const y0 = randomInteger(seamlessTextureEnabled ? 0 : Math.round(-h / 16), Math.round(h));
+  const x0 = randomInteger(
+    seamlessTextureEnabled ? 0 : Math.round(-w / 16),
+    Math.round(w),
+  );
+  const y0 = randomInteger(
+    seamlessTextureEnabled ? 0 : Math.round(-h / 16),
+    Math.round(h),
+  );
   const xn = randomInteger(...gridAmount);
   const yn = randomInteger(...gridAmount);
   const scale = gridScale / 100;
@@ -295,10 +315,18 @@ const drawGrid = ({
 
   for (let i = 0, x = x0; i < xn; i++) {
     for (let j = 0, y = y0; j < yn; j++) {
-      drawSeamless({x, y, rectW: size, rectH: size, canvasW: w, canvasH: h, seamlessTextureEnabled, 
+      drawSeamless({
+        x,
+        y,
+        rectW: size,
+        rectH: size,
+        canvasW: w,
+        canvasH: h,
+        seamlessTextureEnabled,
         drawFunc: (x, y, rectW, rectH) => {
           ctx2d.fillRect(x, y, rectW, rectH);
-      }});
+        },
+      });
       y += size + Math.round(size * gap);
     }
 
@@ -313,7 +341,7 @@ const drawCols = ({
   colsScale,
   colsAmount,
   colsGap,
-  seamlessTextureEnabled
+  seamlessTextureEnabled,
 }: {
   ctx2d: CanvasRenderingContext2D;
   colsBrightness: NumberDual;
@@ -330,8 +358,14 @@ const drawCols = ({
     a: randomInteger(...colsAlpha),
   });
 
-  const x0 = randomInteger(seamlessTextureEnabled ? 0 : Math.round(-w / 16), Math.round(w));
-  const y0 = randomInteger(seamlessTextureEnabled ? 0 : Math.round(-h / 16), Math.round(h));
+  const x0 = randomInteger(
+    seamlessTextureEnabled ? 0 : Math.round(-w / 16),
+    Math.round(w),
+  );
+  const y0 = randomInteger(
+    seamlessTextureEnabled ? 0 : Math.round(-h / 16),
+    Math.round(h),
+  );
   const xn = randomInteger(...colsAmount);
   const scale = colsScale / 100;
   const gap = colsGap / 100;
@@ -341,10 +375,18 @@ const drawCols = ({
   const sizeH = Math.round(sizeW * randomInteger(1, 10));
 
   for (let i = 0, x = x0; i < xn; i++) {
-    drawSeamless({ x, y: y0, rectW: sizeW, rectH: sizeH, canvasW: w, canvasH: h, seamlessTextureEnabled,
+    drawSeamless({
+      x,
+      y: y0,
+      rectW: sizeW,
+      rectH: sizeH,
+      canvasW: w,
+      canvasH: h,
+      seamlessTextureEnabled,
       drawFunc: (x, y, rectW, rectH) => {
         ctx2d.fillRect(x, y, rectW, rectH);
-    }});
+      },
+    });
     x += sizeW + Math.round(sizeW * gap);
   }
 };
@@ -373,8 +415,14 @@ const drawRows = ({
     a: randomInteger(...rowsAlpha),
   });
 
-  const x0 = randomInteger(seamlessTextureEnabled ? 0 : Math.round(-w / 16), Math.round(w));
-  const y0 = randomInteger(seamlessTextureEnabled ? 0 : Math.round(-h / 16), Math.round(h));
+  const x0 = randomInteger(
+    seamlessTextureEnabled ? 0 : Math.round(-w / 16),
+    Math.round(w),
+  );
+  const y0 = randomInteger(
+    seamlessTextureEnabled ? 0 : Math.round(-h / 16),
+    Math.round(h),
+  );
   const yn = randomInteger(...rowsAmount);
   const scale = rowsScale / 100;
   const gap = rowsGap / 100;
@@ -384,10 +432,18 @@ const drawRows = ({
   const sizeW = Math.round(sizeH * randomInteger(1, 10));
 
   for (let i = 0, y = y0; i < yn; i++) {
-    drawSeamless({x: x0, y, rectW: sizeW, rectH: sizeH, canvasW: w, canvasH: h, seamlessTextureEnabled,
+    drawSeamless({
+      x: x0,
+      y,
+      rectW: sizeW,
+      rectH: sizeH,
+      canvasW: w,
+      canvasH: h,
+      seamlessTextureEnabled,
       drawFunc: (x, y, rectW, rectH) => {
         ctx2d.fillRect(x, y, rectW, rectH);
-    }});
+      },
+    });
     y += sizeH + Math.round(sizeH * gap);
   }
 };
@@ -440,14 +496,28 @@ const drawSprite = ({
 
   const {w, h} = getCanvasDimensions(ctx2d);
   const size = randomInteger(Math.round(w / 32), Math.round(w / 2));
-  const x = randomInteger(seamlessTextureEnabled ? 0 : Math.round(-w / 16), Math.round(w));
-  const y = randomInteger(seamlessTextureEnabled ? 0 : Math.round(-h / 16), Math.round(h));
+  const x = randomInteger(
+    seamlessTextureEnabled ? 0 : Math.round(-w / 16),
+    Math.round(w),
+  );
+  const y = randomInteger(
+    seamlessTextureEnabled ? 0 : Math.round(-h / 16),
+    Math.round(h),
+  );
   const angleDegrees = randomInteger(0, 3) * 90;
   if (spritesRotationEnabled) rotate({ctx2d, angleDegrees});
-  drawSeamless({ x, y, rectW: size, rectH: size, canvasW: w, canvasH: h, seamlessTextureEnabled,
+  drawSeamless({
+    x,
+    y,
+    rectW: size,
+    rectH: size,
+    canvasW: w,
+    canvasH: h,
+    seamlessTextureEnabled,
     drawFunc: (x, y, rectW, rectH) => {
       ctx2d.drawImage(sprite, x, y, rectW, rectH);
-    }});
+    },
+  });
   if (spritesRotationEnabled) rotateEnd({ctx2d, angleDegrees});
 };
 

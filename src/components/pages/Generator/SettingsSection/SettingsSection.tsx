@@ -39,7 +39,9 @@ import {SlidersGroup} from './SlidersGroup';
 export function SettingsSection() {
   const iterations = useStore((state) => state.iterations);
   const backgroundBrightness = useStore((state) => state.backgroundBrightness);
-  const seamlessTextureEnabled = useStore((state) => state.seamlessTextureEnabled);
+  const seamlessTextureEnabled = useStore(
+    (state) => state.seamlessTextureEnabled,
+  );
 
   const rectEnabled = useStore((state) => state.rectEnabled);
   const rectBrightness = useStore((state) => state.rectBrightness);
@@ -84,7 +86,9 @@ export function SettingsSection() {
   const setBackgroundBrightness = useStore(
     (state) => state.setBackgroundBrightness,
   );
-  const setseamlessTextureEnabled = useStore((state) => state.setseamlessTextureEnabled);
+  const setseamlessTextureEnabled = useStore(
+    (state) => state.setseamlessTextureEnabled,
+  );
 
   const setRectEnabled = useStore((state) => state.setRectEnabled);
   const setRectBrightness = useStore((state) => state.setRectBrightness);
