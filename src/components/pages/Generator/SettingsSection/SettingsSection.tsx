@@ -39,6 +39,9 @@ import {SlidersGroup} from './SlidersGroup';
 export function SettingsSection() {
   const iterations = useStore((state) => state.iterations);
   const backgroundBrightness = useStore((state) => state.backgroundBrightness);
+  const seamlessTextureEnabled = useStore(
+    (state) => state.seamlessTextureEnabled,
+  );
 
   const rectEnabled = useStore((state) => state.rectEnabled);
   const rectBrightness = useStore((state) => state.rectBrightness);
@@ -82,6 +85,9 @@ export function SettingsSection() {
   const setIterations = useStore((state) => state.setIterations);
   const setBackgroundBrightness = useStore(
     (state) => state.setBackgroundBrightness,
+  );
+  const setseamlessTextureEnabled = useStore(
+    (state) => state.setseamlessTextureEnabled,
   );
 
   const setRectEnabled = useStore((state) => state.setRectEnabled);
@@ -156,6 +162,11 @@ export function SettingsSection() {
               constant={backgroundBrightnessConst}
             />
           </SlidersGroup>
+          <Checkbox
+            label='Seamless Texture'
+            isChecked={seamlessTextureEnabled}
+            setIsChecked={setseamlessTextureEnabled}
+          />
         </Group>
         <Group
           withSwitch
