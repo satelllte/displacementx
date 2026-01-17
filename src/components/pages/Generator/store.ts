@@ -31,6 +31,7 @@ import {
   spritesEnabled,
   spritesPacks,
   spritesRotationEnabled,
+  seamlessTextureEnabled,
   compositionModes,
   type SettingConstant,
   type SettingDualConstant,
@@ -72,6 +73,7 @@ type Values = {
   spritesEnabled: boolean;
   spritesPacks: SpritesPack[];
   spritesRotationEnabled: boolean;
+  seamlessTextureEnabled: boolean;
   compositionModes: CompositionMode[];
 };
 
@@ -110,6 +112,9 @@ type Setters = {
   setSpritesPacks: (spritesPacks: Values['spritesPacks']) => void;
   setSpritesRotationEnabled: (
     spritesRotationEnabled: Values['spritesEnabled'],
+  ) => void;
+  setseamlessTextureEnabled: (
+    seamlessTextureEnabled: Values['seamlessTextureEnabled'],
   ) => void;
   setCompositionModes: (compositionModes: Values['compositionModes']) => void;
 };
@@ -164,6 +169,7 @@ export const useStore = create<Values & Setters & ComputedValues & Actions>(
     spritesEnabled: spritesEnabled.default,
     spritesPacks: spritesPacks.default,
     spritesRotationEnabled: spritesRotationEnabled.default,
+    seamlessTextureEnabled: seamlessTextureEnabled.default,
     compositionModes: compositionModes.default,
     // Setters
     // ---
@@ -263,6 +269,11 @@ export const useStore = create<Values & Setters & ComputedValues & Actions>(
       spritesRotationEnabled: Values['spritesRotationEnabled'],
     ) {
       set(() => ({spritesRotationEnabled}));
+    },
+    setseamlessTextureEnabled(
+      seamlessTextureEnabled: Values['seamlessTextureEnabled'],
+    ) {
+      set(() => ({seamlessTextureEnabled}));
     },
     setCompositionModes(compositionModes: Values['compositionModes']) {
       set(() => ({compositionModes}));

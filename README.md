@@ -1,6 +1,6 @@
 # Displacement X
 
-Procedural displacement sci-fi maps generator. Web-based alternative to [JSplacement](https://www.google.com/search?q=JSplacement).
+Procedural displacement sci-fi maps generator. Web-based alternative to [JSplacement](https://www.google.com/search?q=JSplacement) for [Blender](https://www.blender.org/).
 
 Live at ▶ **[displacementx.pages.dev](https://displacementx.pages.dev/)**
 
