@@ -26,7 +26,6 @@ export function CanvasSection() {
   const [isPristine, setIsPristine] = useState<boolean>(true);
   const [isRendering, setIsRendering] = useState<boolean>(false);
   const [previewType, setPreviewType] = useState<PreviewType>('original');
-  const [renderTimeMs, setRenderTimeMs] = useState<number | undefined>();
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const canvasOriginalPreviewDataUrl = useRef<string | undefined>(undefined);
@@ -118,7 +117,6 @@ export function CanvasSection() {
         // Set minumum "visible" render time to prevent very fast component updates (i.e., flickering)
         const minimumTimeBetweenUpdatesMs = 200;
         const update = () => {
-          setRenderTimeMs(renderTimeMs);
           setIsRendering(false);
         };
 
@@ -153,14 +151,12 @@ export function CanvasSection() {
   };
 
   const quickRender = (callback: () => void) => {
-    const renderTimeStartMs: number = performance.now();
     setIsRendering(true);
 
     // Put a small timeout to allow the UI to update before canvas takes the main thread over
     setTimeout(() => {
       callback();
       setIsRendering(false);
-      setRenderTimeMs(performance.now() - renderTimeStartMs);
     }, 20);
   };
 
@@ -227,16 +223,6 @@ export function CanvasSection() {
           height={height}
           isRendering={isRendering}
         />
-      </div>
-      <div>
-        <output className='text-sm opacity-80'>
-          Last render:{' '}
-          <span>
-            {!isRendering && renderTimeMs
-              ? `${(renderTimeMs * 0.001).toFixed(3)}s`
-              : `_____`}
-          </span>
-        </output>
       </div>
       <div className='flex flex-wrap gap-1 pt-2'>
         <Button disabled={isRendering} onClick={render}>
