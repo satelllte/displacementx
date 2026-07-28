@@ -1,5 +1,5 @@
-import clsx from 'clsx';
 import {Switch} from '@/components/ui/Switch';
+import {clsx} from '@/utils/clsx';
 
 type GroupCommonProps = {
   readonly title: string;
