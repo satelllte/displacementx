@@ -1,5 +1,5 @@
-import clsx from 'clsx';
 import {forwardRef} from 'react';
+import {clsx} from '@/utils/clsx';
 
 type CanvasProps = {
   readonly width: number;

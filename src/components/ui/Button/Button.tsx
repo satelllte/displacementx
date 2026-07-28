@@ -1,5 +1,5 @@
-import clsx from 'clsx';
 import {forwardRef} from 'react';
+import {clsx} from '@/utils/clsx';
 
 type NativeButtonProps = React.ComponentProps<'button'>;
 type NativeButtonPropsToExtend = Omit<
